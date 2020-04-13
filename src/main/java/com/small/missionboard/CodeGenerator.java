@@ -6,9 +6,7 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.*;
-import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
-import com.baomidou.mybatisplus.generator.config.rules.FileType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 
 import java.util.ArrayList;
@@ -45,7 +43,13 @@ public class CodeGenerator {
         String projectPath = System.getProperty("user.dir");
         gc.setOutputDir(projectPath + "/src/main/java");
         gc.setOpen(false);
-        gc.setSwagger2(true);  // 实体属性 Swagger2 注解
+        // 实体属性 Swagger2 注解
+        gc.setSwagger2(true);
+        // 不要覆盖同名文件
+        gc.setFileOverride(false);
+        // 自定义文件名 %s是数据库列名
+        gc.setServiceName("%sService");
+        gc.setServiceImplName("%sServiceImpl");
         mpg.setGlobalConfig(gc);
 
         // 数据源配置
@@ -88,14 +92,14 @@ public class CodeGenerator {
             }
         });
 
-        cfg.setFileCreate(new IFileCreate() {
-            @Override
-            public boolean isCreate(ConfigBuilder configBuilder, FileType fileType, String filePath) {
-                // 判断自定义文件夹是否需要创建
-                checkDir("调用默认方法创建的目录");
-                return false;
-            }
-        });
+//        cfg.setFileCreate(new IFileCreate() {
+//            @Override
+//            public boolean isCreate(ConfigBuilder configBuilder, FileType fileType, String filePath) {
+//                // 判断自定义文件夹是否需要创建
+//                checkDir("调用默认方法创建的目录");
+//                return false;
+//            }
+//        });
 
         cfg.setFileOutConfigList(focList);
         mpg.setCfg(cfg);
@@ -132,6 +136,7 @@ public class CodeGenerator {
         // mpg.setTemplateEngine(new FreemarkerTemplateEngine());
         mpg.execute();
     }
+
 
 
 }
