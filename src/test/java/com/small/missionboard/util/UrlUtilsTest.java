@@ -20,14 +20,16 @@ class UrlUtilsTest {
         params.put("id", "12345");
         params.put("name", "abc");
         params.put("token", "xyz");
-        Assertions.assertEquals(UrlUtils.addParameterList(url, params), "www.douban.com?name=abc&id=12345&token=xyz");
+        Assertions.assertEquals(UrlUtils.addParameterList(url, params),
+                "www.douban.com?name=abc&id=12345&token=xyz");
     }
 
 
     @Test
     void addParameter() {
         String url = "www.google.com";
-        Assertions.assertEquals(UrlUtils.addParameter(url, "name", "henry"), "www.google.com?name=henry");
+        Assertions.assertEquals(UrlUtils.addParameter(url, "name", "henry"),
+                "www.google.com?name=henry");
     }
 }
     

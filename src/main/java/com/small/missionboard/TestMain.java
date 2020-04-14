@@ -3,6 +3,7 @@ package com.small.missionboard;
 
 public class TestMain {
     public static void main(String[] args) {
-        System.out.println(new String());
+        System.out.println("test");
+        System.out.println(new Boolean(true) == true);
     }
 }
