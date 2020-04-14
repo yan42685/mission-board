@@ -1,4 +1,4 @@
-package com.small.missionboard.entity;
+package com.small.missionboard.bean.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -12,10 +12,10 @@ import java.time.LocalDateTime;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value="Task对象", description="")
+@ApiModel(value = "Task对象", description = "")
 public class Task implements Serializable {
 
-    private static final long serialVersionUID=1L;
+    private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
