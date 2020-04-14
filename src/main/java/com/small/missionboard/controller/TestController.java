@@ -1,6 +1,6 @@
 package com.small.missionboard.controller;
 
-import com.small.missionboard.bean.vo.JSONWrapper;
+import com.small.missionboard.bean.vo.JsonWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -15,16 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 
     @ApiOperation("翻转字符串")
-    @ApiImplicitParam(name = "string",  value = "原始字符串", dataType = "string", required = true)
+    @ApiImplicitParam(name = "string", value = "原始字符串", dataType = "string", required = true)
     @GetMapping("reverse")
-    public JSONWrapper<String> reverse(String string) {
-        return new JSONWrapper<>(new StringBuilder(string).reverse().toString());
+    public JsonWrapper<String> reverse(String string) {
+        return new JsonWrapper<>(new StringBuilder(string).reverse().toString());
     }
 
     @ApiOperation("返回hello world")
     @GetMapping("test")
-    public JSONWrapper<String> test() {
-        return new JSONWrapper<>("hello, world");
+    public JsonWrapper<String> test() {
+        return new JsonWrapper<>("hello, world");
     }
 
     @ApiOperation(value = "加法运算", notes = "两个整数相加")
@@ -33,7 +33,7 @@ public class TestController {
             @ApiImplicitParam(name = "y", value = "被加数", dataType = "int", required = true)
     })
     @GetMapping("add")
-    public JSONWrapper<Integer> add(int x, int y) {
-        return new JSONWrapper<>(x + y);
+    public JsonWrapper<Integer> add(int x, int y) {
+        return new JsonWrapper<>(x + y);
     }
 }

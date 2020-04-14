@@ -4,7 +4,7 @@ package com.small.missionboard.bean.vo;
 import lombok.Data;
 
 @Data
-public class JSONWrapper<T> {
+public class JsonWrapper<T> {
 
     private static final long serialVersionUID = 1L;
     private static final int SUCCESS_CODE = 0;
@@ -16,8 +16,8 @@ public class JSONWrapper<T> {
 
     /**
      * 状态码  == 0 成功
-     *        > 0 服务器内部异常
-     *        < 0 外部异常，由调用方处理
+     * > 0 服务器内部异常
+     * < 0 外部异常，由调用方处理
      */
     private int code;
 
@@ -31,17 +31,17 @@ public class JSONWrapper<T> {
      */
     private T data;
 
-    private JSONWrapper(int code, String msg, T data) {
+    private JsonWrapper(int code, String msg, T data) {
         this.code = code;
         this.msg = msg;
         this.data = data;
     }
 
-    public JSONWrapper(int code, String msg) {
+    public JsonWrapper(int code, String msg) {
         this(code, msg, null);
     }
 
-    public JSONWrapper(T data) {
+    public JsonWrapper(T data) {
         this(SUCCESS_CODE, SUCCESS_STRING, data);
     }
 }

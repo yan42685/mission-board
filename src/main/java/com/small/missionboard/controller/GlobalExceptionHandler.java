@@ -1,5 +1,6 @@
 package com.small.missionboard.controller;
-import com.small.missionboard.bean.vo.JSONWrapper;
+
+import com.small.missionboard.bean.vo.JsonWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -14,9 +15,9 @@ import java.util.Arrays;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
-    public JSONWrapper handleException(Exception e, HttpServletRequest request) {
+    public JsonWrapper handleException(Exception e, HttpServletRequest request) {
         String stackTrack = Arrays.toString(e.getStackTrace());
         log.error("url: {}    msg: {}", request.getRequestURL(), stackTrack);
-        return new JSONWrapper(JSONWrapper.UNKNOWN_EXCEPTION, "服务器未知异常: " + stackTrack);
+        return new JsonWrapper(JsonWrapper.UNKNOWN_EXCEPTION, "服务器未知异常: " + stackTrack);
     }
 }
