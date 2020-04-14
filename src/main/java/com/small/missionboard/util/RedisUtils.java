@@ -69,7 +69,7 @@ public class RedisUtils {
      */
     public static String get(String key) {
         return key == null ? null :
-                JsonUtils.json2Bean(redisTemplate.opsForValue().get(key), String.class);
+                JsonUtils.json2Object(redisTemplate.opsForValue().get(key), String.class);
     }
 
     /**
@@ -77,7 +77,7 @@ public class RedisUtils {
      */
     public static <T> T get(String key, Class<T> objClass) {
         return key == null ? null :
-                JsonUtils.json2Bean(redisTemplate.opsForValue().get(key), objClass);
+                JsonUtils.json2Object(redisTemplate.opsForValue().get(key), objClass);
     }
 
     /**
@@ -85,7 +85,7 @@ public class RedisUtils {
      */
     public static boolean set(String key, Object value) {
         try {
-            redisTemplate.opsForValue().set(key, JsonUtils.bean2Json(value));
+            redisTemplate.opsForValue().set(key, JsonUtils.object2Json(value));
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -104,7 +104,7 @@ public class RedisUtils {
     public static boolean set(String key, Object value, Long time) {
         try {
             if (time > 0) {
-                redisTemplate.opsForValue().set(key, JsonUtils.bean2Json(value), time, TimeUnit.SECONDS);
+                redisTemplate.opsForValue().set(key, JsonUtils.object2Json(value), time, TimeUnit.SECONDS);
             } else {
                 set(key, value);
             }
