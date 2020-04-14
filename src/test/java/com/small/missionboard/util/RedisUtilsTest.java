@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class RedisUtilTest {
+class RedisUtilsTest {
     @Test
     public void checkTestEnvironment() {
         Assertions.assertTrue(true);  // 应该总是返回true, 排除测试环境的问题
@@ -30,13 +30,13 @@ class RedisUtilTest {
 
     @Test
     void get() {
-        Assertions.assertNotNull(RedisUtil.get("姓名"));
+        Assertions.assertNotNull(RedisUtils.get("姓名"));
     }
 
     @Test
     void set() {
-        Assertions.assertTrue(RedisUtil.set("姓名", "张三"));
-        RedisUtil.set("姓名", "张三");
+        Assertions.assertTrue(RedisUtils.set("姓名", "张三"));
+        RedisUtils.set("姓名", "张三");
     }
 
     @Test

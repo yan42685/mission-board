@@ -6,17 +6,13 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.concurrent.TimeUnit;
 
-public class RedisUtil {
+public class RedisUtils {
     // 静态注入bean
     private static RedisTemplate<String, String> redisTemplate = SpringContextUtils
             .getBean("redisTemplate", RedisTemplate.class);
 
     /**
-     * 指定缓存失效时间
-     *
-     * @param key  键
-     * @param time 时间(秒)
-     * @return
+     * 指定缓存失效时间 (秒)
      */
     public static Boolean expire(String key, Long time) {
         try {
@@ -42,9 +38,6 @@ public class RedisUtil {
 
     /**
      * 判断key是否存在
-     *
-     * @param key 键
-     * @return true 存在 false 不存在
      */
     public static Boolean hasKey(String key) {
         try {
@@ -73,9 +66,6 @@ public class RedisUtil {
 
     /**
      * 默认获取字符串类型缓存
-     *
-     * @param key 键
-     * @return 值
      */
     public static String get(String key) {
         return key == null ? null :
@@ -84,9 +74,6 @@ public class RedisUtil {
 
     /**
      * 获取指定类型的缓存
-     * @param key
-     * @param objClass
-     * @return T
      */
     public static <T> T get(String key, Class<T> objClass) {
         return key == null ? null :
@@ -95,10 +82,6 @@ public class RedisUtil {
 
     /**
      * 以JSON格式放入缓存
-     *
-     * @param key   键
-     * @param value 值
-     * @return true成功 false失败
      */
     public static boolean set(String key, Object value) {
         try {
@@ -112,12 +95,11 @@ public class RedisUtil {
     }
 
     /**
-     * 普通缓存放入并设置时间
+     * 放入缓存并设置时间
      *
      * @param key   键
      * @param value 值
      * @param time  时间(秒) time要大于0 如果time小于等于0 将设置无限期
-     * @return true成功 false 失败
      */
     public static boolean set(String key, Object value, Long time) {
         try {
@@ -132,33 +114,4 @@ public class RedisUtil {
             return false;
         }
     }
-
-    /**
-     * 递增 此时value值必须为int类型 否则报错
-     *
-     * @param key   键
-     * @param delta 要增加几(大于0)
-     * @return
-     */
-    public static Long incr(String key, Long delta) {
-        if (delta < 0) {
-            throw new RuntimeException("递增因子必须大于0");
-        }
-        return redisTemplate.opsForValue().increment(key, delta);
-    }
-
-    /**
-     * 递减
-     *
-     * @param key   键
-     * @param delta 要减少几(小于0)
-     * @return
-     */
-    public static Long decr(String key, Long delta) {
-        if (delta < 0) {
-            throw new RuntimeException("递减因子必须大于0");
-        }
-        return redisTemplate.opsForValue().increment(key, -delta);
-    }
-
 }
