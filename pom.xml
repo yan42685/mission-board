@@ -16,6 +16,11 @@
 
     <properties xmlns="">
         <java.version>1.8</java.version>
+        <mybatis-spring-boot-starter.version>2.1.2</mybatis-spring-boot-starter.version>
+        <mybatisplus-spring-boot-starter.version>1.0.5</mybatisplus-spring-boot-starter.version>
+        <mybatis-plus-generator.version>3.2.0</mybatis-plus-generator.version>
+        <velocity-engine-core.version>2.2</velocity-engine-core.version>
+        <knife4j-spring-boot-starter.version>2.0.2</knife4j-spring-boot-starter.version>
     </properties>
 
     <dependencies xmlns="">
@@ -46,7 +51,7 @@
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>2.1.2</version>
+            <version>${mybatis-spring-boot-starter.version}</version>
         </dependency>
 
         <dependency>
@@ -78,18 +83,18 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatisplus-spring-boot-starter</artifactId>
-            <version>1.0.5</version>
+            <version>${mybatisplus-spring-boot-starter.version}</version>
         </dependency>
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-generator</artifactId>
-            <version>3.2.0</version>
+            <version>${mybatis-plus-generator.version}</version>
         </dependency>
         <dependency>
             <scope>compile</scope>
             <groupId>org.apache.velocity</groupId>
             <artifactId>velocity-engine-core</artifactId>
-            <version>2.2</version>
+            <version>${velocity-engine-core.version}</version>
         </dependency>
 
 <!--        <dependency>-->
@@ -102,7 +107,7 @@
             <scope>compile</scope>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-spring-boot-starter</artifactId>
-            <version>2.0.2</version>
+            <version>${knife4j-spring-boot-starter.version}</version>
         </dependency>
     </dependencies>
 

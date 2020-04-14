@@ -18,11 +18,11 @@ public enum TaskStatusEnum implements StatusEnum {
     // 进行中
     ONGOING(4),
     // 等待结算 (即等待发送者评价)
-    EIGHT(8),
+    TO_BE_CONFIRMED(8),
     // 超时未完成
     TIMEOUT_NOT_FINISHED(16),
     // 超时未确认
-    THIRTY_TWO(32),
+    TIMEOUT_NOT_CONFIRMED(32),
     // 已完成
     FINISHED(64),
     ;

@@ -25,21 +25,21 @@ class StatusUtilsTest {
     @Test
     void setStatus() {
         int a = 5;
-        Assertions.assertEquals(StatusUtils.setStatus(a, TaskStatusEnum.EIGHT), a + 8);
+        Assertions.assertEquals(StatusUtils.setStatus(a, TestStateEnum.EIGHT), a + 8);
     }
 
     @Test
     void clearStatus() {
         int a = 42;
-        Assertions.assertEquals(StatusUtils.clearStatus(a, TaskStatusEnum.EIGHT), a - 8);
+        Assertions.assertEquals(StatusUtils.clearStatus(a, TestStateEnum.EIGHT), a - 8);
     }
 
     @Test
     void hasStatus() {
         int a = 37;
         int b = 7;
-        Assertions.assertTrue(StatusUtils.hasStatus(a, TaskStatusEnum.THIRTY_TWO));
-        Assertions.assertFalse(StatusUtils.hasStatus(b, TaskStatusEnum.EIGHT));
+        Assertions.assertTrue(StatusUtils.hasStatus(a, TestStateEnum.THIRTY_TWO));
+        Assertions.assertFalse(StatusUtils.hasStatus(b, TestStateEnum.EIGHT));
     }
 }
     
