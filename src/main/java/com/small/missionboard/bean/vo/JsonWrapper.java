@@ -11,8 +11,13 @@ public class JsonWrapper<T> {
     private static final String SUCCESS_STRING = "success";
 
     public static final int UNKNOWN_EXCEPTION = 99;
-    public static final int NOT_LOGIN = -1;
-    public static final int NO_PERMISSION = -2;
+    public static final int NOT_REGISTER = -1;
+    public static final int NOT_LOGIN = -2;
+    public static final int NO_PERMISSION = -3;
+    /**
+     * 用户身份校验失败(signature 与 sessionKey 不匹配)
+     */
+    public static final int USER_VERIFICATION_FAILED = -4;
 
     /**
      * 状态码  == 0 成功
