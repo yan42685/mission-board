@@ -9,7 +9,7 @@ public class TestMain {
         System.out.println(y);
         test(y);
         System.out.println(y);
-        y = StatusUtils.setStatus(y, TaskStatusEnum.TIMEOUT_NOT_CONFIRMED);
+        y = StatusUtils.setStatus(y, TaskStatusEnum.THIRTY_TWO);
         System.out.println(y);
 
 
