@@ -23,7 +23,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(KnownException.class)
-    public JsonWrapper handleCheckException(KnownException e, HttpServletRequest request) {
+    public JsonWrapper handleKnownException(KnownException e, HttpServletRequest request) {
         String stackTrack = Arrays.toString(e.getStackTrace());
         log.error("url: {}    msg: {}", request.getRequestURL(), e.getMessage() + stackTrack);
         return new JsonWrapper(e.getCode(), "已知异常: " + e.getMessage());

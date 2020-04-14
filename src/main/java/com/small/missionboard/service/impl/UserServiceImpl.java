@@ -13,15 +13,12 @@ import com.small.missionboard.constant.WxConstants;
 import com.small.missionboard.mapper.UserMapper;
 import com.small.missionboard.service.UserService;
 import com.small.missionboard.util.RedisUtils;
-import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.error.WxErrorException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
-
-@Slf4j
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
     @Autowired
