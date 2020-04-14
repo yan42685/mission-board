@@ -18,6 +18,7 @@ public class JsonWrapper<T> {
      * 用户身份校验失败(signature 与 sessionKey 不匹配)
      */
     public static final int USER_VERIFICATION_FAILED = -4;
+    public static final int EMPTY_JS_CODE = -5;
 
     /**
      * 状态码  == 0 成功

@@ -1,8 +1,19 @@
 package com.small.missionboard.service;
 
-import com.small.missionboard.bean.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.small.missionboard.bean.dto.RegistryInfo;
+import com.small.missionboard.bean.entity.User;
+import me.chanjar.weixin.common.error.WxErrorException;
 
 public interface UserService extends IService<User> {
+    /**
+     * 用户登录
+     */
+    String login(String token, String jsCode) throws WxErrorException;
+
+    /**
+     * 用户注册
+     */
+    String register(String jsCode, String signature, String rawData, String encryptedData, String iv, RegistryInfo registryInfo) throws WxErrorException;
 
 }
