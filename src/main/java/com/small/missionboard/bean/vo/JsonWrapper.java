@@ -19,6 +19,7 @@ public class JsonWrapper<T> {
      */
     public static final int USER_VERIFICATION_FAILED = -4;
     public static final int EMPTY_JS_CODE = -5;
+    public static final int WX_LOGIN_FAIL = -6;
 
     /**
      * 状态码  == 0 成功

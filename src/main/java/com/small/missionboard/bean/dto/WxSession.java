@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 /**
- * 微信登录返回的信息
+ * 微信登录成功返回的信息
  */
 @NoArgsConstructor
 @AllArgsConstructor

@@ -12,6 +12,7 @@ import com.small.missionboard.service.UserService;
 import com.small.missionboard.util.JsonUtils;
 import com.small.missionboard.util.RedisUtils;
 import com.small.missionboard.util.UrlUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -20,6 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+@Slf4j
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
     @Autowired
@@ -84,6 +86,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         params.put("grant_type", WxConstants.LOGIN_GRANT_TYPE);
         String url = UrlUtils.addParameterList(WxConstants.LOGIN_URL, params);
         String jsonData = restTemplate.getForObject(url, String.class);
-        return JsonUtils.json2Object(jsonData, WxSession.class);
+        try {
+            return JsonUtils.json2Object(jsonData, WxSession.class);
+        } catch (Exception e) {
+            String errorMessage = "微信登录接口调用失败: " + jsonData;
+            log.error(errorMessage);
+            throw new KnownException(JsonWrapper.WX_LOGIN_FAIL, errorMessage);
+        }
     }
 }

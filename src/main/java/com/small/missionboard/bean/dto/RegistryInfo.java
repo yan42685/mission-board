@@ -4,6 +4,9 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+/**
+ * 用户注册时需要的信息
+ */
 @ApiModel(value = "注册信息", description = "")
 @Data
 public class RegistryInfo {
