@@ -1,5 +1,6 @@
 package com.small.missionboard.mapper;
 
+import com.small.missionboard.bean.entity.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,9 @@ class UserMapperTest {
     UserMapper userMapper;
     @Test
     void selectByOpenId() {
-        userMapper.selectByOpenId("333");
+        User user = userMapper.selectByOpenId("333");
+        System.out.println(user);
+        Assertions.assertNull(userMapper.selectByOpenId("null"));
     }
 }
     

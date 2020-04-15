@@ -28,7 +28,7 @@ public class UserController {
     }
 
     @GetMapping("register")
-    public String register(String jsCode, String signature, String rawData, String encryptedData, String iv, RegistryInfo registryInfo) {
-        return userService.register(jsCode, signature, rawData, encryptedData, iv, registryInfo);
+    public String register(String jsCode, RegistryInfo registryInfo) {
+        return userService.register(jsCode, registryInfo);
     }
 }

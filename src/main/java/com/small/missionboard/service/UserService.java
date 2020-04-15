@@ -13,6 +13,6 @@ public interface UserService extends IService<User> {
     /**
      * 用户注册
      */
-    String register(String jsCode, String signature, String rawData, String encryptedData, String iv, RegistryInfo registryInfo);
+    String register(String jsCode, RegistryInfo registryInfo);
 
 }

@@ -51,7 +51,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public String register(String jsCode, String signature, String rawData, String encryptedData, String iv, RegistryInfo registryInfo) {
+    public String register(String jsCode, RegistryInfo registryInfo) {
         WxSession session = callLoginApi(jsCode);
 
         // 获取并保存用户信息
