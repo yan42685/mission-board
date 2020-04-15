@@ -21,7 +21,7 @@
         <mybatis-plus-generator.version>3.2.0</mybatis-plus-generator.version>
         <velocity-engine-core.version>2.2</velocity-engine-core.version>
         <knife4j-spring-boot-starter.version>2.0.2</knife4j-spring-boot-starter.version>
-        <weixin-java-miniapp.version>3.7.0</weixin-java-miniapp.version>
+<!--        <weixin-java-miniapp.version>3.7.0</weixin-java-miniapp.version>-->
     </properties>
 
     <dependencies xmlns="">
@@ -98,11 +98,11 @@
             <version>${velocity-engine-core.version}</version>
         </dependency>
 <!--         微信小程序SDK -->
-        <dependency>
-            <groupId>com.github.binarywang</groupId>
-            <artifactId>weixin-java-miniapp</artifactId>
-            <version>${weixin-java-miniapp.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.github.binarywang</groupId>-->
+<!--            <artifactId>weixin-java-miniapp</artifactId>-->
+<!--            <version>${weixin-java-miniapp.version}</version>-->
+<!--        </dependency>-->
 
         <!--        <dependency>-->
         <!--            <groupId>io.springfox</groupId>-->

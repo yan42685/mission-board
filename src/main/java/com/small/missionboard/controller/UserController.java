@@ -5,7 +5,6 @@ import com.small.missionboard.bean.vo.JsonWrapper;
 import com.small.missionboard.common.KnownException;
 import com.small.missionboard.service.UserService;
 import lombok.extern.slf4j.Slf4j;
-import me.chanjar.weixin.common.error.WxErrorException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +28,7 @@ public class UserController {
     }
 
     @GetMapping("register")
-    public String register(String jsCode, String signature, String rawData, String encryptedData, String iv, RegistryInfo registryInfo) throws WxErrorException {
+    public String register(String jsCode, String signature, String rawData, String encryptedData, String iv, RegistryInfo registryInfo) {
         return userService.register(jsCode, signature, rawData, encryptedData, iv, registryInfo);
     }
 }
