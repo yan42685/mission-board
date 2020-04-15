@@ -44,7 +44,7 @@ public class RedisUtils {
      */
     public static Boolean hasKey(String key) {
         try {
-            return redisTemplate.hasKey(key);
+            return key == null ? false : redisTemplate.hasKey(key);
         } catch (Exception e) {
             e.printStackTrace();
             return false;

@@ -17,7 +17,8 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         //  如果Redis中没有token, 并且没有调用的不是login或register方法 , 就抛出未登录异常
         String url = request.getRequestURI();
         boolean isLoginOrRegister = url.contains("login") || url.contains("register");
-        if (RedisUtils.get(request.getParameter("token")) == null && !isLoginOrRegister) {
+        String token = request.getParameter("token");
+        if (!RedisUtils.hasKey(token) && !isLoginOrRegister) {
             throw new KnownException(JsonWrapper.NOT_LOGIN, "用户未登录");
         }
 
