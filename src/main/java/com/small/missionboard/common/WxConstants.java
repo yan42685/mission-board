@@ -1,7 +1,7 @@
 package com.small.missionboard.common;
 
 /**
- * 测试用的微信小程序id及secret
+ * 微信小程序 API 相关的常量
  */
 public final class WxConstants {
     public static final String APP_ID = "wx3b45de5792276679";

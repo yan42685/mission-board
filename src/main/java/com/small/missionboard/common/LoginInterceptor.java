@@ -7,6 +7,9 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * 对指定的请求 URL 进行登录验证
+ */
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 
     @Override
