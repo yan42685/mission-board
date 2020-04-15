@@ -1,30 +1,26 @@
 package com.small.missionboard.util;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import lombok.SneakyThrows;
 
 public class JsonUtils {
     private static ObjectMapper mapper;
+
     static {
         mapper = new ObjectMapper();
         mapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
     }
 
-
-
-    @SneakyThrows
-    public static String object2Json(Object obj) {
+    public static String object2Json(Object obj) throws JsonProcessingException {
         return mapper.writeValueAsString(obj);
     }
 
-    @SneakyThrows
-    public static <T> T json2Object(String jsonStr, Class<T> objClass) {
+    public static <T> T json2Object(String jsonStr, Class<T> objClass) throws JsonProcessingException {
         return mapper.readValue(jsonStr, objClass);
     }
 
-    @SneakyThrows
-    public static Object json2Object(String jsonStr) {
+    public static Object json2Object(String jsonStr) throws JsonProcessingException {
         return mapper.readValue(jsonStr, Object.class);
     }
 }

@@ -6,7 +6,7 @@ import com.small.missionboard.bean.dto.WxSession;
 import com.small.missionboard.bean.entity.User;
 import com.small.missionboard.bean.vo.JsonWrapper;
 import com.small.missionboard.common.KnownException;
-import com.small.missionboard.constant.WxConstants;
+import com.small.missionboard.common.WxConstants;
 import com.small.missionboard.mapper.UserMapper;
 import com.small.missionboard.service.UserService;
 import com.small.missionboard.util.JsonUtils;

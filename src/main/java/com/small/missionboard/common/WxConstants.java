@@ -1,4 +1,4 @@
-package com.small.missionboard.constant;
+package com.small.missionboard.common;
 
 /**
  * 测试用的微信小程序id及secret

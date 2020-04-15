@@ -1,6 +1,7 @@
 package com.small.missionboard.service.impl;
 
-import com.small.missionboard.constant.WxConstants;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.small.missionboard.common.WxConstants;
 import com.small.missionboard.util.JsonUtils;
 import com.small.missionboard.util.UrlUtils;
 import org.junit.jupiter.api.Assertions;
@@ -34,7 +35,11 @@ class UserServiceImplTest {
         String url = UrlUtils.addParameterList(WxConstants.LOGIN_URL, params);
         String jsonData = restTemplate.getForObject(url, String.class);
 //        System.out.println(jsonData);
-        System.out.println(JsonUtils.json2Object(jsonData));
+        try {
+            System.out.println(JsonUtils.json2Object(jsonData));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
     }
 }
     

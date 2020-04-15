@@ -1,11 +1,14 @@
 package com.small.missionboard.util;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.CollectionUtils;
 
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class RedisUtils {
     // 静态注入bean
     private static RedisTemplate<String, String> redisTemplate = SpringContextUtils
@@ -68,16 +71,25 @@ public class RedisUtils {
      * 默认获取字符串类型缓存
      */
     public static String get(String key) {
-        return key == null ? null :
-                JsonUtils.json2Object(redisTemplate.opsForValue().get(key), String.class);
+        try {
+            return key == null ? null : JsonUtils.json2Object(redisTemplate.opsForValue().get(key), String.class);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**
      * 获取指定类型的缓存
      */
     public static <T> T get(String key, Class<T> objClass) {
-        return key == null ? null :
-                JsonUtils.json2Object(redisTemplate.opsForValue().get(key), objClass);
+        try {
+            return key == null ? null :
+                    JsonUtils.json2Object(redisTemplate.opsForValue().get(key), objClass);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**

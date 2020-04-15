@@ -18,7 +18,6 @@ public class UserController {
     @Autowired
     UserService userService;
 
-
     @GetMapping("login")
     public String login(String token, String jsCode) throws Exception {
         if (StringUtils.isBlank(jsCode)) {

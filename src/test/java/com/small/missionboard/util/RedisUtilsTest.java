@@ -31,6 +31,7 @@ class RedisUtilsTest {
     @Test
     void get() {
         Assertions.assertNotNull(RedisUtils.get("姓名"));
+        System.out.println(RedisUtils.get(null));
     }
 
     @Test
