@@ -16,16 +16,16 @@ import java.util.Arrays;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
-    public JsonWrapper handleUnknownException(Exception e, HttpServletRequest request) {
+    public JsonWrapper<String> handleUnknownException(Exception e, HttpServletRequest request) {
         String stackTrack = Arrays.toString(e.getStackTrace());
         log.error("url: {}    msg: {}", request.getRequestURL(), stackTrack);
-        return new JsonWrapper(JsonWrapper.UNKNOWN_EXCEPTION, "服务器未知异常: " + stackTrack);
+        return new JsonWrapper<>(JsonWrapper.UNKNOWN_EXCEPTION, "服务器未知异常: " + stackTrack);
     }
 
     @ExceptionHandler(KnownException.class)
-    public JsonWrapper handleKnownException(KnownException e, HttpServletRequest request) {
+    public JsonWrapper<String> handleKnownException(KnownException e, HttpServletRequest request) {
         String stackTrack = Arrays.toString(e.getStackTrace());
         log.error("url: {}    msg: {}", request.getRequestURL(), e.getMessage() + stackTrack);
-        return new JsonWrapper(e.getCode(), "已知异常: " + e.getMessage());
+        return new JsonWrapper<>(e.getCode(), "已知异常: " + e.getMessage());
     }
 }

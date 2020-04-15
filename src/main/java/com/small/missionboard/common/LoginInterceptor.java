@@ -14,8 +14,10 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        //  如果Redis中没有token, 并且没有调用的不是login方法(没有传来jsCode) , 就抛出未登录异常
-        if (RedisUtils.get(request.getParameter("token")) == null && request.getParameter("jsCode") == null) {
+        //  如果Redis中没有token, 并且没有调用的不是login或register方法 , 就抛出未登录异常
+        String url = request.getRequestURI();
+        boolean isLoginOrRegister = url.contains("login") || url.contains("register");
+        if (RedisUtils.get(request.getParameter("token")) == null && !isLoginOrRegister) {
             throw new KnownException(JsonWrapper.NOT_LOGIN, "用户未登录");
         }
 
