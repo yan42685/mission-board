@@ -99,13 +99,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public User getCurrentUser() {
+        String openId = getOpenId();
+        return userMapper.selectByOpenId(openId);
+    }
+
+    @Override
+    public String getOpenId() {
         // 获取当前用户的token
         String token = RequestUtils.getToken();
         WxSession session = RedisUtils.get(token, WxSession.class);
         if (session == null) {
-            return null;
+            return "";
         }
-        return userMapper.selectByOpenId(session.getOpenid());
+        return session.getOpenid();
     }
-
 }

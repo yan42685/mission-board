@@ -19,5 +19,10 @@ public interface UserService extends IService<User> {
      * 获取当前用户对象
      */
     User getCurrentUser();
+
+    /**
+     * 获取当前用户 openId
+     */
+    String getOpenId();
 }
 
