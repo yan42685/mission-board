@@ -41,11 +41,4 @@ public class JsonWrapper<T> {
         this(SUCCESS_CODE, SUCCESS_STRING, data);
     }
 
-    /**
-     * NOTE: 需要用返回泛型的getter替换lombok生成的返回Object的getter，这样swagger就可以解析泛型的属性
-     */
-    public T getData() {
-        return data;
-    }
-
 }
