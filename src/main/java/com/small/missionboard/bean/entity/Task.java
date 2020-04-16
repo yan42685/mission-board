@@ -44,7 +44,7 @@ public class Task implements Serializable {
     private LocalDateTime deadline;
 
     @ApiModelProperty(value = "任务状态")
-    private Integer state;
+    private String state;
 
     @ApiModelProperty(value = "最大可接该任务的人数")
     private Integer maxReceiver;

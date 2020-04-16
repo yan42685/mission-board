@@ -1,6 +1,7 @@
 package com.small.missionboard.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.small.missionboard.bean.entity.User;
 import com.small.missionboard.bean.vo.UserInfo;
 import com.small.missionboard.service.UserService;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 class UserInfoServiceImplTest {
@@ -18,6 +20,8 @@ class UserInfoServiceImplTest {
 
     @Autowired
     UserService userService;
+    @Autowired
+    UserInfoServiceImpl userInfoServiceImpl;
 
     @Test
     void getCurrentUserInfo() {
@@ -27,5 +31,27 @@ class UserInfoServiceImplTest {
         BeanUtil.copyProperties(user, userInfo);
         Assertions.assertEquals(user.getNickname(), userInfo.getNickname());
     }
+
+    @Transactional
+    @Test
+    void modifyFaculty() {
+        String faculty = "testFaculty";
+        String openId = "12345";
+        String newFaculty = "a";
+        User user = new User();
+        user.setId(12L);
+        user.setOpenId(openId);
+        user.setFaculty(faculty);
+        userService.save(user);
+        userService.update(new UpdateWrapper<User>()
+                .eq("open_id", openId)
+                .set("faculty", newFaculty));
+        user = userService.getById(12);
+        Assertions.assertEquals(user.getFaculty(), newFaculty);
+
+
+    }
+
+
 }
     

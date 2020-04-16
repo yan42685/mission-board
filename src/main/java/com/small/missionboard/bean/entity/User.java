@@ -59,7 +59,7 @@ public class User implements Serializable {
     private String role;
 
     @ApiModelProperty(value = "用户账号状态")
-    private Integer state;
+    private String state;
 
     @ApiModelProperty(value = "完成的任务总数")
     private Integer totalTasksFinished;
