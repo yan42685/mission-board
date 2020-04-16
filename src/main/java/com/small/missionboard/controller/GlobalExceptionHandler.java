@@ -16,6 +16,9 @@ import java.util.Arrays;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+    /**
+     * 处理所有的未知异常
+     */
     @ExceptionHandler(Exception.class)
     public JsonWrapper<String> handleUnknownException(Exception e, HttpServletRequest request) {
         int errorCode = ExceptionEnum.UNKNOWN_EXCEPTION.getErrorCode();
@@ -25,6 +28,9 @@ public class GlobalExceptionHandler {
         return new JsonWrapper<>(errorCode, errorMessage + "\n" + stackTrack);
     }
 
+    /**
+     * 处理所有的已知异常
+     */
     @ExceptionHandler(KnownException.class)
     public JsonWrapper<String> handleKnownException(KnownException e, HttpServletRequest request) {
         String stackTrack = Arrays.toString(e.getStackTrace());

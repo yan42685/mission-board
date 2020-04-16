@@ -61,12 +61,15 @@ class UserServiceImplTest {
         RedisUtils.set(token, session);
         // 取出session
         WxSession sessionFromRedis = RedisUtils.get(token, WxSession.class);
+        Assertions.assertNotNull(sessionFromRedis);
+
         User testUser = new User();
         testUser.setOpenId(sessionFromRedis.getOpenid());
         testUser.setNickname("testUser999");
         // TODO: 通过下面这行测试
 //        userMapper.insert(testUser);
         System.out.println(RedisUtils.get(token, WxSession.class));
+        System.out.println();
 //        User user = userServiceImpl.getByToken(token);
 //        System.out.println(user);
 

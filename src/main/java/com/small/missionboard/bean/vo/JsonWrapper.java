@@ -1,7 +1,6 @@
 package com.small.missionboard.bean.vo;
 
 
-import com.small.missionboard.enums.ExceptionEnum;
 import lombok.Data;
 
 @Data
@@ -42,7 +41,4 @@ public class JsonWrapper<T> {
         this(SUCCESS_CODE, SUCCESS_STRING, data);
     }
 
-    public JsonWrapper(ExceptionEnum exception) {
-        this(exception.getErrorCode(), exception.getErrorMsg(), null);
-    }
 }
