@@ -23,29 +23,38 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public boolean modifyNickname(String newNickname) {
-//        User currentUser = userService.getCurrentUser();
-//        userService.update(currentUser, new UpdateWrapper<>());
-        return false;
+        User currentUser = userService.getCurrentUser();
+        currentUser.setNickname(newNickname);
+        return userService.updateById(currentUser);
+
     }
 
     @Override
-    public boolean modifyGender(String newGender) {
-        return false;
+    public boolean modifyGender(Integer newGender) {
+        User currentUser = userService.getCurrentUser();
+        currentUser.setGender(newGender);
+        return userService.updateById(currentUser);
     }
 
     @Override
     public boolean modifyFaculty(String newFaculty) {
-        return false;
+        User currentUser = userService.getCurrentUser();
+        currentUser.setFaculty(newFaculty);
+        return userService.updateById(currentUser);
     }
 
     @Override
     public boolean modifyContactInformation(String newContactInformation) {
-        return false;
+        User currentUser = userService.getCurrentUser();
+        currentUser.setContactInformation(newContactInformation);
+        return userService.updateById(currentUser);
     }
 
     @Override
     public boolean modifyPhoneNumber(String newPhoneNumber) {
-        return false;
+        User currentUser = userService.getCurrentUser();
+        currentUser.setPhoneNumber(newPhoneNumber);
+        return userService.updateById(currentUser);
     }
 
     // TODO: 完成文件上传之后再实现这个功能

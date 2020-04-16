@@ -29,7 +29,7 @@ public class User implements Serializable {
     private String name;
 
     @ApiModelProperty(value = "性别")
-    private Boolean gender;
+    private Integer gender;
 
     @ApiModelProperty(value = "学院")
     private String faculty;
