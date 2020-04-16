@@ -9,8 +9,12 @@ public class JsonWrapper<T> {
     private static final long serialVersionUID = 1L;
     private static final int SUCCESS_CODE = 0;
     private static final String SUCCESS_STRING = "success";
-
+    // TODO: 把这些异常码放到具体的异常类里面
     public static final int UNKNOWN_EXCEPTION = 99;
+    /**
+     * 表示该功能还未实现
+     */
+    public static final int TO_BE_IMPLEMENTED = 50;
     public static final int NOT_REGISTER = -1;
     public static final int NOT_LOGIN = -2;
     public static final int NO_PERMISSION = -3;

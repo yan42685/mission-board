@@ -8,7 +8,7 @@ public interface UserService extends IService<User> {
     /**
      * 用户登录
      */
-    String login(String token, String jsCode);
+    String login(String jsCode);
 
     /**
      * 用户注册

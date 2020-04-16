@@ -1,13 +1,18 @@
 package com.small.missionboard.service.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.small.missionboard.bean.dto.WxSession;
+import com.small.missionboard.bean.entity.User;
 import com.small.missionboard.common.WxConstants;
+import com.small.missionboard.mapper.UserMapper;
 import com.small.missionboard.util.JsonUtils;
+import com.small.missionboard.util.RedisUtils;
 import com.small.missionboard.util.UrlUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
@@ -22,6 +27,10 @@ class UserServiceImplTest {
 
     @Autowired
     RestTemplate restTemplate;
+    @Autowired
+    UserMapper userMapper;
+    @Autowired
+    UserServiceImpl userServiceImpl;
 
 
     @Test
@@ -40,6 +49,28 @@ class UserServiceImplTest {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
+    }
+
+
+    @Transactional
+    @Test
+    void getByToken() {
+        String token = "TestGetByToken";
+        WxSession session = new WxSession("openid", "sessionKey", "unionid");
+        // 把session存入Redis
+        RedisUtils.set(token, session);
+        // 取出session
+        WxSession sessionFromRedis = RedisUtils.get(token, WxSession.class);
+        User testUser = new User();
+        testUser.setOpenId(sessionFromRedis.getOpenid());
+        testUser.setNickname("testUser999");
+        // TODO: 通过下面这行测试
+//        userMapper.insert(testUser);
+        System.out.println(RedisUtils.get(token, WxSession.class));
+//        User user = userServiceImpl.getByToken(token);
+//        System.out.println(user);
+
+
     }
 }
     

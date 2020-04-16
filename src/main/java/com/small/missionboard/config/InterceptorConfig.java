@@ -12,7 +12,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class InterceptorConfig implements WebMvcConfigurer {
     @Override
+
     public void addInterceptors(InterceptorRegistry registry) {
+        //TODO 开启拦截器
         registry.addInterceptor(loginInterceptor()).addPathPatterns("/api/**");
     }
 

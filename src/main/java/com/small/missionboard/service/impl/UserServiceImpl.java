@@ -11,8 +11,10 @@ import com.small.missionboard.mapper.UserMapper;
 import com.small.missionboard.service.UserService;
 import com.small.missionboard.util.JsonUtils;
 import com.small.missionboard.util.RedisUtils;
+import com.small.missionboard.util.ServletUtils;
 import com.small.missionboard.util.UrlUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -34,7 +36,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private static final Long LOGIN_EXPIRE_TIME = 60 * 60 * 5L;
 
     @Override
-    public String login(String token, String jsCode) {
+    public String login(String jsCode) {
+        String token = ServletUtils.getToken();
         WxSession session = callLoginApi(jsCode);
         String openId = session.getOpenid();
 
@@ -43,13 +46,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             throw new KnownException(JsonWrapper.NOT_REGISTER, "用户未注册");
         }
 
-        // 如果已经登录就刷新过期时间
-        if (RedisUtils.hasKey(token)) {
+        // 如果已经登录就刷新token过期时间
+        if (StringUtils.isNotBlank(token) && RedisUtils.hasKey(token)) {
             RedisUtils.expire(token, LOGIN_EXPIRE_TIME);
-            return token;
+        } else { // 未登录就新建一个token
+            token = newToken(session);
         }
-
-        return newToken(session);
+        return token;
     }
 
     @Override
@@ -93,5 +96,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             log.error(errorMessage);
             throw new KnownException(JsonWrapper.WX_LOGIN_FAIL, errorMessage);
         }
+    }
+
+    public User getByToken(String token) {
+        WxSession session = RedisUtils.get(token, WxSession.class);
+        if (session == null) {
+            return null;
+        }
+        return userMapper.selectByOpenId(session.getOpenid());
     }
 }

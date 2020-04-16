@@ -16,6 +16,7 @@ class UserMapperTest {
 
     @Autowired
     UserMapper userMapper;
+
     @Test
     void selectByOpenId() {
         User user = userMapper.selectByOpenId("333");
