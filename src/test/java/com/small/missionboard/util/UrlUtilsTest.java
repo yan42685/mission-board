@@ -20,7 +20,7 @@ class UrlUtilsTest {
         params.put("id", "12345");
         params.put("name", "abc");
         params.put("token", "xyz");
-        Assertions.assertEquals(UrlUtils.addParameterList(url, params),
+        Assertions.assertEquals(UrlUtils.addParameterMap(url, params),
                 "www.douban.com?name=abc&id=12345&token=xyz");
     }
 

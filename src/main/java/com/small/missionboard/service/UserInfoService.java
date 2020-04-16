@@ -1,6 +1,14 @@
 package com.small.missionboard.service;
 
+import com.small.missionboard.bean.vo.UserInfo;
+
 public interface UserInfoService {
+
+    /**
+     * 获取对前端开放的当前用户信息
+     */
+    UserInfo getCurrentUserInfo();
+
     /**
      * 修改昵称
      */

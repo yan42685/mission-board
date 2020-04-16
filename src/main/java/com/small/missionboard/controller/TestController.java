@@ -1,6 +1,6 @@
 package com.small.missionboard.controller;
 
-import com.small.missionboard.bean.vo.JsonWrapper;
+import com.small.missionboard.common.JsonWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;

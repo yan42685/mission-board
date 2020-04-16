@@ -69,6 +69,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return newToken(session);
     }
 
+    /**
+     * 新生成一个随机token
+     */
     private String newToken(WxSession session) {
         //  把登录状态保存到redis
         String newToken = UUID.randomUUID().toString();
@@ -85,7 +88,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         params.put("secret", WxConstants.APP_SECRET);
         params.put("js_code", jsCode);
         params.put("grant_type", WxConstants.LOGIN_GRANT_TYPE);
-        String url = UrlUtils.addParameterList(WxConstants.LOGIN_URL, params);
+        String url = UrlUtils.addParameterMap(WxConstants.LOGIN_URL, params);
         String jsonData = restTemplate.getForObject(url, String.class);
         try {
             return JsonUtils.json2Object(jsonData, WxSession.class);
@@ -94,11 +97,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
     }
 
-    public User getByToken(String token) {
+    @Override
+    public User getCurrentUser() {
+        // 获取当前用户的token
+        String token = RequestUtils.getToken();
         WxSession session = RedisUtils.get(token, WxSession.class);
         if (session == null) {
             return null;
         }
         return userMapper.selectByOpenId(session.getOpenid());
     }
+
 }

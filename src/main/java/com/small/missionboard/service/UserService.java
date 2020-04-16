@@ -15,4 +15,9 @@ public interface UserService extends IService<User> {
      */
     String register(String jsCode, RegistryInfo registryInfo);
 
+    /**
+     * 获取当前用户对象
+     */
+    User getCurrentUser();
 }
+

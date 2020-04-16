@@ -1,4 +1,4 @@
-package com.small.missionboard.bean.vo;
+package com.small.missionboard.common;
 
 
 import lombok.Data;

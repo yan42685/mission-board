@@ -6,7 +6,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.Map;
 
 public class UrlUtils {
-    public static String addParameterList(String url, Map<String, String> params) {
+    public static String addParameterMap(String url, Map<String, String> params) {
         UriComponentsBuilder urlBuilder = UriComponentsBuilder.fromUriString(url);
         params.forEach(urlBuilder::queryParam);
         return urlBuilder.build().toString();

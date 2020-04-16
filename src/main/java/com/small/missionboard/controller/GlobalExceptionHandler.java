@@ -1,6 +1,6 @@
 package com.small.missionboard.controller;
 
-import com.small.missionboard.bean.vo.JsonWrapper;
+import com.small.missionboard.common.JsonWrapper;
 import com.small.missionboard.common.KnownException;
 import com.small.missionboard.enums.ExceptionEnum;
 import lombok.extern.slf4j.Slf4j;
