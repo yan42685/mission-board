@@ -6,6 +6,7 @@ import com.small.missionboard.common.KnownException;
 import com.small.missionboard.enums.ExceptionEnum;
 import com.small.missionboard.service.UserService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @ApiOperation("登录")
     @GetMapping("login")
     public JsonWrapper<String> login(String jsCode) {
         if (StringUtils.isBlank(jsCode)) {
@@ -28,6 +30,7 @@ public class UserController {
         return new JsonWrapper<>(newToken);
     }
 
+    @ApiOperation("注册")
     @GetMapping("register")
     public JsonWrapper<String> register(String jsCode, RegistryInfo registryInfo) {
         String token = userService.register(jsCode, registryInfo);

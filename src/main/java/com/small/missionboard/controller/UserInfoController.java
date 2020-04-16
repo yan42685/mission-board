@@ -20,7 +20,7 @@ public class UserInfoController {
     UserInfoService userInfoService;
 
 
-    @ApiOperation("获取对前端开放的当前用户信息")
+    @ApiOperation("获取当前用户信息")
     @GetMapping("get")
     public JsonWrapper<UserInfo> getCurrentUserInfo() {
         return new JsonWrapper<>(userInfoService.getCurrentUserInfo());
@@ -28,37 +28,37 @@ public class UserInfoController {
 
     @ApiOperation("修改昵称")
     @GetMapping("nickname/set")
-    public JsonWrapper<Boolean> modifyNickname(String newNickname) {
-        return new JsonWrapper<>(userInfoService.modifyNickname(newNickname));
+    public JsonWrapper<Boolean> modifyNickname(String nickname) {
+        return new JsonWrapper<>(userInfoService.modifyNickname(nickname));
     }
 
     @ApiOperation("修改性别")
     @GetMapping("gender/set")
-    public JsonWrapper<Boolean> modifyGender(Integer newGender) {
-        return new JsonWrapper<>(userInfoService.modifyGender(newGender));
+    public JsonWrapper<Boolean> modifyGender(Integer gender) {
+        return new JsonWrapper<>(userInfoService.modifyGender(gender));
     }
 
-    @ApiOperation("修改学院 (比如说有转专业的)")
+    @ApiOperation("修改学院")
     @GetMapping("faculty/set")
-    public JsonWrapper<Boolean> modifyFaculty(String newFaculty) {
-        return new JsonWrapper<>(userInfoService.modifyFaculty(newFaculty));
+    public JsonWrapper<Boolean> modifyFaculty(String faculty) {
+        return new JsonWrapper<>(userInfoService.modifyFaculty(faculty));
     }
 
     @ApiOperation("修改联系方式")
     @GetMapping("contact_info/set")
-    public JsonWrapper<Boolean> modifyContactInformation(String newContactInformation) {
-        return new JsonWrapper<>(userInfoService.modifyContactInformation(newContactInformation));
+    public JsonWrapper<Boolean> modifyContactInformation(String contactInfo) {
+        return new JsonWrapper<>(userInfoService.modifyContactInformation(contactInfo));
     }
 
     @ApiOperation("修改手机号")
     @GetMapping("phone_number/set")
-    public JsonWrapper<Boolean> modifyPhoneNumber(String newPhoneNumber) {
-        return new JsonWrapper<>(userInfoService.modifyPhoneNumber(newPhoneNumber));
+    public JsonWrapper<Boolean> modifyPhoneNumber(String phoneNumber) {
+        return new JsonWrapper<>(userInfoService.modifyPhoneNumber(phoneNumber));
     }
 
-    @ApiOperation("修改头像")
+    //    @ApiOperation("修改头像")
     @GetMapping("avatar/set")
-    public JsonWrapper<Boolean> modifyAvatarUrl(String newAvatarUrl) {
+    public JsonWrapper<Boolean> modifyAvatarUrl(String avatar) {
         throw new KnownException(ExceptionEnum.TO_BE_IMPLEMENTED);
     }
 }
