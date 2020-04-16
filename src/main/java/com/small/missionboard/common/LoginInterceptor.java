@@ -2,6 +2,7 @@ package com.small.missionboard.common;
 
 import com.small.missionboard.bean.vo.JsonWrapper;
 import com.small.missionboard.util.RedisUtils;
+import com.small.missionboard.util.RequestUtils;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +18,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         //  如果Redis中没有token, 并且调用的不是login或register方法 , 就抛出未登录异常
         String url = request.getRequestURI();
         boolean isLoginOrRegister = url.contains("login") || url.contains("register");
-        String token = request.getParameter("token");
+        String token = RequestUtils.getToken();
         if (!RedisUtils.hasKey(token) && !isLoginOrRegister) {
             throw new KnownException(JsonWrapper.NOT_LOGIN, "用户未登录");
         }

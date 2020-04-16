@@ -11,7 +11,7 @@ import com.small.missionboard.mapper.UserMapper;
 import com.small.missionboard.service.UserService;
 import com.small.missionboard.util.JsonUtils;
 import com.small.missionboard.util.RedisUtils;
-import com.small.missionboard.util.ServletUtils;
+import com.small.missionboard.util.RequestUtils;
 import com.small.missionboard.util.UrlUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -37,7 +37,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public String login(String jsCode) {
-        String token = ServletUtils.getToken();
+        String token = RequestUtils.getToken();
         WxSession session = callLoginApi(jsCode);
         String openId = session.getOpenid();
 
