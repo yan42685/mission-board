@@ -9,23 +9,23 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum TaskStatusEnum implements StatusEnum {
+public enum TaskStatusEnum {
 
     // 已发出
-    DELIVERED(1),
+    DELIVERED("delivered"),
     // 已被接受 (仍需要等待发送者同意接受者去做任务)
-    ACCEPTED(2),
+    ACCEPTED("accepted"),
     // 进行中
-    ONGOING(4),
+    ONGOING("ongoing"),
     // 等待结算 (即等待发送者评价)
-    TO_BE_CONFIRMED(8),
+    TO_BE_CONFIRMED("to_be_confirmed"),
     // 超时未完成
-    TIMEOUT_NOT_FINISHED(16),
+    TIMEOUT_NOT_FINISHED("timeout_not_finished"),
     // 超时未确认
-    TIMEOUT_NOT_CONFIRMED(32),
+    TIMEOUT_NOT_CONFIRMED("timeout_not_confirmed"),
     // 已完成
-    FINISHED(64),
+    FINISHED("finished"),
     ;
 
-    private int value;
+    private String value;
 }

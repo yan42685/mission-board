@@ -9,8 +9,8 @@ public enum UserStatusEnum {
     /**
      * 账号状态
      */
-    NORMAL(0),
-    FORBIDDEN(1),
+    NORMAL("normal"),
+    FORBIDDEN("forbidden"),
     ;
-    private int value;
+    private String value;
 }

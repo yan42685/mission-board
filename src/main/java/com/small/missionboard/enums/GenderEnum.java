@@ -13,5 +13,5 @@ public enum GenderEnum {
     MALE("男"),
     FEMALE("女");
 
-    private String info;
+    private String value;
 }
