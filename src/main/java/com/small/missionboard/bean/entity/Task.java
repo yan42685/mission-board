@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value = "Task对象", description = "")
+@ApiModel(value = "Task对象")
 public class Task implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -53,13 +53,13 @@ public class Task implements Serializable {
     private String commentOnReceiver;
 
     @ApiModelProperty(value = "对接受者的评价星级")
-    private Boolean starForReceiver;
+    private Integer starForReceiver;
 
     @ApiModelProperty(value = "任务接受者对发送者的评价")
     private String commentOnSender;
 
     @ApiModelProperty(value = "对发送者的评价星级")
-    private Boolean starForSender;
+    private Integer starForSender;
 
     @ApiModelProperty(value = "是否一接受任务就自动确认")
     private Boolean quickAccept;

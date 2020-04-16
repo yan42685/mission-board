@@ -34,7 +34,7 @@ public class UserInfoController {
 
     @ApiOperation("修改性别")
     @GetMapping("gender/set")
-    public JsonWrapper<Boolean> modifyGender(Integer gender) {
+    public JsonWrapper<Boolean> modifyGender(String  gender) {
         return new JsonWrapper<>(userInfoService.modifyGender(gender));
     }
 
@@ -56,7 +56,7 @@ public class UserInfoController {
         return new JsonWrapper<>(userInfoService.modifyPhoneNumber(phoneNumber));
     }
 
-    //    @ApiOperation("修改头像")
+//    @ApiOperation("修改头像")
     @GetMapping("avatar/set")
     public JsonWrapper<Boolean> modifyAvatarUrl(String avatar) {
         throw new KnownException(ExceptionEnum.TO_BE_IMPLEMENTED);

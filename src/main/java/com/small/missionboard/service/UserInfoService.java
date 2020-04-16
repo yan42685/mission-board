@@ -17,7 +17,7 @@ public interface UserInfoService {
     /**
      * 修改性别
      */
-    boolean modifyGender(Integer newGender);
+    boolean modifyGender(String newGender);
 
     /**
      * 修改学院 (比如说有转专业的)

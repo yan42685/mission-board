@@ -9,10 +9,9 @@ public enum GenderEnum {
     /**
      * 性别
      */
-    UNKNOWN(0),
-    MALE(1),
-    FEMALE(2)
-    ;
+    UNKNOWN("未知"),
+    MALE("男"),
+    FEMALE("女");
 
-    private int value;
+    private String info;
 }

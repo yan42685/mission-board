@@ -12,7 +12,7 @@ public class UserInfo {
     private String name;
 
     @ApiModelProperty(value = "性别")
-    private Integer gender;
+    private String gender;
 
     @ApiModelProperty(value = "学院")
     private String faculty;
@@ -42,7 +42,7 @@ public class UserInfo {
     private Integer totalTasksFinished;
 
     @ApiModelProperty(value = "正在接的任务数")
-    private Boolean currentTasksAccepted;
+    private Integer currentTasksAccepted;
 
     @ApiModelProperty(value = "备注信息")
     private String remarks;

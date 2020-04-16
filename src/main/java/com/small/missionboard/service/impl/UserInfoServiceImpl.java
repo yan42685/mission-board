@@ -30,7 +30,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public boolean modifyGender(Integer newGender) {
+    public boolean modifyGender(String newGender) {
         User currentUser = userService.getCurrentUser();
         currentUser.setGender(newGender);
         return userService.updateById(currentUser);
