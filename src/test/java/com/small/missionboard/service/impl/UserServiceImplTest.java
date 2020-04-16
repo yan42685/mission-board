@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.small.missionboard.bean.dto.WxSession;
 import com.small.missionboard.bean.entity.User;
 import com.small.missionboard.common.WxConstants;
-import com.small.missionboard.mapper.UserMapper;
 import com.small.missionboard.util.JsonUtils;
 import com.small.missionboard.util.RedisUtils;
 import com.small.missionboard.util.UrlUtils;
@@ -28,8 +27,6 @@ class UserServiceImplTest {
     @Autowired
     RestTemplate restTemplate;
     @Autowired
-    UserMapper userMapper;
-    @Autowired
     UserServiceImpl userServiceImpl;
 
 
@@ -43,7 +40,6 @@ class UserServiceImplTest {
         // 调用微信登录的 API
         String url = UrlUtils.addParameterList(WxConstants.LOGIN_URL, params);
         String jsonData = restTemplate.getForObject(url, String.class);
-//        System.out.println(jsonData);
         try {
             System.out.println(JsonUtils.json2Object(jsonData));
         } catch (JsonProcessingException e) {
@@ -59,7 +55,7 @@ class UserServiceImplTest {
         User testUser = new User();
         String fakeOpenid = "test_openid";
         testUser.setOpenId(fakeOpenid);
-        userMapper.insert(testUser);
+        userServiceImpl.save(testUser);
 
         // 存取token
         String token = "TestGetByToken";

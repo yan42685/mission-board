@@ -14,7 +14,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
     @Override
 
     public void addInterceptors(InterceptorRegistry registry) {
-        //TODO 开启拦截器
+        //TODO 测试完毕后开启拦截器
 //        registry.addInterceptor(loginInterceptor()).addPathPatterns("/api/**");
     }
 
