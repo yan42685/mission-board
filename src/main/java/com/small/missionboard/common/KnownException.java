@@ -1,5 +1,6 @@
 package com.small.missionboard.common;
 
+import com.small.missionboard.enums.ExceptionEnum;
 import lombok.Getter;
 
 /**
@@ -11,10 +12,10 @@ public class KnownException extends RuntimeException {
     /**
      * 异常代码
      */
-    private Integer code;
+    private Integer errorCode;
 
-    public KnownException(Integer code, String message) {
-        super(message);
-        this.code = code;
+    public KnownException(ExceptionEnum exception) {
+        super(exception.getErrorMsg());
+        this.errorCode = exception.getErrorCode();
     }
 }

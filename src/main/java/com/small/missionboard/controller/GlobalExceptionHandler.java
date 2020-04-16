@@ -2,6 +2,7 @@ package com.small.missionboard.controller;
 
 import com.small.missionboard.bean.vo.JsonWrapper;
 import com.small.missionboard.common.KnownException;
+import com.small.missionboard.enums.ExceptionEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -17,15 +18,17 @@ import java.util.Arrays;
 public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public JsonWrapper<String> handleUnknownException(Exception e, HttpServletRequest request) {
+        int errorCode = ExceptionEnum.UNKNOWN_EXCEPTION.getErrorCode();
+        String errorMessage = ExceptionEnum.UNKNOWN_EXCEPTION.getErrorMsg();
         String stackTrack = Arrays.toString(e.getStackTrace());
         log.error("url: {}    msg: {}", request.getRequestURL(), stackTrack);
-        return new JsonWrapper<>(JsonWrapper.UNKNOWN_EXCEPTION, "服务器未知异常: " + stackTrack);
+        return new JsonWrapper<>(errorCode, errorMessage + "\n" + stackTrack);
     }
 
     @ExceptionHandler(KnownException.class)
     public JsonWrapper<String> handleKnownException(KnownException e, HttpServletRequest request) {
         String stackTrack = Arrays.toString(e.getStackTrace());
         log.error("url: {}    msg: {}", request.getRequestURL(), e.getMessage() + stackTrack);
-        return new JsonWrapper<>(e.getCode(), "已知异常: " + e.getMessage());
+        return new JsonWrapper<>(e.getErrorCode(), "已知异常: " + e.getMessage());
     }
 }

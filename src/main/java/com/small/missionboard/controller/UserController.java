@@ -3,6 +3,7 @@ package com.small.missionboard.controller;
 import com.small.missionboard.bean.dto.RegistryInfo;
 import com.small.missionboard.bean.vo.JsonWrapper;
 import com.small.missionboard.common.KnownException;
+import com.small.missionboard.enums.ExceptionEnum;
 import com.small.missionboard.service.UserService;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
@@ -21,9 +22,9 @@ public class UserController {
     UserService userService;
 
     @GetMapping("login")
-    public JsonWrapper<String> login(String jsCode) throws Exception {
+    public JsonWrapper<String> login(String jsCode) {
         if (StringUtils.isBlank(jsCode)) {
-            throw new KnownException(JsonWrapper.EMPTY_JS_CODE, "jsCode不能为空");
+            throw new KnownException(ExceptionEnum.EMPTY_JS_CODE);
         }
         String newToken = userService.login(jsCode);
         return new JsonWrapper<>(newToken);

@@ -4,9 +4,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.small.missionboard.bean.dto.RegistryInfo;
 import com.small.missionboard.bean.dto.WxSession;
 import com.small.missionboard.bean.entity.User;
-import com.small.missionboard.bean.vo.JsonWrapper;
 import com.small.missionboard.common.KnownException;
 import com.small.missionboard.common.WxConstants;
+import com.small.missionboard.enums.ExceptionEnum;
 import com.small.missionboard.mapper.UserMapper;
 import com.small.missionboard.service.UserService;
 import com.small.missionboard.util.JsonUtils;
@@ -43,7 +43,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
         // 用户不存在时需要注册
         if (userMapper.selectByOpenId(openId) == null) {
-            throw new KnownException(JsonWrapper.NOT_REGISTER, "用户未注册");
+            throw new KnownException(ExceptionEnum.NOT_REGISTER);
         }
 
         // 如果已经登录就刷新token过期时间
@@ -92,9 +92,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         try {
             return JsonUtils.json2Object(jsonData, WxSession.class);
         } catch (Exception e) {
-            String errorMessage = "微信登录接口调用失败: " + jsonData;
-            log.error(errorMessage);
-            throw new KnownException(JsonWrapper.WX_LOGIN_FAIL, errorMessage);
+            throw new KnownException(ExceptionEnum.WX_LOGIN_FAIL);
         }
     }
 
