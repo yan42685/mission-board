@@ -1,5 +1,6 @@
 package com.small.missionboard.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.small.missionboard.bean.dto.WxSession;
 import com.small.missionboard.bean.entity.User;
@@ -57,9 +58,9 @@ class UserServiceImplTest {
     void getByToken() {
         String token = "TestGetByToken";
         WxSession session = new WxSession("openid", "sessionKey", "unionid");
-        // 把session存入Redis
+        // 把WxSession存入Redis
         RedisUtils.set(token, session);
-        // 取出session
+        // 取出WxSession
         WxSession sessionFromRedis = RedisUtils.get(token, WxSession.class);
         Assertions.assertNotNull(sessionFromRedis);
 
@@ -68,9 +69,11 @@ class UserServiceImplTest {
         testUser.setNickname("testUser999");
         // TODO: 通过下面这行测试
 //        userMapper.insert(testUser);
+        User user = userMapper.selectOne(new QueryWrapper<User>().eq("open_id", "333"));
+
+        System.out.println(userMapper.selectByOpenId("333"));
         System.out.println(RedisUtils.get(token, WxSession.class));
         System.out.println();
-//        User user = userServiceImpl.getByToken(token);
 //        System.out.println(user);
 
 
