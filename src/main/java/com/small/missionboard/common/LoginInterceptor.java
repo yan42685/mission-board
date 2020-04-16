@@ -14,7 +14,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        //  如果Redis中没有token, 并且没有调用的不是login或register方法 , 就抛出未登录异常
+        //  如果Redis中没有token, 并且调用的不是login或register方法 , 就抛出未登录异常
         String url = request.getRequestURI();
         boolean isLoginOrRegister = url.contains("login") || url.contains("register");
         String token = request.getParameter("token");

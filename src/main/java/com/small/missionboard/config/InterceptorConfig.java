@@ -15,7 +15,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
 
     public void addInterceptors(InterceptorRegistry registry) {
         //TODO 开启拦截器
-        registry.addInterceptor(loginInterceptor()).addPathPatterns("/api/**");
+//        registry.addInterceptor(loginInterceptor()).addPathPatterns("/api/**");
     }
 
     @Bean

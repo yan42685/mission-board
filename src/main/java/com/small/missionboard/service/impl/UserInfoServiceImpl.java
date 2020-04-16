@@ -11,32 +11,33 @@ public class UserInfoServiceImpl implements UserInfoService {
     UserService userService;
 
     @Override
-    public boolean modifyNickname(String token, String newNickname) {
+    public boolean modifyNickname(String newNickname) {
         return false;
     }
 
     @Override
-    public boolean modifyGender(String token, String newGender) {
+    public boolean modifyGender(String newGender) {
         return false;
     }
 
     @Override
-    public boolean modifyFaculty(String token, String newFaculty) {
+    public boolean modifyFaculty(String newFaculty) {
         return false;
     }
 
     @Override
-    public boolean modifyContactInformation(String token, String newContactInformation) {
+    public boolean modifyContactInformation(String newContactInformation) {
         return false;
     }
 
     @Override
-    public boolean modifyPhoneNumber(String token, String newPhoneNumber) {
+    public boolean modifyPhoneNumber(String newPhoneNumber) {
         return false;
     }
 
+    // TODO: 完成文件上传之后再实现这个功能
     @Override
-    public boolean modifyAvatarUrl(String token, String newAvatarUrl) {
+    public boolean modifyAvatarUrl(String newAvatarUrl) {
         return false;
     }
 }
