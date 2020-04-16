@@ -13,7 +13,6 @@ import com.small.missionboard.util.JsonUtils;
 import com.small.missionboard.util.RedisUtils;
 import com.small.missionboard.util.RequestUtils;
 import com.small.missionboard.util.UrlUtils;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +22,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-@Slf4j
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
     @Autowired

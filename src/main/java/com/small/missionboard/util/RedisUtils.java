@@ -2,13 +2,11 @@ package com.small.missionboard.util;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.CollectionUtils;
 
 import java.util.concurrent.TimeUnit;
 
-@Slf4j
 public class RedisUtils {
     // 静态注入bean
     private static RedisTemplate<String, String> redisTemplate = SpringContextUtils
@@ -43,12 +41,10 @@ public class RedisUtils {
      * 判断key是否存在
      */
     public static Boolean hasKey(String key) {
-        try {
-            return key == null ? false : redisTemplate.hasKey(key);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+        if (key == null) {
+            return null;
         }
+        return redisTemplate.hasKey(key);
     }
 
     /**
