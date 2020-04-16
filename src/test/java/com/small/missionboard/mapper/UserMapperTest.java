@@ -39,5 +39,16 @@ class UserMapperTest {
         System.out.println(user);
 
     }
+
+    @Transactional
+    @Test
+    void selectById() {
+        User user = new User();
+        Long fakeId = 5L;
+        user.setId(fakeId);
+        userMapper.insert(user);
+        User user1 = userMapper.selectById(fakeId);
+        Assertions.assertEquals(user1.getId(), fakeId);
+    }
 }
     
