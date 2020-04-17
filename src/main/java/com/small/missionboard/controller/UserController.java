@@ -30,8 +30,8 @@ public class UserController {
 
     // TODO: 校验参数
     @ApiOperation("注册")
-    @RequestMapping("register")
-    public JsonWrapper<String> register(String jsCode, @Validated RegistryInfo registryInfo) {
+    @GetMapping("register")
+    public JsonWrapper<String> register(@NotBlank(message = "jsCode不能为空") String jsCode, @Validated RegistryInfo registryInfo) {
         String token = userService.register(jsCode, registryInfo);
         return new JsonWrapper<>(token);
     }
