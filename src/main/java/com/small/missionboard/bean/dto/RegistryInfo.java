@@ -5,13 +5,17 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 
 /**
  * 用户注册时需要的信息
  */
 @ApiModel(value = "注册信息", description = "")
 @Data
-public class RegistryInfo {
+public class RegistryInfo implements Serializable {
+
+    private static final long serialVersionUID = -5636813189087278717L;
+
     @ApiModelProperty(value = "姓名")
     @NotBlank(message = "姓名不能为空")
     private String name;

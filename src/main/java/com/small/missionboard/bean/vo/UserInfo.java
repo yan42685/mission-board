@@ -3,11 +3,14 @@ package com.small.missionboard.bean.vo;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * 前端可见的用户信息
  */
 @Data
-public class UserInfo {
+public class UserInfo implements Serializable {
+    private static final long serialVersionUID = 7965515778780477599L;
     @ApiModelProperty(value = "姓名", example = "张三")
     private String name;
 
