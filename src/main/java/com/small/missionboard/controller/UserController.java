@@ -28,7 +28,6 @@ public class UserController {
         return new JsonWrapper<>(newToken);
     }
 
-    // TODO: 校验参数
     @ApiOperation("注册")
     @GetMapping("register")
     public JsonWrapper<String> register(@NotBlank(message = "jsCode不能为空") String jsCode, @Validated RegistryInfo registryInfo) {
