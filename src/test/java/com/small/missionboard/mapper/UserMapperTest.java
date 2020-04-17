@@ -44,7 +44,7 @@ class UserMapperTest {
     @Test
     void selectById() {
         User user = new User();
-        Long fakeId = 5L;
+        String fakeId = "haha";
         user.setId(fakeId);
         userMapper.insert(user);
         User user1 = userMapper.selectById(fakeId);

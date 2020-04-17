@@ -7,7 +7,6 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,14 +19,14 @@ import javax.validation.constraints.NotBlank;
 public class TestController {
 
     @ApiOperation("翻转字符串")
-    @ApiImplicitParam(name = "str", value = "原始字符串", dataType = "string", required = true)
+    @ApiImplicitParam(name = "str", value = "原始字符串", paramType = "query", dataType = "string", required = true)
     @GetMapping("reverse")
     public JsonWrapper<String> reverse(@NotBlank(message = "输入字符串不能为空") String str) {
         return new JsonWrapper<>(new StringBuilder(str).reverse().toString());
     }
 
     @ApiOperation("返回hello world")
-    @PostMapping("test")
+    @GetMapping("test")
     public JsonWrapper<String> test() {
         return new JsonWrapper<>("hello, world");
     }

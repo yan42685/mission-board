@@ -38,15 +38,16 @@ class UserInfoServiceImplTest {
         String faculty = "testFaculty";
         String openId = "12345";
         String newFaculty = "a";
+        String id = "testId";
         User user = new User();
-        user.setId(12L);
+        user.setId(id);
         user.setOpenId(openId);
         user.setFaculty(faculty);
         userService.save(user);
         userService.update(new UpdateWrapper<User>()
                 .eq("open_id", openId)
                 .set("faculty", newFaculty));
-        user = userService.getById(12);
+        user = userService.getById(id);
         Assertions.assertEquals(user.getFaculty(), newFaculty);
 
 
