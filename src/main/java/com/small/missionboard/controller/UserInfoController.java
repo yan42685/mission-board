@@ -56,7 +56,7 @@ public class UserInfoController {
         return new JsonWrapper<>(userInfoService.modifyPhoneNumber(phoneNumber));
     }
 
-//    @ApiOperation("修改头像")
+    @ApiOperation("修改头像 (暂未实现)")
     @GetMapping("avatar/set")
     public JsonWrapper<Boolean> modifyAvatarUrl(String avatar) {
         throw new KnownException(ExceptionEnum.TO_BE_IMPLEMENTED);

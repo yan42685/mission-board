@@ -1,15 +1,16 @@
 package com.small.missionboard.controller;
 
-import com.small.missionboard.bean.vo.UserInfo;
 import com.small.missionboard.common.JsonWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
 @Api(tags = "测试API")
@@ -27,8 +28,7 @@ public class TestController {
 
     @ApiOperation("返回hello world")
     @PostMapping("test")
-    public JsonWrapper<String> test(@Valid @RequestBody UserInfo str) {
-        System.out.println(str);
+    public JsonWrapper<String> test() {
         return new JsonWrapper<>("hello, world");
     }
 
