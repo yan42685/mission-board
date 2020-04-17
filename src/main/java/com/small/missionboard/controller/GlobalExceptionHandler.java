@@ -4,9 +4,12 @@ import com.small.missionboard.common.JsonWrapper;
 import com.small.missionboard.common.KnownException;
 import com.small.missionboard.enums.ExceptionEnum;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
@@ -22,8 +25,9 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     /**
-     * 处理所有的未知异常
+     * 处理未知异常
      */
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)  // 500状态码
     @ExceptionHandler(Exception.class)
     public JsonWrapper<String> handleUnknownException(Exception e, HttpServletRequest request) {
         int errorCode = ExceptionEnum.UNKNOWN_EXCEPTION.getErrorCode();
@@ -36,6 +40,7 @@ public class GlobalExceptionHandler {
     /**
      * 处理已知异常
      */
+    @ResponseStatus(HttpStatus.BAD_REQUEST)  // 400状态码
     @ExceptionHandler(KnownException.class)
     public JsonWrapper<String> handleKnownException(KnownException e, HttpServletRequest request) {
         String stackTrack = Arrays.toString(e.getStackTrace());
@@ -44,25 +49,35 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * 处理请求参数格式错误 @RequestParam上validate失败后抛出的异常是javax.validation.ConstraintViolationException
+     * 普通参数(非 java bean)校验出错时抛出的异常
      */
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ConstraintViolationException.class)
-    @ResponseBody
     public JsonWrapper<String> handleConstraintViolationException(ConstraintViolationException e) {
-        String errorMessage = e.getConstraintViolations().stream().map(ConstraintViolation::getMessage).collect(Collectors.joining());
         int errorCode = ExceptionEnum.INVALID_PARAM.getErrorCode();
+        String errorMessage = e.getConstraintViolations().stream().map(ConstraintViolation::getMessage).collect(Collectors.joining());
         return new JsonWrapper<>(errorCode, errorMessage);
     }
 
     /**
-     * 处理请求参数格式错误 @RequestBody上validate失败后抛出的异常是MethodArgumentNotValidException异常。
+     * 请求体绑定到java bean上失败时抛出的异常
      */
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    @ResponseBody
     public JsonWrapper<String> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
-        String errorMessage = e.getBindingResult().toString();
         int errorCode = ExceptionEnum.INVALID_PARAM.getErrorCode();
+        String errorMessage = e.getBindingResult().toString();
         return new JsonWrapper<>(errorCode, errorMessage);
     }
 
+    /**
+     * 请求参数绑定到java bean上失败时抛出的异常
+     */
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(BindException.class)
+    public JsonWrapper<String> handleBindException(BindException e) {
+        int errorCode = ExceptionEnum.INVALID_PARAM.getErrorCode();
+        String errorMessage = e.getBindingResult().getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.joining());
+        return new JsonWrapper<>(errorCode, errorMessage);
+    }
 }

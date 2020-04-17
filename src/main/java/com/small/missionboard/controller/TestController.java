@@ -1,15 +1,15 @@
 package com.small.missionboard.controller;
 
+import com.small.missionboard.bean.vo.UserInfo;
 import com.small.missionboard.common.JsonWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
 @Api(tags = "测试API")
@@ -21,13 +21,14 @@ public class TestController {
     @ApiOperation("翻转字符串")
     @ApiImplicitParam(name = "str", value = "原始字符串", dataType = "string", required = true)
     @GetMapping("reverse")
-    public JsonWrapper<String> reverse(@NotBlank String str) {
+    public JsonWrapper<String> reverse(@NotBlank(message = "输入字符串不能为空") String str) {
         return new JsonWrapper<>(new StringBuilder(str).reverse().toString());
     }
 
     @ApiOperation("返回hello world")
-    @GetMapping("test")
-    public JsonWrapper<String> test() {
+    @PostMapping("test")
+    public JsonWrapper<String> test(@Valid @RequestBody UserInfo str) {
+        System.out.println(str);
         return new JsonWrapper<>("hello, world");
     }
 
