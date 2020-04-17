@@ -75,4 +75,7 @@ public class Task implements Serializable {
 
     @ApiModelProperty(value = "接受者留言")
     private String receiverNotes;
+
+    @ApiModelProperty(value = "发送者联系方式")
+    private String senderContactInfo;
 }

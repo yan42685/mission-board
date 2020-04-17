@@ -69,4 +69,8 @@ public class TaskInfo {
     @ApiModelProperty(value = "任务提交时间")
     private LocalDateTime submitTime;
 
+    @ApiModelProperty(value = "发送者联系方式")
+    private String senderContactInfo;
+
+
 }
