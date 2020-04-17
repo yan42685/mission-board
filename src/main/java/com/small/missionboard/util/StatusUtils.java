@@ -8,7 +8,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class StatusUtils {
-    // 状态字符串分隔符
+    /**
+     * 状态字符串分隔符
+     */
     private static final String SEPARATOR = ",";
 
     /**
@@ -24,7 +26,7 @@ public class StatusUtils {
      */
     public static String addStatus(String statusString, StatusEnum target) {
         List<String> statusList = new ArrayList<>(Arrays.asList(statusString.split(SEPARATOR)));
-        if (!statusList.contains(target)) {
+        if (!statusList.contains(target.getValue())) {
             statusList.add(target.getValue());
         }
         return StringUtils.join(statusList);
@@ -42,10 +44,7 @@ public class StatusUtils {
     /**
      * 清除全部状态并添加状态
      */
-    public static String clearAllAndAdd(String statusString, StatusEnum target) {
-        List<String> statusList = new ArrayList<>(Arrays.asList(statusString.split(SEPARATOR)));
-        statusList.clear();
-        statusList.add(target.getValue());
+    public static String clearAllAndAdd(StatusEnum target) {
         return target.getValue();
     }
 }
