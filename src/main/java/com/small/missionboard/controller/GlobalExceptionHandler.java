@@ -4,7 +4,6 @@ import com.small.missionboard.common.JsonWrapper;
 import com.small.missionboard.common.KnownException;
 import com.small.missionboard.enums.ExceptionEnum;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -50,9 +49,9 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseBody
     public JsonWrapper<String> handleConstraintViolationException(ConstraintViolationException e) {
-        String message = e.getConstraintViolations().stream().map(ConstraintViolation::getMessage).collect(Collectors.joining());
+        String errorMessage = e.getConstraintViolations().stream().map(ConstraintViolation::getMessage).collect(Collectors.joining());
         int errorCode = ExceptionEnum.INVALID_PARAM.getErrorCode();
-        return new JsonWrapper<>(errorCode, message);
+        return new JsonWrapper<>(errorCode, errorMessage);
     }
 
     /**
@@ -61,9 +60,9 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseBody
     public JsonWrapper<String> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
-        String message = e.getBindingResult().getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.joining());
+        String errorMessage = e.getBindingResult().toString();
         int errorCode = ExceptionEnum.INVALID_PARAM.getErrorCode();
-        return new JsonWrapper<>(errorCode, message);
+        return new JsonWrapper<>(errorCode, errorMessage);
     }
 
 }
