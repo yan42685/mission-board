@@ -23,6 +23,7 @@ public enum ExceptionEnum {
     USER_VERIFICATION_FAILED(-4, "用户身份校验失败"),
     EMPTY_JS_CODE(-5, "jsCode不能为空"),
     WX_LOGIN_FAIL(-6, "微信登录接口调用失败"),
+    INVALID_PARAM(-7, "参数校验失败"),
     ;
 
     private int errorCode;

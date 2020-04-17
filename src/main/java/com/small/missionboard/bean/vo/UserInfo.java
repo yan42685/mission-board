@@ -8,7 +8,7 @@ import lombok.Data;
  */
 @Data
 public class UserInfo {
-    @ApiModelProperty(value = "姓名")
+    @ApiModelProperty(value = "姓名", example = "张三")
     private String name;
 
     @ApiModelProperty(value = "性别")

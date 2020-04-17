@@ -8,7 +8,7 @@ public class JsonWrapper<T> {
 
     private static final long serialVersionUID = 1L;
     private static final int SUCCESS_CODE = 0;
-    private static final String SUCCESS_STRING = "success";
+    private static final String SUCCESS_MESSAGE = "success";
 
     /**
      * 状态码  == 0 成功
@@ -38,7 +38,7 @@ public class JsonWrapper<T> {
     }
 
     public JsonWrapper(T data) {
-        this(SUCCESS_CODE, SUCCESS_STRING, data);
+        this(SUCCESS_CODE, SUCCESS_MESSAGE, data);
     }
 
 }

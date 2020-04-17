@@ -5,20 +5,24 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.constraints.NotBlank;
+
 @Api(tags = "测试API")
 @RequestMapping("api")
 @RestController
+@Validated
 public class TestController {
 
     @ApiOperation("翻转字符串")
-    @ApiImplicitParam(name = "string", value = "原始字符串", dataType = "string", required = true)
+    @ApiImplicitParam(name = "str", value = "原始字符串", dataType = "string", required = true)
     @GetMapping("reverse")
-    public JsonWrapper<String> reverse(String string) {
-        return new JsonWrapper<>(new StringBuilder(string).reverse().toString());
+    public JsonWrapper<String> reverse(@NotBlank String str) {
+        return new JsonWrapper<>(new StringBuilder(str).reverse().toString());
     }
 
     @ApiOperation("返回hello world")
