@@ -22,10 +22,10 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
 
     @Override
     public TaskInfo create(TaskCreateInfo createInfo) {
-        User currentUser = userService.getCurrentUser();
         // 把创建新建任务的信息填到UserInfo里并补充一些信息
         TaskInfo taskInfo = new TaskInfo();
         BeanUtil.copyProperties(createInfo, taskInfo);
+        User currentUser = userService.getCurrentUser();
         taskInfo.setSenderId(currentUser.getId());
         taskInfo.setState(TaskStatusEnum.DELIVERED.getValue());
 

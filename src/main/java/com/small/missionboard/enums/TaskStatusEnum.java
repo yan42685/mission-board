@@ -9,7 +9,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum TaskStatusEnum {
+public enum TaskStatusEnum implements StatusEnum {
 
     // 已发出
     DELIVERED("delivered"),
