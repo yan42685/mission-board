@@ -1,4 +1,4 @@
-package com.small.missionboard.bean.entity;
+package com.small.missionboard.bean.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -6,24 +6,20 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value = "Task对象")
-public class Task implements Serializable {
-
+@ApiModel(value = "任务信息")
+public class TaskInfo {
     private static final long serialVersionUID = 1L;
+
     @ApiModelProperty(value = "任务编号")
     private String id;
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
-
-    @ApiModelProperty(value = "更新时间")
-    private LocalDateTime updateTime;
 
     @ApiModelProperty(value = "标题")
     private String title;
@@ -73,6 +69,4 @@ public class Task implements Serializable {
     @ApiModelProperty(value = "任务提交时间")
     private LocalDateTime submitTime;
 
-    @ApiModelProperty(value = "接受者留言")
-    private String receiverNotes;
 }

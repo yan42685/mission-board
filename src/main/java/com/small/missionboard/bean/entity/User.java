@@ -16,8 +16,8 @@ import java.time.LocalDateTime;
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @ApiModelProperty(value = "主键")
-    private Long id;
+    @ApiModelProperty(value = "用户编号")
+    private String id;
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
@@ -70,5 +70,6 @@ public class User implements Serializable {
     @ApiModelProperty(value = "备注信息")
     private String remarks;
 
-
+    @ApiModelProperty(value = "接受者留言")
+    private String receiverNotes;
 }

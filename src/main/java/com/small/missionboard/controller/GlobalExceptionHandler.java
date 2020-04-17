@@ -49,7 +49,7 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * 普通参数(非 java bean)校验出错时抛出的异常
+     * 对于@Validated 普通参数(非 java bean)校验出错时抛出的异常
      */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ConstraintViolationException.class)
@@ -60,7 +60,7 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * 请求体绑定到java bean上失败时抛出的异常
+     * 对于@Validated 请求体绑定到java bean上失败时抛出的异常
      */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -71,7 +71,7 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * 请求参数绑定到java bean上失败时抛出的异常
+     * 对于@Valid 请求参数绑定到java bean上失败时抛出的异常
      */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(BindException.class)
