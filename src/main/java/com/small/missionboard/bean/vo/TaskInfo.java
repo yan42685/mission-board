@@ -1,5 +1,6 @@
 package com.small.missionboard.bean.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -7,6 +8,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -18,6 +20,7 @@ public class TaskInfo {
     @ApiModelProperty(value = "任务编号")
     private Long id;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
 
@@ -34,13 +37,14 @@ public class TaskInfo {
     private String senderId;
 
     @ApiModelProperty(value = "接受者id, 可能有多个")
-    private String receiverId;
+    private List<String> receiverIdList;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @ApiModelProperty(value = "截止时间")
     private LocalDateTime deadline;
 
     @ApiModelProperty(value = "任务状态")
-    private String status;
+    private List<String> statusList;
 
     @ApiModelProperty(value = "最大可接该任务的人数")
     private Integer maxReceiver;
@@ -66,6 +70,7 @@ public class TaskInfo {
     @ApiModelProperty(value = "发送者确认完成任务")
     private Boolean senderConfirmed;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @ApiModelProperty(value = "任务提交时间")
     private LocalDateTime submitTime;
 

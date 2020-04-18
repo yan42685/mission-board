@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -32,6 +33,17 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
      */
     private static final Integer CURRENT_ACCEPTED_TASKS_MAX = 7;
 
+    @Override
+    public TaskInfo getInfo(Long taskId) {
+        Task task = taskMapper.selectById(taskId);
+        TaskInfo taskInfo = new TaskInfo();
+        BeanUtil.copyProperties(task, taskInfo);
+        List<String> statusList = new ArrayList<>(Arrays.asList(task.getStatus().split(SeparatedStringBuilder.SEPARATOR)));
+//        List<String> receiverIdList = new ArrayList<>(Arrays.asList(task.getReceiverId().split(SeparatedStringBuilder.SEPARATOR)));
+        taskInfo.setStatusList(statusList);
+//        taskInfo.setReceiverIdList(receiverIdList);
+        return taskInfo;
+    }
 
     @Override
     public TaskInfo create(TaskCreateInfo createInfo) {
@@ -40,7 +52,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         BeanUtil.copyProperties(createInfo, taskInfo);
         User currentUser = userService.getCurrentUser();
         taskInfo.setSenderId(currentUser.getId().toString());
-        taskInfo.setStatus(TaskStatusEnum.DELIVERED.getValue());
+        taskInfo.setStatusList(new ArrayList<>(Collections.singleton(TaskStatusEnum.DELIVERED.getValue())));
 
         Task newTask = new Task();
         BeanUtil.copyProperties(taskInfo, newTask);
@@ -49,7 +61,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     }
 
     @Override
-    public void accept(String taskId, String receiverNotes) {
+    public void accept(Long taskId, String receiverNotes) {
         // 不能同时接受过多任务
         if (userService.currentTasksAcceptedCount() >= CURRENT_ACCEPTED_TASKS_MAX) {
             throw new KnownException(ExceptionEnum.CURRENT_ACCEPTED_TASKS_OVERFLOW);
@@ -72,7 +84,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     }
 
     @Override
-    public void agreeAcceptance(String taskId, String receiverId) {
+    public void agreeAcceptance(Long taskId, String receiverId) {
         Task task = taskMapper.selectById(taskId);
         // 接受者必须在该任务的待确认接受者列表里
         if (!task.getReceiverId().contains(receiverId)) {
@@ -90,7 +102,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     }
 
     @Override
-    public void submit(String taskId) {
+    public void submit(Long taskId) {
         Task task = taskMapper.selectById(taskId);
         String currentStatus = new SeparatedStringBuilder(task.getStatus())
                 .remove(TaskStatusEnum.ONGOING)
@@ -102,7 +114,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
 
 
     @Override
-    public void confirmSubmit(String taskId) {
+    public void confirmSubmit(Long taskId) {
         Task task = taskMapper.selectById(taskId);
         String currentStatus = new SeparatedStringBuilder(task.getStatus())
                 .remove(TaskStatusEnum.TO_BE_CONFIRMED)
@@ -113,7 +125,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     }
 
     @Override
-    public void cancel(String taskId) {
+    public void cancel(Long taskId) {
         Task task = taskMapper.selectById(taskId);
         String currentStatus = new SeparatedStringBuilder(task.getStatus())
                 // 任务回到已发布状态，进入全局任务列表
@@ -124,7 +136,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     }
 
     @Override
-    public void delete(String taskId) {
+    public void delete(Long taskId) {
         Task task = taskMapper.selectById(taskId);
         String currentUserId = userService.getCurrentUser().getId().toString();
         String currentStatus = task.getStatus();
@@ -136,13 +148,13 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     }
 
     @Override
-    public List<String> getStatusList(String taskId) {
+    public List<String> getStatusList(Long taskId) {
         String statusString = taskMapper.selectById(taskId).getStatus();
         return new ArrayList<>(Arrays.asList(statusString.split(SeparatedStringBuilder.SEPARATOR)));
     }
 
     @Override
-    public boolean hasStatus(String taskId, String status) {
+    public boolean hasStatus(Long taskId, String status) {
         String statusString = taskMapper.selectById(taskId).getStatus();
         return statusString.contains(status);
     }

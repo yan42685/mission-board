@@ -59,7 +59,7 @@ public class User implements Serializable {
     private String role;
 
     @ApiModelProperty(value = "用户账号状态")
-    private String state;
+    private String status;
 
     @ApiModelProperty(value = "备注信息")
     private String remarks;
