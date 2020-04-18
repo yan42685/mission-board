@@ -40,4 +40,5 @@ public class TestController {
     public JsonWrapper<Integer> add(int x, int y) {
         return new JsonWrapper<>(x + y);
     }
+
 }

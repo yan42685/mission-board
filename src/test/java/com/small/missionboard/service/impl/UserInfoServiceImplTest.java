@@ -38,7 +38,7 @@ class UserInfoServiceImplTest {
         String faculty = "testFaculty";
         String openId = "12345";
         String newFaculty = "a";
-        String id = "testId";
+        Long id = 555L;
         User user = new User();
         user.setId(id);
         user.setOpenId(openId);

@@ -16,7 +16,7 @@ public class TaskInfo {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "任务编号")
-    private String id;
+    private Long id;
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
@@ -40,7 +40,7 @@ public class TaskInfo {
     private LocalDateTime deadline;
 
     @ApiModelProperty(value = "任务状态")
-    private String state;
+    private String status;
 
     @ApiModelProperty(value = "最大可接该任务的人数")
     private Integer maxReceiver;
@@ -69,8 +69,9 @@ public class TaskInfo {
     @ApiModelProperty(value = "任务提交时间")
     private LocalDateTime submitTime;
 
+    @ApiModelProperty(value = "接受者留言")
+    private String receiverNotes;
+
     @ApiModelProperty(value = "发送者联系方式")
     private String senderContactInfo;
-
-
 }

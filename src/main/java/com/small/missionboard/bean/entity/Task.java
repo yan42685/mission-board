@@ -17,7 +17,7 @@ public class Task implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @ApiModelProperty(value = "任务编号")
-    private String id;
+    private Long id;
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
@@ -44,7 +44,7 @@ public class Task implements Serializable {
     private LocalDateTime deadline;
 
     @ApiModelProperty(value = "任务状态")
-    private String state;
+    private String status;
 
     @ApiModelProperty(value = "最大可接该任务的人数")
     private Integer maxReceiver;

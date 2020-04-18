@@ -6,6 +6,7 @@ import com.small.missionboard.bean.dto.TaskCreateInfo;
 import com.small.missionboard.bean.entity.Task;
 import com.small.missionboard.bean.entity.User;
 import com.small.missionboard.bean.vo.TaskInfo;
+import com.small.missionboard.common.SeparatedStringBuilder;
 import com.small.missionboard.enums.TaskStatusEnum;
 import com.small.missionboard.mapper.TaskMapper;
 import com.small.missionboard.service.TaskService;
@@ -26,8 +27,8 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         TaskInfo taskInfo = new TaskInfo();
         BeanUtil.copyProperties(createInfo, taskInfo);
         User currentUser = userService.getCurrentUser();
-        taskInfo.setSenderId(currentUser.getId());
-        taskInfo.setState(TaskStatusEnum.DELIVERED.getValue());
+        taskInfo.setSenderId(currentUser.getId().toString());
+        taskInfo.setStatus(TaskStatusEnum.DELIVERED.getValue());
 
         Task newTask = new Task();
         BeanUtil.copyProperties(taskInfo, newTask);
@@ -36,22 +37,30 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     }
 
     @Override
-    public Boolean accept(String taskId) {
-        return null;
+    public void accept(String taskId, String receiverNotes) {
+        Task task = taskMapper.selectById(taskId);
+        String currentStatus = new SeparatedStringBuilder(task.getStatus())
+                // 从公共任务列表消失
+                .remove(TaskStatusEnum.DELIVERED)
+                .add(TaskStatusEnum.ACCEPTED)
+                .build();
+        task.setStatus(currentStatus);
+        task.setReceiverNotes(receiverNotes);
+
+        User currentUser = userService.getCurrentUser();
+        task.setReceiverId(currentUser.getId().toString());
+        taskMapper.updateById(task);
     }
 
     @Override
-    public Boolean agreeAcceptance(String accepterId) {
-        return null;
+    public void agreeAcceptance(String accepterId) {
     }
 
     @Override
-    public Boolean submit(String taskId) {
-        return null;
+    public void submit(String taskId) {
     }
 
     @Override
-    public Boolean confirmSubmit(String taskId) {
-        return null;
+    public void confirmSubmit(String taskId) {
     }
 }

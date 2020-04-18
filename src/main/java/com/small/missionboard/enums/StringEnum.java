@@ -1,5 +1,5 @@
 package com.small.missionboard.enums;
 
-public interface StatusEnum {
+public interface StringEnum {
     String getValue();
 }

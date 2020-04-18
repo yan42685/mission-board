@@ -14,22 +14,22 @@ public interface TaskService extends IService<Task> {
     /**
      * 接受任务
      */
-    Boolean accept(String taskId);
+    void accept(String taskId, String receiverNotes);
 
     /**
      * 同意接受任务
      */
-    Boolean agreeAcceptance(String accepterId);
+    void agreeAcceptance(String accepterId);
 
     /**
      * 提交任务
      */
-    Boolean submit(String taskId);
+    void submit(String taskId);
 
     /**
      * 确认任务完成
      */
-    Boolean confirmSubmit(String taskId);
+    void confirmSubmit(String taskId);
 
 
 }
