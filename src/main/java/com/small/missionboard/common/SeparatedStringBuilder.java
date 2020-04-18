@@ -47,6 +47,21 @@ public class SeparatedStringBuilder {
         return !condition ? add(target) : this;
     }
 
+    public SeparatedStringBuilder add(String target) {
+        if (!stringList.contains(target)) {
+            stringList.add(target);
+        }
+        return this;
+    }
+
+    public SeparatedStringBuilder addIf(String target, boolean condition) {
+        return condition ? add(target) : this;
+    }
+
+    public SeparatedStringBuilder addIfNot(String target, boolean condition) {
+        return !condition ? add(target) : this;
+    }
+
     /**
      * 移除字符串
      */
@@ -60,6 +75,19 @@ public class SeparatedStringBuilder {
     }
 
     public SeparatedStringBuilder removeIfNot(StringEnum target, boolean condition) {
+        return !condition ? remove(target) : this;
+    }
+
+    public SeparatedStringBuilder remove(String target) {
+        stringList.remove(target);
+        return this;
+    }
+
+    public SeparatedStringBuilder removeIf(String target, boolean condition) {
+        return condition ? remove(target) : this;
+    }
+
+    public SeparatedStringBuilder removeIfNot(String target, boolean condition) {
         return !condition ? remove(target) : this;
     }
 
@@ -78,6 +106,20 @@ public class SeparatedStringBuilder {
     }
 
     public SeparatedStringBuilder clearAllAndAddIfNot(StringEnum target, boolean condition) {
+        return !condition ? clearAllAndAdd(target) : this;
+    }
+
+    public SeparatedStringBuilder clearAllAndAdd(String target) {
+        stringList.clear();
+        stringList.add(target);
+        return this;
+    }
+
+    public SeparatedStringBuilder clearAllAndAddIf(String target, boolean condition) {
+        return condition ? clearAllAndAdd(target) : this;
+    }
+
+    public SeparatedStringBuilder clearAllAndAddIfNot(String target, boolean condition) {
         return !condition ? clearAllAndAdd(target) : this;
     }
 

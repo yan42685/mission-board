@@ -19,9 +19,9 @@ public interface TaskService extends IService<Task> {
     void accept(String taskId, String receiverNotes);
 
     /**
-     * 同意接受任务
+     * 同意接受者接受任务
      */
-    void agreeAcceptance(String taskId, String accepterId);
+    void agreeAcceptance(String taskId, String receiverId);
 
     /**
      * 提交任务
@@ -32,6 +32,16 @@ public interface TaskService extends IService<Task> {
      * 确认任务完成
      */
     void confirmSubmit(String taskId);
+
+    /**
+     * 任务被取消，重新进入公共任务列表
+     */
+    void cancel(String taskId);
+
+    /**
+     * 永久删除这个任务
+     */
+    void delete(String taskId);
 
     /**
      * 获取状态列表

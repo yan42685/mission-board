@@ -30,7 +30,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     /**
      * 同一时间可以接受的任务数量
      */
-    private static final Integer CURRENT_ACCEPTED_TASKS_MAX = 5;
+    private static final Integer CURRENT_ACCEPTED_TASKS_MAX = 7;
 
 
     @Override
@@ -50,7 +50,6 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
 
     @Override
     public void accept(String taskId, String receiverNotes) {
-        User currentUser = userService.getCurrentUser();
         // 不能同时接受过多任务
         if (userService.currentTasksAcceptedCount() >= CURRENT_ACCEPTED_TASKS_MAX) {
             throw new KnownException(ExceptionEnum.CURRENT_ACCEPTED_TASKS_OVERFLOW);
@@ -67,24 +66,73 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         task.setStatus(currentStatus);
         task.setReceiverNotes(receiverNotes);
 
+        User currentUser = userService.getCurrentUser();
         task.setReceiverId(currentUser.getId().toString());
         taskMapper.updateById(task);
     }
 
     @Override
-    public void agreeAcceptance(String taskId, String accepterId) {
+    public void agreeAcceptance(String taskId, String receiverId) {
         Task task = taskMapper.selectById(taskId);
+        // 接受者必须在该任务的待确认接受者列表里
+        if (!task.getReceiverId().contains(receiverId)) {
+            throw new KnownException(ExceptionEnum.WRONG_RECEIVER_ID);
+        }
         String currentStatus = new SeparatedStringBuilder(task.getStatus())
                 .clearAllAndAdd(TaskStatusEnum.ONGOING)
                 .build();
+        String currentReceiverId = new SeparatedStringBuilder(task.getReceiverId())
+                .clearAllAndAdd(receiverId)
+                .build();
+        task.setStatus(currentStatus);
+        task.setReceiverId(currentReceiverId);
+        taskMapper.updateById(task);
     }
 
     @Override
     public void submit(String taskId) {
+        Task task = taskMapper.selectById(taskId);
+        String currentStatus = new SeparatedStringBuilder(task.getStatus())
+                .remove(TaskStatusEnum.ONGOING)
+                .add(TaskStatusEnum.TO_BE_CONFIRMED)
+                .build();
+        task.setStatus(currentStatus);
+        taskMapper.updateById(task);
     }
+
 
     @Override
     public void confirmSubmit(String taskId) {
+        Task task = taskMapper.selectById(taskId);
+        String currentStatus = new SeparatedStringBuilder(task.getStatus())
+                .remove(TaskStatusEnum.TO_BE_CONFIRMED)
+                .add(TaskStatusEnum.FINISHED)
+                .build();
+        task.setStatus(currentStatus);
+        taskMapper.updateById(task);
+    }
+
+    @Override
+    public void cancel(String taskId) {
+        Task task = taskMapper.selectById(taskId);
+        String currentStatus = new SeparatedStringBuilder(task.getStatus())
+                // 任务回到已发布状态，进入全局任务列表
+                .clearAllAndAdd(TaskStatusEnum.DELIVERED)
+                .build();
+        task.setStatus(currentStatus);
+        taskMapper.updateById(task);
+    }
+
+    @Override
+    public void delete(String taskId) {
+        Task task = taskMapper.selectById(taskId);
+        String currentUserId = userService.getCurrentUser().getId().toString();
+        String currentStatus = task.getStatus();
+        // 只有任务发送者在任务处于 DELIVERED 状态时能删除任务
+        if (!task.getSenderId().equals(currentUserId) || !currentStatus.equals(TaskStatusEnum.DELIVERED.getValue())) {
+            throw new KnownException(ExceptionEnum.DELETE_TASK_FAIL);
+        }
+        taskMapper.deleteById(task);
     }
 
     @Override

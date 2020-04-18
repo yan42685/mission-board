@@ -25,7 +25,8 @@ public enum ExceptionEnum {
     WX_LOGIN_FAIL(-6, "微信登录接口调用失败"),
     INVALID_PARAM(-7, "参数校验失败"),
     CURRENT_ACCEPTED_TASKS_OVERFLOW(-8, "同一时间可接受的任务数量达到上限"),
-    ;
+    WRONG_RECEIVER_ID(-9, "错误的接受者ID, 该ID并不在该任务的接收者列表里"),
+    DELETE_TASK_FAIL(-10, "只有任务发送者在任务处于 DELIVERED 状态时能删除任务");
 
     private int errorCode;
     private String errorMsg;
