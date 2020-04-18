@@ -19,8 +19,8 @@ public enum TaskStatusEnum implements StringEnum {
     ONGOING("ongoing"),
     // 等待结算 (即等待发送者评价)
     TO_BE_CONFIRMED("to_be_confirmed"),
-    // 超时未完成
-    TIMEOUT_NOT_FINISHED("timeout_not_finished"),
+    // 超时未提交
+    TIMEOUT_NOT_SUBMITTED("timeout_not_submitted"),
     // 超时未确认
     TIMEOUT_NOT_CONFIRMED("timeout_not_confirmed"),
     // 已完成

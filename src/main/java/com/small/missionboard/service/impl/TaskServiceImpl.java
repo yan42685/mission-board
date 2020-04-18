@@ -16,6 +16,7 @@ import com.small.missionboard.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,6 +34,10 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
      * 同一时间可以接受的任务数量
      */
     private static final Integer CURRENT_ACCEPTED_TASKS_MAX = 7;
+    /**
+     * 判定任务提交后发送者超时未确认的时间界限, 单位: 小时
+     */
+    private static final Long SUBMIT_DURATION_MAX = 24L;
 
     @Override
     public TaskInfo getInfo(Long taskId) {
@@ -43,6 +48,13 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         List<String> receiverIdList = new ArrayList<>(Arrays.asList(task.getReceiverId().split(SeparatedStringBuilder.SEPARATOR)));
         taskInfo.setStatusList(statusList);
         taskInfo.setReceiverIdList(receiverIdList);
+
+        // 根据提交时间更新任务状态
+        // TODO: 完成超时未提交和超时未确认
+        String statusString = task.getStatus();
+        Long submitDuration = Duration.between(task.getSubmitTime(), LocalDateTime.now()).toHours();
+
+
         return taskInfo;
     }
 
@@ -116,6 +128,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
 
 
     @Override
+    // TODO： 完善功能 比如评价什么的，并放入UserService?
     public void confirmSubmit(Long taskId) {
         Task task = taskMapper.selectById(taskId);
         String currentStatus = new SeparatedStringBuilder(task.getStatus())
