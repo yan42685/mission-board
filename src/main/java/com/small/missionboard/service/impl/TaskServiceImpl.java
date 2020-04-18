@@ -39,9 +39,9 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         TaskInfo taskInfo = new TaskInfo();
         BeanUtil.copyProperties(task, taskInfo);
         List<String> statusList = new ArrayList<>(Arrays.asList(task.getStatus().split(SeparatedStringBuilder.SEPARATOR)));
-//        List<String> receiverIdList = new ArrayList<>(Arrays.asList(task.getReceiverId().split(SeparatedStringBuilder.SEPARATOR)));
+        List<String> receiverIdList = new ArrayList<>(Arrays.asList(task.getReceiverId().split(SeparatedStringBuilder.SEPARATOR)));
         taskInfo.setStatusList(statusList);
-//        taskInfo.setReceiverIdList(receiverIdList);
+        taskInfo.setReceiverIdList(receiverIdList);
         return taskInfo;
     }
 
