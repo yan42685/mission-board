@@ -16,6 +16,7 @@ import com.small.missionboard.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -109,6 +110,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
                 .add(TaskStatusEnum.TO_BE_CONFIRMED)
                 .build();
         task.setStatus(currentStatus);
+        task.setSubmitTime(LocalDateTime.now());
         taskMapper.updateById(task);
     }
 
@@ -132,6 +134,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
                 .clearAllAndAdd(TaskStatusEnum.DELIVERED)
                 .build();
         task.setStatus(currentStatus);
+        task.setSubmitTime(null);
         taskMapper.updateById(task);
     }
 
