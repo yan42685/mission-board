@@ -7,6 +7,7 @@ import com.small.missionboard.bean.entity.User;
 import com.small.missionboard.common.KnownException;
 import com.small.missionboard.common.WxConstants;
 import com.small.missionboard.enums.ExceptionEnum;
+import com.small.missionboard.enums.TaskStatusEnum;
 import com.small.missionboard.mapper.UserMapper;
 import com.small.missionboard.service.UserService;
 import com.small.missionboard.util.JsonUtils;
@@ -113,4 +114,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
         return session.getOpenid();
     }
+
+    @Override
+    public Integer currentTasksAcceptedCount() {
+        User currentUser = getCurrentUser();
+        return userMapper.selectCurrentTasksAccepted(currentUser.getId(), TaskStatusEnum.ONGOING.getValue());
+    }
+
+    @Override
+    public Integer totalTasksFinished() {
+        User currentUser = getCurrentUser();
+        return userMapper.selectTotalTasksFinished(currentUser.getId(), TaskStatusEnum.FINISHED.getValue());
+    }
+
+
 }

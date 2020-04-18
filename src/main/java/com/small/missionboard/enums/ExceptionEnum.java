@@ -24,6 +24,7 @@ public enum ExceptionEnum {
     EMPTY_JS_CODE(-5, "jsCode不能为空"),
     WX_LOGIN_FAIL(-6, "微信登录接口调用失败"),
     INVALID_PARAM(-7, "参数校验失败"),
+    CURRENT_ACCEPTED_TASKS_OVERFLOW(-8, "同一时间可接受的任务数量达到上限"),
     ;
 
     private int errorCode;

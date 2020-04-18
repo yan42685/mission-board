@@ -2,10 +2,13 @@ package com.small.missionboard.service;
 
 import com.small.missionboard.bean.vo.UserInfo;
 
+/**
+ * 对前端开放的用户信息
+ */
 public interface UserInfoService {
 
     /**
-     * 获取对前端开放的当前用户信息
+     * 当前用户信息
      */
     UserInfo getCurrentUserInfo();
 

@@ -6,7 +6,9 @@ import com.small.missionboard.bean.dto.TaskCreateInfo;
 import com.small.missionboard.bean.entity.Task;
 import com.small.missionboard.bean.entity.User;
 import com.small.missionboard.bean.vo.TaskInfo;
+import com.small.missionboard.common.KnownException;
 import com.small.missionboard.common.SeparatedStringBuilder;
+import com.small.missionboard.enums.ExceptionEnum;
 import com.small.missionboard.enums.TaskStatusEnum;
 import com.small.missionboard.mapper.TaskMapper;
 import com.small.missionboard.service.TaskService;
@@ -25,6 +27,12 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     @Autowired
     private UserService userService;
 
+    /**
+     * 同一时间可以接受的任务数量
+     */
+    private static final Integer CURRENT_ACCEPTED_TASKS_MAX = 5;
+
+
     @Override
     public TaskInfo create(TaskCreateInfo createInfo) {
         // 把创建新建任务的信息填到UserInfo里并补充一些信息
@@ -42,6 +50,12 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
 
     @Override
     public void accept(String taskId, String receiverNotes) {
+        User currentUser = userService.getCurrentUser();
+        // 不能同时接受过多任务
+        if (userService.currentTasksAcceptedCount() >= CURRENT_ACCEPTED_TASKS_MAX) {
+            throw new KnownException(ExceptionEnum.CURRENT_ACCEPTED_TASKS_OVERFLOW);
+        }
+
         Task task = taskMapper.selectById(taskId);
         String currentStatus = new SeparatedStringBuilder(task.getStatus())
                 // 从公共任务列表消失
@@ -53,7 +67,6 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         task.setStatus(currentStatus);
         task.setReceiverNotes(receiverNotes);
 
-        User currentUser = userService.getCurrentUser();
         task.setReceiverId(currentUser.getId().toString());
         taskMapper.updateById(task);
     }

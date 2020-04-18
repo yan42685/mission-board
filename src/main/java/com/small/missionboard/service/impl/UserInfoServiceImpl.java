@@ -4,8 +4,6 @@ import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.small.missionboard.bean.entity.User;
 import com.small.missionboard.bean.vo.UserInfo;
-import com.small.missionboard.enums.TaskStatusEnum;
-import com.small.missionboard.mapper.UserMapper;
 import com.small.missionboard.service.UserInfoService;
 import com.small.missionboard.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,16 +13,14 @@ import org.springframework.stereotype.Service;
 public class UserInfoServiceImpl implements UserInfoService {
     @Autowired
     UserService userService;
-    @Autowired
-    UserMapper userMapper;
 
     @Override
     public UserInfo getCurrentUserInfo() {
         User currentUser = userService.getCurrentUser();
         UserInfo userInfo = new UserInfo();
         BeanUtil.copyProperties(currentUser, userInfo);
-        userInfo.setCurrentTasksAccepted(userMapper.selectCurrentTasksAccepted(currentUser.getId(), TaskStatusEnum.ONGOING.getValue()));
-        userInfo.setTotalTasksFinished(userMapper.selectTotalTasksFinished(currentUser.getId(), TaskStatusEnum.FINISHED.getValue()));
+        userInfo.setCurrentTasksAccepted(userService.currentTasksAcceptedCount());
+        userInfo.setTotalTasksFinished(userService.totalTasksFinished());
         return userInfo;
     }
 

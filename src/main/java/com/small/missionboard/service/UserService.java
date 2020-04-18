@@ -24,5 +24,16 @@ public interface UserService extends IService<User> {
      * 获取当前用户 openId
      */
     String getOpenId();
+
+    /**
+     * 当前用户正在接受的任务数
+     */
+    Integer currentTasksAcceptedCount();
+
+    /**
+     * 当前用户完成的任务数
+     */
+    Integer totalTasksFinished();
+
 }
 
