@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.small.missionboard.mapper.UserMapper">
+    <select id="selectCurrentTasksAccepted" resultType="int">
+        select COUNT(*)
+        from task
+        where receiver_id = #{param1}
+          and LOCATE(#{param2}, status) > 0
+    </select>
 
+    <select id="selectTotalTasksFinished" resultType="int">
+        select count(*)
+        from task
+        where receiver_id = #{param1}
+          and LOCATE(#{param2}, status) > 0
+    </select>
 
 </mapper>

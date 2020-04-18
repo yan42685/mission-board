@@ -6,7 +6,13 @@ import org.apache.ibatis.annotations.Select;
 
 public interface UserMapper extends BaseMapper<User> {
 
-    @Select("select * from missionboard.user where open_id = #{openId}")
+    @Select("select * from user where open_id = #{openId}")
     User selectByOpenId(String openId);
 
+    /**
+     * 获取用户正在进行的任务数量
+     */
+    Integer selectCurrentTasksAccepted(Long userId, String status);
+
+    Integer selectTotalTasksFinished(Long userId, String status);
 }

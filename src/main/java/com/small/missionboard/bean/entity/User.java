@@ -61,12 +61,6 @@ public class User implements Serializable {
     @ApiModelProperty(value = "用户账号状态")
     private String state;
 
-    @ApiModelProperty(value = "完成的任务总数")
-    private Integer totalTasksFinished;
-
-    @ApiModelProperty(value = "正在接的任务数")
-    private Integer currentTasksAccepted;
-
     @ApiModelProperty(value = "备注信息")
     private String remarks;
 

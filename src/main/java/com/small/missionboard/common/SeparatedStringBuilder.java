@@ -14,9 +14,9 @@ public class SeparatedStringBuilder {
     /**
      * 分隔符
      */
-    protected static final String SEPARATOR = ",";
+    public static final String SEPARATOR = ",";
 
-    protected List<String> stringList;
+    private List<String> stringList;
 
     public SeparatedStringBuilder(String statusString) {
         stringList = new ArrayList<>(Arrays.asList(statusString.split(SEPARATOR)));
@@ -39,12 +39,28 @@ public class SeparatedStringBuilder {
         return this;
     }
 
+    public SeparatedStringBuilder addIf(StringEnum target, boolean condition) {
+        return condition ? add(target) : this;
+    }
+
+    public SeparatedStringBuilder addIfNot(StringEnum target, boolean condition) {
+        return !condition ? add(target) : this;
+    }
+
     /**
      * 移除字符串
      */
     public SeparatedStringBuilder remove(StringEnum target) {
         stringList.remove(target.getValue());
         return this;
+    }
+
+    public SeparatedStringBuilder removeIf(StringEnum target, boolean condition) {
+        return condition ? remove(target) : this;
+    }
+
+    public SeparatedStringBuilder removeIfNot(StringEnum target, boolean condition) {
+        return !condition ? remove(target) : this;
     }
 
     /**
@@ -54,6 +70,15 @@ public class SeparatedStringBuilder {
         stringList.clear();
         stringList.add(target.getValue());
         return this;
+    }
+
+
+    public SeparatedStringBuilder clearAllAndAddIf(StringEnum target, boolean condition) {
+        return condition ? clearAllAndAdd(target) : this;
+    }
+
+    public SeparatedStringBuilder clearAllAndAddIfNot(StringEnum target, boolean condition) {
+        return !condition ? clearAllAndAdd(target) : this;
     }
 
     public String build() {

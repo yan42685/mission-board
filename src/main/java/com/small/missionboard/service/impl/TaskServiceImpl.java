@@ -14,6 +14,10 @@ import com.small.missionboard.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 @Service
 public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements TaskService {
     @Autowired
@@ -42,7 +46,9 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         String currentStatus = new SeparatedStringBuilder(task.getStatus())
                 // 从公共任务列表消失
                 .remove(TaskStatusEnum.DELIVERED)
-                .add(TaskStatusEnum.ACCEPTED)
+                // 如果任务不是快速接受模式，就进入接受待确认状态, 否则直接进入进行中状态
+                .addIfNot(TaskStatusEnum.ACCEPTED, task.getQuickAccept())
+                .addIf(TaskStatusEnum.ONGOING, task.getQuickAccept())
                 .build();
         task.setStatus(currentStatus);
         task.setReceiverNotes(receiverNotes);
@@ -53,7 +59,11 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     }
 
     @Override
-    public void agreeAcceptance(String accepterId) {
+    public void agreeAcceptance(String taskId, String accepterId) {
+        Task task = taskMapper.selectById(taskId);
+        String currentStatus = new SeparatedStringBuilder(task.getStatus())
+                .clearAllAndAdd(TaskStatusEnum.ONGOING)
+                .build();
     }
 
     @Override
@@ -63,4 +73,17 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     @Override
     public void confirmSubmit(String taskId) {
     }
+
+    @Override
+    public List<String> getStatusList(String taskId) {
+        String statusString = taskMapper.selectById(taskId).getStatus();
+        return new ArrayList<>(Arrays.asList(statusString.split(SeparatedStringBuilder.SEPARATOR)));
+    }
+
+    @Override
+    public boolean hasStatus(String taskId, String status) {
+        String statusString = taskMapper.selectById(taskId).getStatus();
+        return statusString.contains(status);
+    }
+
 }

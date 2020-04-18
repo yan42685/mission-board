@@ -33,7 +33,7 @@ public class TaskInfo {
     @ApiModelProperty(value = "发送者id")
     private String senderId;
 
-    @ApiModelProperty(value = "接受者id, 允许为null")
+    @ApiModelProperty(value = "接受者id, 可能有多个")
     private String receiverId;
 
     @ApiModelProperty(value = "截止时间")

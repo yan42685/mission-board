@@ -1,6 +1,7 @@
 package com.small.missionboard.mapper;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.small.missionboard.bean.entity.Task;
 import com.small.missionboard.bean.entity.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -18,6 +19,8 @@ class UserMapperTest {
 
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    TaskMapper taskMapper;
 
     @Test
     void selectByOpenId() {
@@ -50,5 +53,22 @@ class UserMapperTest {
         User user1 = userMapper.selectById(fakeId);
         Assertions.assertEquals(user1.getId(), fakeId);
     }
+
+
+    @Test
+    @Transactional
+    void selectAcceptedTasksCount() {
+        Task task = new Task();
+        Long userId = 68594L;
+        task.setReceiverId(String.valueOf(userId));
+        String status = "abc,def";
+        task.setStatus(status);
+        taskMapper.insert(task);
+
+        Integer count = userMapper.selectCurrentTasksAccepted(userId, "abc");
+        Assertions.assertEquals(1, count);
+    }
+
+
 }
     
