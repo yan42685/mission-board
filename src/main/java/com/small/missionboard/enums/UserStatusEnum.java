@@ -9,7 +9,9 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum UserStatusEnum {
+    // 账号正常
     NORMAL("normal"),
+    // 账号被封禁
     FORBIDDEN("forbidden"),
     ;
     private String value;
