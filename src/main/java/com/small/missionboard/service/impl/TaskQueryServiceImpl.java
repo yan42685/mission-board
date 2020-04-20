@@ -1,10 +1,13 @@
 package com.small.missionboard.service.impl;
 
 import cn.hutool.core.util.EnumUtil;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.small.missionboard.bean.vo.TaskInfo;
 import com.small.missionboard.common.KnownException;
 import com.small.missionboard.enums.ExceptionEnum;
 import com.small.missionboard.enums.TaskQueryMethodEnum;
+import com.small.missionboard.enums.TaskSortMethodEnum;
+import com.small.missionboard.mapper.TaskMapper;
 import com.small.missionboard.service.TaskQueryService;
 import com.small.missionboard.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +19,8 @@ import java.util.List;
 public class TaskQueryServiceImpl implements TaskQueryService {
     @Autowired
     TaskService taskService;
+    @Autowired
+    TaskMapper taskMapper;
 
     @Override
     public List<TaskInfo> list(String queryMethod) {
@@ -34,5 +39,49 @@ public class TaskQueryServiceImpl implements TaskQueryService {
         return null;
     }
 
-//    private List<TaskInfo>
+    @Override
+    public List<TaskInfo> sortedPage(String method, Page<TaskInfo> page) {
+        return sortedPage(method, page, false);
+    }
+
+    @Override
+    public List<TaskInfo> reverseSortedPage(String method, Page<TaskInfo> page) {
+        return sortedPage(method, page, true);
+    }
+
+    private List<TaskInfo> sortedPage(String method, Page<TaskInfo> page, boolean reverse) {
+        if (EnumUtil.notContains(TaskSortMethodEnum.class, method)) {
+            throw new KnownException(ExceptionEnum.QUERY_METHOD_NOT_EXISTS);
+        }
+        return null;
+    }
+
+    private List<TaskInfo> randomPage(Page<TaskInfo> page) {
+        return null;
+    }
+
+    private List<TaskInfo> sortByTimePage(Page<TaskInfo> page) {
+        return null;
+    }
+
+    private List<TaskInfo> sortByTaskFinishedCountPage(Page<TaskInfo> page) {
+        return null;
+    }
+
+    private List<TaskInfo> notAcceptedList() {
+        return null;
+    }
+
+    private List<TaskInfo> ongoingList() {
+        return null;
+    }
+
+    private List<TaskInfo> finishedList() {
+        return null;
+    }
+
+    private List<TaskInfo> timeoutNotSubmittedList() {
+        return null;
+    }
+
 }

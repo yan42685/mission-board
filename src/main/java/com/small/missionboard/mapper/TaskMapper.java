@@ -5,4 +5,5 @@ import com.small.missionboard.bean.entity.Task;
 
 public interface TaskMapper extends BaseMapper<Task> {
 
+
 }
