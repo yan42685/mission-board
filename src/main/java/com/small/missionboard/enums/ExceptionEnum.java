@@ -3,6 +3,9 @@ package com.small.missionboard.enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/**
+ * 已知异常枚举
+ */
 @Getter
 @AllArgsConstructor
 public enum ExceptionEnum {

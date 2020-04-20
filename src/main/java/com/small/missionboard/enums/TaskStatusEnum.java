@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * 因为任务可能存在多个状态，所以用位运算表示其状态
+ * 任务状态枚举
  */
 @Getter
 @AllArgsConstructor

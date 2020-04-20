@@ -26,8 +26,8 @@ public class TaskController {
         return new JsonWrapper<>(taskService.create(info));
     }
 
-    public JsonWrapper<String> accept(Long taskId, String receiverNotes) {
-        taskService.accept(taskId, receiverNotes);
+    public JsonWrapper<String> accept(Long taskId, String notes) {
+        taskService.accept(taskId, notes);
         return new JsonWrapper<>("");
     }
 
