@@ -84,11 +84,15 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
                 .addIfNot(TaskStatusEnum.ACCEPTED, task.getQuickAccept())
                 .addIf(TaskStatusEnum.ONGOING, task.getQuickAccept())
                 .build();
-        task.setStatus(currentStatus);
-        task.setReceiverNotes(receiverNotes);
 
         User currentUser = userService.getCurrentUser();
-        task.setReceiverId(currentUser.getId().toString());
+        String currentReceiverIds = new SeparatedStringBuilder(task.getReceiverId())
+                .add(currentUser.getId().toString())
+                .build();
+
+        task.setStatus(currentStatus);
+        task.setReceiverId(currentReceiverIds);
+        task.setReceiverNotes(receiverNotes);
         taskMapper.updateById(task);
     }
 
