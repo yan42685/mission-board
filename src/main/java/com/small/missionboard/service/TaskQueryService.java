@@ -9,8 +9,8 @@ import java.util.List;
  */
 public interface TaskQueryService {
 
-    List<TaskInfo> getList(String queryMethod);
+    List<TaskInfo> list(String queryMethod);
 
-    List<TaskInfo> getReverseList(String queryMethod);
+    List<TaskInfo> reverseList(String queryMethod);
 
 }

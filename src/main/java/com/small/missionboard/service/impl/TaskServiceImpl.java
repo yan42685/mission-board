@@ -13,6 +13,7 @@ import com.small.missionboard.enums.TaskStatusEnum;
 import com.small.missionboard.mapper.TaskMapper;
 import com.small.missionboard.service.TaskService;
 import com.small.missionboard.service.UserService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -184,10 +185,12 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     /**
      * 根据提交时间更新任务状态
      */
-    // TODO: 补充任务超时未接收状态
     private Task updateStatusByTime(Long taskId) {
         Task task = taskMapper.selectById(taskId);
         String statusString = task.getStatus();
+        // 判断是否任务超时未被接受
+        boolean isTimeoutNotAccepted = StringUtils.isBlank(task.getReceiverId())
+                && Duration.between(task.getDeadline(), LocalDateTime.now()).toMillis() >= 0;
         // 判断接受者是否超时未提交
         boolean isTimeoutNotSubmitted = hasStatus(taskId, TaskStatusEnum.ONGOING)
                 && Duration.between(task.getDeadline(), LocalDateTime.now()).toMillis() >= 0;
@@ -196,8 +199,12 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         boolean isTimeoutNotConfirmed = hasStatus(taskId, TaskStatusEnum.TO_BE_CONFIRMED)
                 && submitDuration >= SUBMIT_DURATION_MAX;
         String currentStatus = new SeparatedStringBuilder(statusString)
+                .addIf(TaskStatusEnum.TIMEOUT_NOT_ACCEPTED, isTimeoutNotAccepted)
+                .removeIfNot(TaskStatusEnum.TIMEOUT_NOT_ACCEPTED, isTimeoutNotAccepted)
                 .addIf(TaskStatusEnum.TIMEOUT_NOT_SUBMITTED, isTimeoutNotSubmitted)
+                .removeIfNot(TaskStatusEnum.TIMEOUT_NOT_SUBMITTED, isTimeoutNotSubmitted)
                 .addIf(TaskStatusEnum.TIMEOUT_NOT_CONFIRMED, isTimeoutNotConfirmed)
+                .removeIfNot(TaskStatusEnum.TIMEOUT_NOT_CONFIRMED, isTimeoutNotConfirmed)
                 .build();
         task.setStatus(currentStatus);
         taskMapper.updateById(task);
