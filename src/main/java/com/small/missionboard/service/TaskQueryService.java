@@ -8,5 +8,9 @@ import java.util.List;
  * 提供筛选，排序后的任务列表
  */
 public interface TaskQueryService {
-    List<TaskInfo> sortBy(String method, boolean reverse);
+
+    List<TaskInfo> getList(String queryMethod);
+
+    List<TaskInfo> getReverseList(String queryMethod);
+
 }

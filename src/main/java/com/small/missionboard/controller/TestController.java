@@ -1,6 +1,7 @@
 package com.small.missionboard.controller;
 
 import com.small.missionboard.common.JsonWrapper;
+import com.small.missionboard.enums.TaskQueryMethodEnum;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -39,6 +40,12 @@ public class TestController {
     @GetMapping("add")
     public JsonWrapper<Integer> add(int x, int y) {
         return new JsonWrapper<>(x + y);
+    }
+
+    @ApiOperation("测试枚举参数")
+    @GetMapping("echo")
+    public String echo(TaskQueryMethodEnum method) {
+        return method.name();
     }
 
 }

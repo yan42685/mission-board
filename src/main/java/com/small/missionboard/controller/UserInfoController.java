@@ -26,6 +26,7 @@ public class UserInfoController {
         return new JsonWrapper<>(userInfoService.getCurrentUserInfo());
     }
 
+    // TODO: 把修改信息都整合到一个接口
     @ApiOperation("修改昵称")
     @GetMapping("nickname/set")
     public JsonWrapper<Boolean> modifyNickname(String nickname) {

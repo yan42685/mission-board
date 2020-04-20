@@ -23,6 +23,8 @@ public enum TaskStatusEnum implements StringEnum {
     TIMEOUT_NOT_SUBMITTED("timeout_not_submitted"),
     // 超时未确认
     TIMEOUT_NOT_CONFIRMED("timeout_not_confirmed"),
+    // 超时未接收
+    TIMEOUT_NOT_ACCEPTED("timeout_not_accepted"),
     // 已完成
     FINISHED("finished"),
     ;

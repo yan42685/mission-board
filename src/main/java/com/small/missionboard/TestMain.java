@@ -1,19 +1,10 @@
 package com.small.missionboard;
 
 
-import java.time.Duration;
-import java.time.LocalDateTime;
+import com.small.missionboard.enums.TaskQueryMethodEnum;
 
 public class TestMain {
     public static void main(String[] args) {
-        LocalDateTime previous = LocalDateTime.now();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        long delta = Duration.between(LocalDateTime.now(), previous).toMillis();
-        System.out.println(delta);
-
+        System.out.println(TaskQueryMethodEnum.FINISHED.name());
     }
 }
