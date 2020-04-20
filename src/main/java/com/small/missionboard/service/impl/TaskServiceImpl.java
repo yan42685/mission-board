@@ -48,8 +48,8 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         BeanUtil.copyProperties(task, taskInfo);
         List<String> statusList = new ArrayList<>(Arrays.asList(task.getStatus().split(SeparatedStringBuilder.SEPARATOR)));
         List<String> receiverIdList = new ArrayList<>(Arrays.asList(task.getReceiverId().split(SeparatedStringBuilder.SEPARATOR)));
-        taskInfo.setStatusList(statusList);
-        taskInfo.setReceiverIdList(receiverIdList);
+        taskInfo.setStatusList(statusList)
+                .setReceiverIdList(receiverIdList);
 
         return taskInfo;
     }
@@ -60,8 +60,8 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         TaskInfo taskInfo = new TaskInfo();
         BeanUtil.copyProperties(createInfo, taskInfo);
         User currentUser = userService.getCurrentUser();
-        taskInfo.setSenderId(currentUser.getId().toString());
-        taskInfo.setStatusList(new ArrayList<>(Collections.singleton(TaskStatusEnum.DELIVERED.getValue())));
+        taskInfo.setSenderId(currentUser.getId().toString())
+                .setStatusList(new ArrayList<>(Collections.singleton(TaskStatusEnum.DELIVERED.getValue())));
 
         Task newTask = new Task();
         BeanUtil.copyProperties(taskInfo, newTask);
@@ -90,9 +90,9 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
                 .add(currentUser.getId().toString())
                 .build();
 
-        task.setStatus(currentStatus);
-        task.setReceiverId(currentReceiverIds);
-        task.setReceiverNotes(receiverNotes);
+        task.setStatus(currentStatus)
+                .setReceiverId(currentReceiverIds)
+                .setReceiverNotes(receiverNotes);
         taskMapper.updateById(task);
     }
 
@@ -110,8 +110,8 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         String currentReceiverId = new SeparatedStringBuilder(task.getReceiverId())
                 .clearAllAndAdd(receiverId)
                 .build();
-        task.setStatus(currentStatus);
-        task.setReceiverId(currentReceiverId);
+        task.setStatus(currentStatus)
+                .setReceiverId(currentReceiverId);
         taskMapper.updateById(task);
     }
 
@@ -123,16 +123,15 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
                 .remove(TaskStatusEnum.TIMEOUT_NOT_SUBMITTED)
                 .add(TaskStatusEnum.TO_BE_CONFIRMED)
                 .build();
-        task.setStatus(currentStatus);
-        task.setStarForSender(starCount);
-        task.setCommentOnSender(comment);
-        task.setSubmitTime(LocalDateTime.now());
+        task.setStatus(currentStatus)
+                .setStarForSender(starCount)
+                .setCommentOnSender(comment)
+                .setSubmitTime(LocalDateTime.now());
         taskMapper.updateById(task);
     }
 
 
     @Override
-    // TODO： 完善功能 比如评价什么的，并放入UserService?
     public void confirmSubmit(Long taskId, Integer starCount, String comment) {
         Task task = taskMapper.selectById(taskId);
         String currentStatus = new SeparatedStringBuilder(task.getStatus())
@@ -140,9 +139,9 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
                 .remove(TaskStatusEnum.TIMEOUT_NOT_CONFIRMED)
                 .add(TaskStatusEnum.FINISHED)
                 .build();
-        task.setStatus(currentStatus);
-        task.setStarForReceiver(starCount);
-        task.setCommentOnReceiver(comment);
+        task.setStatus(currentStatus)
+                .setStarForReceiver(starCount)
+                .setCommentOnReceiver(comment);
         taskMapper.updateById(task);
     }
 
@@ -153,8 +152,8 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
                 // 任务回到已发布状态，进入全局任务列表
                 .clearAllAndAdd(TaskStatusEnum.DELIVERED)
                 .build();
-        task.setStatus(currentStatus);
-        task.setSubmitTime(null);
+        task.setStatus(currentStatus)
+                .setSubmitTime(null);
         taskMapper.updateById(task);
     }
 
