@@ -14,7 +14,7 @@ public interface TaskQueryService {
 
     List<TaskInfo> reverseList(String queryMethod);
 
-    List<TaskInfo> reverseSortedPage(String method, Page<TaskInfo> page);
+    List<TaskInfo> reverseSortedPage(Page<TaskInfo> page, String method);
 
-    List<TaskInfo> sortedPage(String method, Page<TaskInfo> page);
+    List<TaskInfo> sortedPage(Page<TaskInfo> page, String method);
 }
