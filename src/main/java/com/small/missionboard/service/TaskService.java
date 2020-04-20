@@ -32,12 +32,12 @@ public interface TaskService extends IService<Task> {
     /**
      * 提交任务
      */
-    void submit(Long taskId);
+    void submit(Long taskId, Integer starCount, String comment);
 
     /**
      * 确认任务完成
      */
-    void confirmSubmit(Long taskId);
+    void confirmSubmit(Long taskId, Integer starCount, String comment);
 
     /**
      * 任务被取消，重新进入公共任务列表

@@ -112,13 +112,16 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     }
 
     @Override
-    public void submit(Long taskId) {
+    public void submit(Long taskId, Integer starCount, String comment) {
         Task task = taskMapper.selectById(taskId);
         String currentStatus = new SeparatedStringBuilder(task.getStatus())
                 .remove(TaskStatusEnum.ONGOING)
+                .remove(TaskStatusEnum.TIMEOUT_NOT_SUBMITTED)
                 .add(TaskStatusEnum.TO_BE_CONFIRMED)
                 .build();
         task.setStatus(currentStatus);
+        task.setStarForSender(starCount);
+        task.setCommentOnSender(comment);
         task.setSubmitTime(LocalDateTime.now());
         taskMapper.updateById(task);
     }
@@ -126,13 +129,16 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
 
     @Override
     // TODO： 完善功能 比如评价什么的，并放入UserService?
-    public void confirmSubmit(Long taskId) {
+    public void confirmSubmit(Long taskId, Integer starCount, String comment) {
         Task task = taskMapper.selectById(taskId);
         String currentStatus = new SeparatedStringBuilder(task.getStatus())
                 .remove(TaskStatusEnum.TO_BE_CONFIRMED)
+                .remove(TaskStatusEnum.TIMEOUT_NOT_CONFIRMED)
                 .add(TaskStatusEnum.FINISHED)
                 .build();
         task.setStatus(currentStatus);
+        task.setStarForReceiver(starCount);
+        task.setCommentOnReceiver(comment);
         taskMapper.updateById(task);
     }
 

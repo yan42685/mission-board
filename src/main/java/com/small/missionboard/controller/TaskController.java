@@ -36,13 +36,13 @@ public class TaskController {
         return new JsonWrapper<>("");
     }
 
-    public JsonWrapper<String> submit(Long taskId) {
-        taskService.submit(taskId);
+    public JsonWrapper<String> submit(Long taskId, Integer starCount, String comment) {
+        taskService.submit(taskId, starCount, comment);
         return new JsonWrapper<>("");
     }
 
-    public JsonWrapper<String> confirmSubmit(Long taskId) {
-        taskService.confirmSubmit(taskId);
+    public JsonWrapper<String> confirmSubmit(Long taskId, Integer starCount, String comment) {
+        taskService.confirmSubmit(taskId, starCount, comment);
         return new JsonWrapper<>("");
     }
 
