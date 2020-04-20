@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.small.missionboard.bean.dto.TaskCreateInfo;
 import com.small.missionboard.bean.entity.Task;
 import com.small.missionboard.bean.vo.TaskInfo;
+import com.small.missionboard.enums.TaskStatusEnum;
 
 import java.util.List;
 
@@ -56,7 +57,7 @@ public interface TaskService extends IService<Task> {
     /**
      * 判断是否有某个状态
      */
-    boolean hasStatus(Long taskId, String status);
+    boolean hasStatus(Long taskId, TaskStatusEnum status);
 
 
 }

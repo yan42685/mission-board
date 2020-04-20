@@ -35,25 +35,21 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
      */
     private static final Integer CURRENT_ACCEPTED_TASKS_MAX = 7;
     /**
-     * 判定任务提交后发送者超时未确认的时间界限, 单位: 小时
+     * 判定任务提交后发送者超时未确认的时间界限, 单位: 毫秒
      */
-    private static final Long SUBMIT_DURATION_MAX = 24L;
+    private static final Long SUBMIT_DURATION_MAX = 1000 * 60 * 24L;
 
     @Override
     public TaskInfo getInfo(Long taskId) {
-        Task task = taskMapper.selectById(taskId);
+        // 根据时间更新任务状态
+        Task task = updateStatusByTime(taskId);
+
         TaskInfo taskInfo = new TaskInfo();
         BeanUtil.copyProperties(task, taskInfo);
         List<String> statusList = new ArrayList<>(Arrays.asList(task.getStatus().split(SeparatedStringBuilder.SEPARATOR)));
         List<String> receiverIdList = new ArrayList<>(Arrays.asList(task.getReceiverId().split(SeparatedStringBuilder.SEPARATOR)));
         taskInfo.setStatusList(statusList);
         taskInfo.setReceiverIdList(receiverIdList);
-
-        // 根据提交时间更新任务状态
-        // TODO: 完成超时未提交和超时未确认
-        String statusString = task.getStatus();
-        Long submitDuration = Duration.between(task.getSubmitTime(), LocalDateTime.now()).toHours();
-
 
         return taskInfo;
     }
@@ -104,7 +100,8 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
             throw new KnownException(ExceptionEnum.WRONG_RECEIVER_ID);
         }
         String currentStatus = new SeparatedStringBuilder(task.getStatus())
-                .clearAllAndAdd(TaskStatusEnum.ONGOING)
+                .remove(TaskStatusEnum.ACCEPTED)
+                .add(TaskStatusEnum.ONGOING)
                 .build();
         String currentReceiverId = new SeparatedStringBuilder(task.getReceiverId())
                 .clearAllAndAdd(receiverId)
@@ -170,9 +167,31 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     }
 
     @Override
-    public boolean hasStatus(Long taskId, String status) {
+    public boolean hasStatus(Long taskId, TaskStatusEnum status) {
         String statusString = taskMapper.selectById(taskId).getStatus();
-        return statusString.contains(status);
+        return statusString.contains(status.getValue());
+    }
+
+    /**
+     * 根据提交时间更新任务状态
+     */
+    private Task updateStatusByTime(Long taskId) {
+        Task task = taskMapper.selectById(taskId);
+        String statusString = task.getStatus();
+        // 判断接受者是否超时未提交
+        boolean isTimeoutNotSubmitted = hasStatus(taskId, TaskStatusEnum.ONGOING)
+                && Duration.between(task.getDeadline(), LocalDateTime.now()).toMillis() >= 0;
+        // 判断发送者是否超时未确认
+        long submitDuration = Duration.between(task.getSubmitTime(), LocalDateTime.now()).toMillis();
+        boolean isTimeoutNotConfirmed = hasStatus(taskId, TaskStatusEnum.TO_BE_CONFIRMED)
+                && submitDuration >= SUBMIT_DURATION_MAX;
+        String currentStatus = new SeparatedStringBuilder(statusString)
+                .addIf(TaskStatusEnum.TIMEOUT_NOT_SUBMITTED, isTimeoutNotSubmitted)
+                .addIf(TaskStatusEnum.TIMEOUT_NOT_CONFIRMED, isTimeoutNotConfirmed)
+                .build();
+        task.setStatus(currentStatus);
+        taskMapper.updateById(task);
+        return task;
     }
 
 }
