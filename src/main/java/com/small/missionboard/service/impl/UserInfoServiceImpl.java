@@ -9,6 +9,9 @@ import com.small.missionboard.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * 对前端开放的用户信息
+ */
 @Service
 public class UserInfoServiceImpl implements UserInfoService {
     @Autowired

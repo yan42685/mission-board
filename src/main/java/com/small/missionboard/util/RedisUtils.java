@@ -7,6 +7,9 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 方便操作缓存
+ */
 public class RedisUtils {
     // 静态注入bean
     private static RedisTemplate<String, String> redisTemplate = SpringContextUtils

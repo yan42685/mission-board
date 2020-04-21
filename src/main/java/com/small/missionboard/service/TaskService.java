@@ -8,6 +8,9 @@ import com.small.missionboard.enums.TaskStatusEnum;
 
 import java.util.List;
 
+/**
+ * 对任务的操作
+ */
 public interface TaskService extends IService<Task> {
     /**
      * 获取任务信息

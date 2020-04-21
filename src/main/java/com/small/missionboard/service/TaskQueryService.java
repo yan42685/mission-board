@@ -15,9 +15,12 @@ public interface TaskQueryService {
     List<TaskInfo> list(String queryMethod);
 
     /**
-     * 公共任务列表排序
+     * 公共任务列表
      */
     List<TaskInfo> sortedPage(Integer pageNum, Integer size, String method);
 
+    /**
+     * 逆序公共任务列表
+     */
     List<TaskInfo> reverseSortedPage(Integer pageNum, Integer size, String method);
 }

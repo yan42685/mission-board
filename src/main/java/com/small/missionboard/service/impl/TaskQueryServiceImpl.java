@@ -18,6 +18,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * 提供筛选，排序后的任务列表
+ */
 @Service
 public class TaskQueryServiceImpl implements TaskQueryService {
     @Autowired

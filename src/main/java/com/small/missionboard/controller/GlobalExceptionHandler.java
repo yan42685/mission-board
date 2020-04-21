@@ -34,7 +34,7 @@ public class GlobalExceptionHandler {
         String errorMessage = ExceptionEnum.UNKNOWN_EXCEPTION.getErrorMsg();
         String stackTrack = Arrays.toString(e.getStackTrace());
         log.error("url: {}    msg: {}", request.getRequestURL(), stackTrack);
-        return new JsonWrapper<>(errorCode, errorMessage + "\n" + stackTrack);
+        return new JsonWrapper<>(errorCode, errorMessage + stackTrack);
     }
 
     /**
@@ -45,7 +45,7 @@ public class GlobalExceptionHandler {
     public JsonWrapper<String> handleKnownException(KnownException e, HttpServletRequest request) {
         String stackTrack = Arrays.toString(e.getStackTrace());
         log.error("url: {}    msg: {}", request.getRequestURL(), e.getMessage() + stackTrack);
-        return new JsonWrapper<>(e.getErrorCode(), "已知异常: " + e.getMessage() + "\n" + stackTrack);
+        return new JsonWrapper<>(e.getErrorCode(), "已知异常: " + e.getMessage() + stackTrack);
     }
 
     /**

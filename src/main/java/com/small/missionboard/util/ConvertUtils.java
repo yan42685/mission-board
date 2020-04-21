@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * 转换entity与dto
+ * bean 之间的相互转换
  */
 public class ConvertUtils {
     public static TaskInfo task2TaskInfo(Task task) {
