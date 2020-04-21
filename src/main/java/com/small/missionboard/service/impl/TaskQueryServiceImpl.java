@@ -11,6 +11,8 @@ import com.small.missionboard.enums.TaskSortMethodEnum;
 import com.small.missionboard.mapper.TaskMapper;
 import com.small.missionboard.service.TaskQueryService;
 import com.small.missionboard.service.TaskService;
+import com.small.missionboard.service.UserService;
+import com.small.missionboard.util.ConvertUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,22 +24,34 @@ public class TaskQueryServiceImpl implements TaskQueryService {
     TaskService taskService;
     @Autowired
     TaskMapper taskMapper;
+    @Autowired
+    UserService userService;
 
     @Override
-    public List<TaskInfo> list(String queryMethod) {
-        return list(queryMethod, false);
-    }
-
-    @Override
-    public List<TaskInfo> reverseList(String queryMethod) {
-        return list(queryMethod, true);
-    }
-
-    private List<TaskInfo> list(String method, boolean reverse) {
+    public List<TaskInfo> list(String method) {
         if (EnumUtil.notContains(TaskQueryMethodEnum.class, method)) {
             throw new KnownException(ExceptionEnum.QUERY_METHOD_NOT_EXISTS);
         }
-        return null;
+        List<Task> taskList;
+        String currentUserId = userService.getCurrentUser().getId().toString();
+        TaskQueryMethodEnum methodEnum = TaskQueryMethodEnum.valueOf(method.toUpperCase());
+        switch (methodEnum) {
+            case NOT_ACCEPTED:
+                taskList = taskMapper.notAcceptedList(currentUserId);
+                break;
+            case ONGOING:
+                taskList = taskMapper.ongoingList(currentUserId);
+                break;
+            case FINISHED:
+                taskList = taskMapper.finishedList(currentUserId);
+                break;
+            case TIMEOUT_NOT_SUBMITTED:
+                taskList = taskMapper.timeoutNotSubmittedList(currentUserId);
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + methodEnum);
+        }
+        return ConvertUtils.task2TaskInfo(taskList);
     }
 
     @Override
@@ -54,6 +68,9 @@ public class TaskQueryServiceImpl implements TaskQueryService {
         if (EnumUtil.notContains(TaskSortMethodEnum.class, method)) {
             throw new KnownException(ExceptionEnum.QUERY_METHOD_NOT_EXISTS);
         }
+        String reverseFlag = reverse ? "reverse" : null;
+
+
         return null;
     }
 
@@ -67,20 +84,5 @@ public class TaskQueryServiceImpl implements TaskQueryService {
         return null;
     }
 
-    private List<Task> notAcceptedList() {
-        return null;
-    }
-
-    private List<Task> ongoingList() {
-        return null;
-    }
-
-    private List<Task> finishedList() {
-        return null;
-    }
-
-    private List<Task> timeoutNotSubmittedList() {
-        return null;
-    }
 
 }

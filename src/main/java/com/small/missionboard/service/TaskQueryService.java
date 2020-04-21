@@ -9,11 +9,15 @@ import java.util.List;
  */
 public interface TaskQueryService {
 
+    /**
+     * 按任务的状态查询任务列表
+     */
     List<TaskInfo> list(String queryMethod);
 
-    List<TaskInfo> reverseList(String queryMethod);
+    /**
+     * 公共任务列表排序
+     */
+    List<TaskInfo> sortedPage(Integer pageNum, Integer size, String method);
 
     List<TaskInfo> reverseSortedPage(Integer pageNum, Integer size, String method);
-
-    List<TaskInfo> sortedPage(Integer pageNum, Integer size, String method);
 }

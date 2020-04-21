@@ -25,11 +25,6 @@ public class TaskQueryController {
         return new JsonWrapper<>(taskQueryService.list(queryMethod.name()));
     }
 
-    @GetMapping("list/reverse")
-    public JsonWrapper<List<TaskInfo>> reverseList(TaskQueryMethodEnum queryMethod) {
-        return new JsonWrapper<>(taskQueryService.reverseList(queryMethod.name()));
-    }
-
     @GetMapping("sorted_page")
     public JsonWrapper<List<TaskInfo>> sortedPage(Integer pageNum, Integer size, TaskSortMethodEnum method) {
         return new JsonWrapper<>(taskQueryService.sortedPage(pageNum, size, method.name()));

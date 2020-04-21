@@ -15,8 +15,7 @@ public interface TaskMapper extends BaseMapper<Task> {
 
 //    List<Task> sortByTaskFinishedCountPage(Page<Task> page, String reverse);
 
-    List<Task> notAcceptedList(String senderId, String reverse);
-
+    List<Task> notAcceptedList(String senderId);
 
     List<Task> ongoingList(String userId);
 
