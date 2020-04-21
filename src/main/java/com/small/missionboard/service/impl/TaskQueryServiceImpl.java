@@ -34,8 +34,9 @@ public class TaskQueryServiceImpl implements TaskQueryService {
         }
         List<Task> taskList;
         String currentUserId = userService.getCurrentUser().getId().toString();
-        TaskQueryMethodEnum methodEnum = TaskQueryMethodEnum.valueOf(method.toUpperCase());
-        switch (methodEnum) {
+        TaskQueryMethodEnum queryMethod = TaskQueryMethodEnum.valueOf(method.toUpperCase());
+        // 根据传入的查询方法进行查询
+        switch (queryMethod) {
             case NOT_ACCEPTED:
                 taskList = taskMapper.notAcceptedList(currentUserId);
                 break;
@@ -49,7 +50,7 @@ public class TaskQueryServiceImpl implements TaskQueryService {
                 taskList = taskMapper.timeoutNotSubmittedList(currentUserId);
                 break;
             default:
-                throw new IllegalStateException("Unexpected value: " + methodEnum);
+                throw new IllegalStateException("Unexpected value: " + queryMethod);
         }
         return ConvertUtils.task2TaskInfo(taskList);
     }
@@ -68,21 +69,18 @@ public class TaskQueryServiceImpl implements TaskQueryService {
         if (EnumUtil.notContains(TaskSortMethodEnum.class, method)) {
             throw new KnownException(ExceptionEnum.QUERY_METHOD_NOT_EXISTS);
         }
+        List<Task> taskList;
         String reverseFlag = reverse ? "reverse" : null;
+        TaskSortMethodEnum sortMethod = TaskSortMethodEnum.valueOf(method.toUpperCase());
+        switch (sortMethod) {
+            case TIME:
+                taskList = taskMapper.sortByTimePage(new Page<>(pageNum, size), reverseFlag);
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + method);
+        }
 
 
-        return null;
+        return ConvertUtils.task2TaskInfo(taskList);
     }
-
-
-    private List<Task> sortByTimePage(Page<Task> page, boolean reverse) {
-        String flag = reverse ? "reverse" : null;
-        return taskMapper.sortByTimePage(page, flag);
-    }
-
-    private List<Task> sortByTaskFinishedCountPage(Page<Task> page, boolean reverse) {
-        return null;
-    }
-
-
 }

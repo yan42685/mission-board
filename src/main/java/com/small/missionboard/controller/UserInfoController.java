@@ -19,7 +19,6 @@ public class UserInfoController {
     @Autowired
     UserInfoService userInfoService;
 
-
     @ApiOperation("获取当前用户信息")
     @GetMapping("get")
     public JsonWrapper<UserInfo> getCurrentUserInfo() {
@@ -35,7 +34,7 @@ public class UserInfoController {
 
     @ApiOperation("修改性别")
     @GetMapping("gender/set")
-    public JsonWrapper<Boolean> modifyGender(String  gender) {
+    public JsonWrapper<Boolean> modifyGender(String gender) {
         return new JsonWrapper<>(userInfoService.modifyGender(gender));
     }
 

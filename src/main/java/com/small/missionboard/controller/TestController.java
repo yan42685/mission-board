@@ -1,7 +1,6 @@
 package com.small.missionboard.controller;
 
 import com.small.missionboard.common.JsonWrapper;
-import com.small.missionboard.enums.TaskQueryMethodEnum;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -26,12 +25,6 @@ public class TestController {
         return new JsonWrapper<>(new StringBuilder(str).reverse().toString());
     }
 
-    @ApiOperation("返回hello world")
-    @GetMapping("test")
-    public JsonWrapper<String> test() {
-        return new JsonWrapper<>("hello, world");
-    }
-
     @ApiOperation(value = "加法运算", notes = "两个整数相加")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "x", value = "加数", dataType = "int", required = true),
@@ -40,12 +33,6 @@ public class TestController {
     @GetMapping("add")
     public JsonWrapper<Integer> add(int x, int y) {
         return new JsonWrapper<>(x + y);
-    }
-
-    @ApiOperation("测试枚举参数")
-    @GetMapping("echo")
-    public String echo(TaskQueryMethodEnum method) {
-        return method.name();
     }
 
 }

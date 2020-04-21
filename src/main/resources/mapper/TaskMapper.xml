@@ -12,7 +12,8 @@
 
     <!--    <select id="sortByTaskFinishedCountPage" resultType="com.small.missionboard.bean.entity.Task">-->
     <!--        select *-->
-    <!--        from task-->
+    <!--        from user,-->
+    <!--             task-->
     <!--        where locate('delivered', status) > 0-->
     <!--        order by-->
     <!--    </select>-->
