@@ -4,6 +4,7 @@ import com.small.missionboard.bean.dto.RegistryInfo;
 import com.small.missionboard.common.JsonWrapper;
 import com.small.missionboard.service.UserService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -22,6 +23,7 @@ public class UserController {
     UserService userService;
 
     @ApiOperation("登录")
+    @ApiImplicitParam(name = "jsCode", paramType = "query")
     @GetMapping("login")
     public JsonWrapper<String> login(@NotBlank(message = "jsCode不能为空") String jsCode) {
         String newToken = userService.login(jsCode);
@@ -29,6 +31,7 @@ public class UserController {
     }
 
     @ApiOperation("注册")
+    @ApiImplicitParam(name = "jsCode", paramType = "query")
     @GetMapping("register")
     public JsonWrapper<String> register(@NotBlank(message = "jsCode不能为空") String jsCode, @Validated RegistryInfo registryInfo) {
         String token = userService.register(jsCode, registryInfo);

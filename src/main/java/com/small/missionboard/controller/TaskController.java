@@ -28,7 +28,6 @@ public class TaskController {
     }
 
     @ApiOperation("创建任务")
-    @ApiImplicitParam(name = "info", value = "创建任务所需信息")
     @GetMapping("create")
     public JsonWrapper<TaskInfo> create(TaskCreateInfo info) {
         return new JsonWrapper<>(taskService.create(info));
