@@ -1,6 +1,5 @@
 package com.small.missionboard.service;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.small.missionboard.bean.vo.TaskInfo;
 
 import java.util.List;
@@ -14,7 +13,7 @@ public interface TaskQueryService {
 
     List<TaskInfo> reverseList(String queryMethod);
 
-    List<TaskInfo> reverseSortedPage(Page<TaskInfo> page, String method);
+    List<TaskInfo> reverseSortedPage(Integer pageNum, Integer size, String method);
 
-    List<TaskInfo> sortedPage(Page<TaskInfo> page, String method);
+    List<TaskInfo> sortedPage(Integer pageNum, Integer size, String method);
 }

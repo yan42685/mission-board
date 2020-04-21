@@ -1,6 +1,5 @@
 package com.small.missionboard.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.small.missionboard.bean.vo.TaskInfo;
 import com.small.missionboard.common.JsonWrapper;
 import com.small.missionboard.enums.TaskQueryMethodEnum;
@@ -33,12 +32,12 @@ public class TaskQueryController {
 
     @GetMapping("sorted_page")
     public JsonWrapper<List<TaskInfo>> sortedPage(Integer pageNum, Integer size, TaskSortMethodEnum method) {
-        return new JsonWrapper<>(taskQueryService.sortedPage(new Page<>(pageNum, size), method.name()));
+        return new JsonWrapper<>(taskQueryService.sortedPage(pageNum, size, method.name()));
     }
 
     @GetMapping("sorted_page/reverse")
     public JsonWrapper<List<TaskInfo>> reverseSortedPage(Integer pageNum, Integer size, TaskSortMethodEnum method) {
-        return new JsonWrapper<>(taskQueryService.reverseSortedPage(new Page<>(pageNum, size), method.name()));
+        return new JsonWrapper<>(taskQueryService.reverseSortedPage(pageNum, size, method.name()));
     }
 
 }

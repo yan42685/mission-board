@@ -41,31 +41,29 @@ public class TaskQueryServiceImpl implements TaskQueryService {
     }
 
     @Override
-    public List<TaskInfo> sortedPage(Page<TaskInfo> page, String method) {
-        return sortedPage(page, method, false);
+    public List<TaskInfo> sortedPage(Integer pageNum, Integer size, String method) {
+        return sortedPage(pageNum, size, method, false);
     }
 
     @Override
-    public List<TaskInfo> reverseSortedPage(Page<TaskInfo> page, String method) {
-        return sortedPage(page, method, true);
+    public List<TaskInfo> reverseSortedPage(Integer pageNum, Integer size, String method) {
+        return sortedPage(pageNum, size, method, true);
     }
 
-    private List<TaskInfo> sortedPage(Page<TaskInfo> page, String method, boolean reverse) {
+    private List<TaskInfo> sortedPage(Integer pageNum, Integer size, String method, boolean reverse) {
         if (EnumUtil.notContains(TaskSortMethodEnum.class, method)) {
             throw new KnownException(ExceptionEnum.QUERY_METHOD_NOT_EXISTS);
         }
         return null;
     }
 
-    private List<Task> randomPage(Page<TaskInfo> page) {
-        return null;
+
+    private List<Task> sortByTimePage(Page<Task> page, boolean reverse) {
+        String flag = reverse ? "reverse" : null;
+        return taskMapper.sortByTimePage(page, flag);
     }
 
-    private List<Task> sortByTimePage(Page<TaskInfo> page) {
-        return null;
-    }
-
-    private List<Task> sortByTaskFinishedCountPage(Page<TaskInfo> page) {
+    private List<Task> sortByTaskFinishedCountPage(Page<Task> page, boolean reverse) {
         return null;
     }
 
