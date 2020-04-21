@@ -13,6 +13,7 @@ import com.small.missionboard.enums.TaskStatusEnum;
 import com.small.missionboard.mapper.TaskMapper;
 import com.small.missionboard.service.TaskService;
 import com.small.missionboard.service.UserService;
+import com.small.missionboard.util.ConvertUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,15 +45,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     public TaskInfo getInfo(Long taskId) {
         // 根据时间更新任务状态
         Task task = updateStatusByTime(taskId);
-
-        TaskInfo taskInfo = new TaskInfo();
-        BeanUtil.copyProperties(task, taskInfo);
-        List<String> statusList = new ArrayList<>(Arrays.asList(task.getStatus().split(SeparatedStringBuilder.SEPARATOR)));
-        List<String> receiverIdList = new ArrayList<>(Arrays.asList(task.getReceiverId().split(SeparatedStringBuilder.SEPARATOR)));
-        taskInfo.setStatusList(statusList)
-                .setReceiverIdList(receiverIdList);
-
-        return taskInfo;
+        return ConvertUtils.task2TaskInfo(task);
     }
 
     @Override
