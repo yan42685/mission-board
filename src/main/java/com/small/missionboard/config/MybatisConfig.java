@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 @MapperScan(basePackages = "com.small.missionboard.mapper")
 public class MybatisConfig {
     /**
-     * mybatis-plus分页插件
+     * mybatis-plus分页插件, 只要mapper第一个参数是MP提供的 Page<T> 类型就自动进行物理分页
      */
     @Bean
     public PaginationInterceptor paginationInterceptor() {
