@@ -23,4 +23,10 @@ public class ConvertUtils {
 
         return taskInfo;
     }
+
+    public static List<TaskInfo> task2TaskInfo(List<Task> taskList) {
+        List<TaskInfo> taskInfoList = new ArrayList<>(taskList.size());
+        taskList.forEach(task -> taskInfoList.add(ConvertUtils.task2TaskInfo(task)));
+        return taskInfoList;
+    }
 }

@@ -5,6 +5,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.Map;
 
+/**
+ * 拼接 URL 参数
+ */
 public class UrlUtils {
     public static String addParameterMap(String url, Map<String, String> params) {
         UriComponentsBuilder urlBuilder = UriComponentsBuilder.fromUriString(url);

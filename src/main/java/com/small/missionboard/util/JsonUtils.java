@@ -4,6 +4,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 
+/**
+ * Object 与 Json互相转换
+ */
 public class JsonUtils {
     private static ObjectMapper mapper;
 

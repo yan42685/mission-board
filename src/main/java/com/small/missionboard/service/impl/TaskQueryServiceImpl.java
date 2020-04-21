@@ -2,6 +2,7 @@ package com.small.missionboard.service.impl;
 
 import cn.hutool.core.util.EnumUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.small.missionboard.bean.entity.Task;
 import com.small.missionboard.bean.vo.TaskInfo;
 import com.small.missionboard.common.KnownException;
 import com.small.missionboard.enums.ExceptionEnum;
@@ -56,31 +57,31 @@ public class TaskQueryServiceImpl implements TaskQueryService {
         return null;
     }
 
-    private List<TaskInfo> randomPage(Page<TaskInfo> page) {
+    private List<Task> randomPage(Page<TaskInfo> page) {
         return null;
     }
 
-    private List<TaskInfo> sortByTimePage(Page<TaskInfo> page) {
+    private List<Task> sortByTimePage(Page<TaskInfo> page) {
         return null;
     }
 
-    private List<TaskInfo> sortByTaskFinishedCountPage(Page<TaskInfo> page) {
+    private List<Task> sortByTaskFinishedCountPage(Page<TaskInfo> page) {
         return null;
     }
 
-    private List<TaskInfo> notAcceptedList() {
+    private List<Task> notAcceptedList() {
         return null;
     }
 
-    private List<TaskInfo> ongoingList() {
+    private List<Task> ongoingList() {
         return null;
     }
 
-    private List<TaskInfo> finishedList() {
+    private List<Task> finishedList() {
         return null;
     }
 
-    private List<TaskInfo> timeoutNotSubmittedList() {
+    private List<Task> timeoutNotSubmittedList() {
         return null;
     }
 

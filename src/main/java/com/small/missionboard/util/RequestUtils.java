@@ -5,6 +5,9 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * 获取request及request域的内容
+ */
 public class RequestUtils {
     /**
      * 获取request
