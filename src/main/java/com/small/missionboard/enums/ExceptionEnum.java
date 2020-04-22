@@ -30,7 +30,8 @@ public enum ExceptionEnum {
     CURRENT_ACCEPTED_TASKS_OVERFLOW(-8, "同一时间可接受的任务数量达到上限"),
     WRONG_RECEIVER_ID(-9, "错误的接受者ID, 该ID并不在该任务的接收者列表里"),
     DELETE_TASK_FAIL(-10, "只有任务发送者在任务处于 DELIVERED 状态时能删除任务"),
-    QUERY_METHOD_NOT_EXISTS(-11, "该查询方法不存在");
+    QUERY_METHOD_NOT_EXISTS(-11, "该查询方法不存在"),
+    IMAGE_UPLOAD_FAIL(-12, "图片为空或者不是jpg，png，gif格式");
 
     private int errorCode;
     private String errorMsg;
