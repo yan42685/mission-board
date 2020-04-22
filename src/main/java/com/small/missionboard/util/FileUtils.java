@@ -26,23 +26,23 @@ public class FileUtils {
     /**
      * 上传文件, 返回上传路径
      */
-    public static String store(MultipartFile file, String path) {
+    public static void store(MultipartFile file, String path) {
         try {
             File destination = new File(path);
             file.transferTo(destination);
         } catch (IOException e) {
             throw new KnownException(ExceptionEnum.FILE_IO_EXCEPTION);
         }
-        return path;
     }
 
     /**
      * 下载文件
      */
     public static byte[] load(String filePath) {
-        byte[] bytes = FileUtil.readBytes(filePath);
-        System.out.println(bytes.length);
-        return bytes;
+        if (!FileUtil.exist(filePath)) {
+            throw new KnownException(ExceptionEnum.DOWNLOADING_FILE_NOT_EXITS);
+        }
+        return FileUtil.readBytes(filePath);
     }
 
 

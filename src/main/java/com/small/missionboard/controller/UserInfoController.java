@@ -68,9 +68,7 @@ public class UserInfoController {
         return new JsonWrapper<>(userInfoService.modifyAvatarUrl(image));
     }
 
-    /**
-     * 获取头像
-     */
+    @ApiOperation("获取头像")
     @GetMapping(value = "avatar/get", produces = MediaType.IMAGE_PNG_VALUE)
     public byte[] getAvatar() {
         return userInfoService.getAvatar();
