@@ -37,5 +37,5 @@ public class UserController {
         String token = userService.register(jsCode, registryInfo);
         return new JsonWrapper<>(token);
     }
-
+//  TODO: 举报功能
 }

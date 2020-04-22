@@ -17,7 +17,13 @@ public class ConvertUtils {
         TaskInfo taskInfo = new TaskInfo();
         BeanUtil.copyProperties(task, taskInfo);
         List<String> statusList = new ArrayList<>(Arrays.asList(task.getStatus().split(SeparatedStringBuilder.SEPARATOR)));
-        List<String> receiverIdList = new ArrayList<>(Arrays.asList(task.getReceiverId().split(SeparatedStringBuilder.SEPARATOR)));
+
+        String receiverIds = task.getReceiverId();
+        List<String> receiverIdList = new ArrayList<>();
+        if (receiverIds != null) {
+            List<String> idList = Arrays.asList(receiverIds.split(SeparatedStringBuilder.SEPARATOR));
+            receiverIdList.addAll(idList);
+        }
         taskInfo.setStatusList(statusList)
                 .setReceiverIdList(receiverIdList);
 

@@ -22,7 +22,6 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -54,16 +53,13 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     @Override
     public TaskInfo create(TaskCreateInfo createInfo) {
         // 把创建新建任务的信息填到UserInfo里并补充一些信息
-        TaskInfo taskInfo = new TaskInfo();
-        BeanUtil.copyProperties(createInfo, taskInfo);
-        User currentUser = userService.getCurrentUser();
-        taskInfo.setSenderId(currentUser.getId().toString())
-                .setStatusList(new ArrayList<>(Collections.singleton(TaskStatusEnum.DELIVERED.getValue())));
-
         Task newTask = new Task();
-        BeanUtil.copyProperties(taskInfo, newTask);
+        BeanUtil.copyProperties(createInfo, newTask);
+        User currentUser = userService.getCurrentUser();
+        newTask.setSenderId(currentUser.getId().toString())
+                .setStatus(TaskStatusEnum.DELIVERED.getValue());
         taskMapper.insert(newTask);
-        return taskInfo;
+        return ConvertUtils.task2TaskInfo(newTask);
     }
 
     @Override
