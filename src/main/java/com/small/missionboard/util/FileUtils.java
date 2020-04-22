@@ -4,10 +4,13 @@ import cn.hutool.core.io.FileUtil;
 import com.small.missionboard.common.KnownException;
 import com.small.missionboard.enums.ExceptionEnum;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -27,22 +30,34 @@ public class FileUtils {
 
 
     /**
-     * 上传文件
+     * 上传文件, 返回上传路径
      */
-    public String upLoad(MultipartFile file, String path) {
+    public static String store(MultipartFile file, String path) {
         try {
             File destination = new File(path);
             file.transferTo(destination);
         } catch (IOException e) {
             log.error("文件写入失败: " + Arrays.toString(e.getStackTrace()));
         }
-        return null;
+        return path;
     }
+
+    /**
+     * 下载文件
+     */
+    public static Resource load(String filePath) {
+        try {
+            return new UrlResource(filePath);
+        } catch (MalformedURLException e) {
+            throw new KnownException(ExceptionEnum.UNKNOWN_EXCEPTION);
+        }
+    }
+
 
     /**
      * 获取图片上传路径
      */
-    private String generateImagePath(MultipartFile image) {
+    public static String generateImagePath(MultipartFile image) {
         if (image == null) {
             throw new KnownException(ExceptionEnum.IMAGE_UPLOAD_FAIL);
         }

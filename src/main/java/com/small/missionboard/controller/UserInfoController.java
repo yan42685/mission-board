@@ -2,8 +2,6 @@ package com.small.missionboard.controller;
 
 import com.small.missionboard.bean.vo.UserInfo;
 import com.small.missionboard.common.JsonWrapper;
-import com.small.missionboard.common.KnownException;
-import com.small.missionboard.enums.ExceptionEnum;
 import com.small.missionboard.service.UserInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -11,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @Api(tags = "用户信息")
 @RequestMapping("api/user/info")
@@ -56,9 +55,9 @@ public class UserInfoController {
         return new JsonWrapper<>(userInfoService.modifyPhoneNumber(phoneNumber));
     }
 
-    @ApiOperation("修改头像 (暂未实现)")
+    @ApiOperation("修改头像")
     @GetMapping("avatar/set")
-    public JsonWrapper<Boolean> modifyAvatarUrl(String avatar) {
-        throw new KnownException(ExceptionEnum.TO_BE_IMPLEMENTED);
+    public JsonWrapper<Boolean> modifyAvatarUrl(MultipartFile image) {
+        return new JsonWrapper<>(userInfoService.modifyAvatarUrl(image));
     }
 }

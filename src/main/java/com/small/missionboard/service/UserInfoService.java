@@ -1,6 +1,7 @@
 package com.small.missionboard.service;
 
 import com.small.missionboard.bean.vo.UserInfo;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 对前端开放的用户信息
@@ -40,6 +41,6 @@ public interface UserInfoService {
     /**
      * 修改头像
      */
-    boolean modifyAvatarUrl(String newAvatarUrl);
+    boolean modifyAvatarUrl(MultipartFile image);
 
 }
