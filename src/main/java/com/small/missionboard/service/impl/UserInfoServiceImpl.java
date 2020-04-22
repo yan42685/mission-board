@@ -1,13 +1,13 @@
 package com.small.missionboard.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.io.FileUtil;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.small.missionboard.bean.entity.User;
 import com.small.missionboard.bean.vo.UserInfo;
 import com.small.missionboard.service.UserInfoService;
 import com.small.missionboard.service.UserService;
 import com.small.missionboard.util.FileUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,11 +27,6 @@ public class UserInfoServiceImpl implements UserInfoService {
         BeanUtil.copyProperties(currentUser, userInfo);
         userInfo.setCurrentTasksAccepted(userService.currentTasksAcceptedCount());
         userInfo.setTotalTasksFinished(userService.totalTasksFinished());
-
-        String avatarUrl = currentUser.getAvatarUrl();
-        if (StringUtils.isNotBlank(avatarUrl)) {
-            userInfo.setAvatar(FileUtils.load(avatarUrl));
-        }
         return userInfo;
     }
 
@@ -82,12 +77,23 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     @Override
     public boolean modifyAvatarUrl(MultipartFile image) {
+        User currentUser = userService.getCurrentUser();
+        String avatarUrl = currentUser.getAvatarUrl();
+        // 删除之前的头像
+        FileUtil.del(avatarUrl);
+
         String imagePath = FileUtils.generateImagePath(image);
         FileUtils.store(image, imagePath);
-        String openId = userService.getOpenId();
-        userService.update(new UpdateWrapper<User>()
-                .eq("open_id", openId)
-                .set("avatar_url", imagePath));
+        currentUser.setAvatarUrl(imagePath);
+        userService.updateById(currentUser);
         return true;
     }
+
+    @Override
+    public byte[] getAvatar() {
+        String avatarUrl = userService.getCurrentUser().getAvatarUrl();
+        return FileUtils.load(avatarUrl);
+    }
+
+
 }

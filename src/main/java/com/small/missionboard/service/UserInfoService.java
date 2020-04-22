@@ -43,4 +43,9 @@ public interface UserInfoService {
      */
     boolean modifyAvatarUrl(MultipartFile image);
 
+    /**
+     * 下载头像
+     */
+    byte[] getAvatar();
+
 }

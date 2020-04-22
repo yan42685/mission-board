@@ -12,7 +12,7 @@ import com.small.missionboard.mapper.UserMapper;
 import com.small.missionboard.service.UserService;
 import com.small.missionboard.util.JsonUtils;
 import com.small.missionboard.util.RedisUtils;
-import com.small.missionboard.util.RequestUtils;
+import com.small.missionboard.util.ServletUtils;
 import com.small.missionboard.util.UrlUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +36,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public String login(String jsCode) {
-        String token = RequestUtils.getToken();
+        String token = ServletUtils.getToken();
         WxSession session = callLoginApi(jsCode);
         String openId = session.getOpenid();
 
@@ -107,7 +107,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public String getOpenId() {
         // 获取当前用户的token
-        String token = RequestUtils.getToken();
+        String token = ServletUtils.getToken();
         WxSession session = RedisUtils.get(token, WxSession.class);
         if (session == null) {
             throw new KnownException(ExceptionEnum.NOT_LOGIN);

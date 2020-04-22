@@ -3,30 +3,24 @@ package com.small.missionboard.util;
 import cn.hutool.core.io.FileUtil;
 import com.small.missionboard.common.KnownException;
 import com.small.missionboard.enums.ExceptionEnum;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 文件的上传与下载
  */
-@Slf4j
 public class FileUtils {
     /**
      * 资源文件的路径
      */
-    private static final String RESOURCES_PATH = "src/main/resources/";
-    private static final String IMG_PATH_PREFIX = "static/upload/img/";
-    private static final List<String> AVAILABLE_EXTENSION_LIST = new ArrayList<>(Arrays.asList("jpg", "png", "gif"));
+    private static final String UPLOAD_DIR = "C:" + File.separator + "uploadingDir" + File.separator;
 
 
     /**
@@ -37,7 +31,7 @@ public class FileUtils {
             File destination = new File(path);
             file.transferTo(destination);
         } catch (IOException e) {
-            log.error("文件写入失败: " + Arrays.toString(e.getStackTrace()));
+            throw new KnownException(ExceptionEnum.FILE_IO_EXCEPTION);
         }
         return path;
     }
@@ -45,12 +39,10 @@ public class FileUtils {
     /**
      * 下载文件
      */
-    public static Resource load(String filePath) {
-        try {
-            return new UrlResource(filePath);
-        } catch (MalformedURLException e) {
-            throw new KnownException(ExceptionEnum.UNKNOWN_EXCEPTION);
-        }
+    public static byte[] load(String filePath) {
+        byte[] bytes = FileUtil.readBytes(filePath);
+        System.out.println(bytes.length);
+        return bytes;
     }
 
 
@@ -62,19 +54,34 @@ public class FileUtils {
             throw new KnownException(ExceptionEnum.IMAGE_UPLOAD_FAIL);
         }
 
-        String fileDirPath = RESOURCES_PATH + IMG_PATH_PREFIX;
-        if (!FileUtil.exist(fileDirPath)) {
-            FileUtil.mkdir(fileDirPath);
-        }
-
-        String fileName = image.getName();
-        String extension = fileName.substring(fileName.lastIndexOf("." + 1));
-        if (!AVAILABLE_EXTENSION_LIST.contains(extension)) {
+        String fileName = image.getOriginalFilename();
+        assert fileName != null;
+        String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
+        if (!isImage(extension)) {
             throw new KnownException(ExceptionEnum.IMAGE_UPLOAD_FAIL);
         }
-        String newFileName = UUID.randomUUID().toString() + "." + extension;
 
-        return fileDirPath + newFileName;
+        String newFileName = UUID.randomUUID().toString() + "." + extension;
+        // 每天用不同的文件夹保存
+        String fileDir = UPLOAD_DIR + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy_MM_dd")) + File.separator;
+
+        if (!FileUtil.exist(fileDir)) {
+            File mkdir = FileUtil.mkdir(fileDir);
+        }
+        return fileDir + newFileName;
+    }
+
+    /**
+     * 检查文件名是否为图片
+     */
+    private static boolean isImage(String extension) {
+        if (extension.isEmpty()) {
+            return false;
+        }
+        String reg = "(.JPEG|.jpeg|.JPG|.jpg|.PNG|.png|.GIF|.gif|.BMP|.bmp)$";
+        Pattern pattern = Pattern.compile(reg);
+        Matcher matcher = pattern.matcher("." + extension);
+        return matcher.find();
     }
 
 

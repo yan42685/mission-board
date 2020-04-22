@@ -1,10 +1,9 @@
 package com.small.missionboard;
 
 
-import com.small.missionboard.enums.TaskQueryMethodEnum;
-
 public class TestMain {
     public static void main(String[] args) {
-        System.out.println(TaskQueryMethodEnum.FINISHED.name());
+        String str = "stSnipaste_2020-04-22_15-26-17. png";
+        System.out.println(str.substring(str.lastIndexOf(".") + 1));
     }
 }

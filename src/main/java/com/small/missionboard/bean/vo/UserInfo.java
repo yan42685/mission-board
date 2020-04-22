@@ -40,7 +40,7 @@ public class UserInfo implements Serializable {
     private String nickname;
 
     @ApiModelProperty(value = "头像", notes = "如果没有上传过就是null")
-    private Resource avatar;
+    private Resource avatar_url;
 
     @ApiModelProperty(value = "信誉值")
     private Integer credit;
