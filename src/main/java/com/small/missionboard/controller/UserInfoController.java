@@ -28,7 +28,9 @@ public class UserInfoController {
         return new JsonWrapper<>(userInfoService.getCurrentUserInfo());
     }
 
-    // TODO: 把修改信息都整合到一个接口
+    /**
+     * 这些修改信息的函数可以整合到一个接口，不过由于前端已经开始用这些接口了，就不改了
+     */
     @ApiOperation("修改昵称")
     @GetMapping("nickname/set")
     public JsonWrapper<Boolean> modifyNickname(String nickname) {

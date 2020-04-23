@@ -1,11 +1,8 @@
 package com.small.missionboard.service.impl;
 
-import cn.hutool.core.util.EnumUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.small.missionboard.bean.entity.Task;
 import com.small.missionboard.bean.vo.TaskInfo;
-import com.small.missionboard.common.KnownException;
-import com.small.missionboard.enums.ExceptionEnum;
 import com.small.missionboard.enums.TaskQueryMethodEnum;
 import com.small.missionboard.enums.TaskSortMethodEnum;
 import com.small.missionboard.mapper.TaskMapper;
@@ -74,8 +71,6 @@ public class TaskQueryServiceImpl implements TaskQueryService {
             default:
                 throw new IllegalStateException("Unexpected value: " + sortMethod);
         }
-
-
         return ConvertUtils.task2TaskInfo(taskList);
     }
 }
