@@ -27,7 +27,7 @@ public class TaskQueryController {
     @ApiImplicitParam(name = "queryMethod", value = "查询方式")
     @GetMapping("list")
     public JsonWrapper<List<TaskInfo>> list(TaskQueryMethodEnum queryMethod) {
-        return new JsonWrapper<>(taskQueryService.list(queryMethod.name()));
+        return new JsonWrapper<>(taskQueryService.list(queryMethod));
     }
 
     @ApiOperation("公共任务列表的分页查询与排序")
@@ -38,7 +38,7 @@ public class TaskQueryController {
     })
     @GetMapping("sorted_page")
     public JsonWrapper<List<TaskInfo>> sortedPage(Integer pageNum, Integer size, TaskSortMethodEnum method) {
-        return new JsonWrapper<>(taskQueryService.sortedPage(pageNum, size, method.name()));
+        return new JsonWrapper<>(taskQueryService.sortedPage(pageNum, size, method));
     }
 
     @ApiOperation("公共任务列表的分页查询与反向排序")
@@ -49,7 +49,7 @@ public class TaskQueryController {
     })
     @GetMapping("sorted_page/reverse")
     public JsonWrapper<List<TaskInfo>> reverseSortedPage(Integer pageNum, Integer size, TaskSortMethodEnum method) {
-        return new JsonWrapper<>(taskQueryService.reverseSortedPage(pageNum, size, method.name()));
+        return new JsonWrapper<>(taskQueryService.reverseSortedPage(pageNum, size, method));
     }
 
 }

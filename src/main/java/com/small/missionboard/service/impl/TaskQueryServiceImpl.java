@@ -31,15 +31,11 @@ public class TaskQueryServiceImpl implements TaskQueryService {
     UserService userService;
 
     @Override
-    public List<TaskInfo> list(String method) {
-        if (EnumUtil.notContains(TaskQueryMethodEnum.class, method)) {
-            throw new KnownException(ExceptionEnum.QUERY_METHOD_NOT_EXISTS);
-        }
+    public List<TaskInfo> list(TaskQueryMethodEnum method) {
         List<Task> taskList;
         String currentUserId = userService.getCurrentUser().getId().toString();
-        TaskQueryMethodEnum queryMethod = TaskQueryMethodEnum.valueOf(method.toUpperCase());
         // 根据传入的查询方法进行查询
-        switch (queryMethod) {
+        switch (method) {
             case NOT_ACCEPTED:
                 taskList = taskMapper.notAcceptedList(currentUserId);
                 break;
@@ -53,34 +49,30 @@ public class TaskQueryServiceImpl implements TaskQueryService {
                 taskList = taskMapper.timeoutNotSubmittedList(currentUserId);
                 break;
             default:
-                throw new IllegalStateException("Unexpected value: " + queryMethod);
+                throw new IllegalStateException("Unexpected value: " + method);
         }
         return ConvertUtils.task2TaskInfo(taskList);
     }
 
     @Override
-    public List<TaskInfo> sortedPage(Integer pageNum, Integer size, String method) {
+    public List<TaskInfo> sortedPage(Integer pageNum, Integer size, TaskSortMethodEnum method) {
         return sortedPage(pageNum, size, method, false);
     }
 
     @Override
-    public List<TaskInfo> reverseSortedPage(Integer pageNum, Integer size, String method) {
+    public List<TaskInfo> reverseSortedPage(Integer pageNum, Integer size, TaskSortMethodEnum method) {
         return sortedPage(pageNum, size, method, true);
     }
 
-    private List<TaskInfo> sortedPage(Integer pageNum, Integer size, String method, boolean reverse) {
-        if (EnumUtil.notContains(TaskSortMethodEnum.class, method)) {
-            throw new KnownException(ExceptionEnum.QUERY_METHOD_NOT_EXISTS);
-        }
+    private List<TaskInfo> sortedPage(Integer pageNum, Integer size, TaskSortMethodEnum sortMethod, boolean reverse) {
         List<Task> taskList;
         String reverseFlag = reverse ? "reverse" : null;
-        TaskSortMethodEnum sortMethod = TaskSortMethodEnum.valueOf(method.toUpperCase());
         switch (sortMethod) {
             case TIME:
                 taskList = taskMapper.sortByTimePage(new Page<>(pageNum, size), reverseFlag);
                 break;
             default:
-                throw new IllegalStateException("Unexpected value: " + method);
+                throw new IllegalStateException("Unexpected value: " + sortMethod);
         }
 
 
