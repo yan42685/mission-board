@@ -22,3 +22,26 @@ jobs:
         java-version: 1.8
     - name: Build with Maven
       run: mvn -Dmaven.test.skip=true -B package --file pom.xml
+    
+    - name: copy jar to remote
+      uses: garygrossgarten/github-action-scp@release
+      with:
+        local: missionboard-0.0.1-SNAPSHOT.jar
+        remote: java_apps/missionboard-0.0.1-SNAPSHOT.jar 
+        host: ${{ secrets.SERVER_HOST }}
+        username: ${{ secrets.SERVER_USERNAME }}
+        password: ${{ secrets.SERVER_PASSWORD }}
+        port: 22
+    
+    - name: ssh-run-application
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SERVER_HOST }}
+        username: ${{ secrets.SERVER_USERNAME }}
+        password: ${{ secrets.SERVER_PASSWORD }}
+        port: 22
+        script: |
+          cd ~/java_apps
+          java -jar java_apps/missionboard-0.0.1-SNAPSHOT.jar
+
+
