@@ -70,25 +70,28 @@ public class RedisUtils {
      * 默认获取字符串类型缓存
      */
     public static String get(String key) {
+        String result = null;
         try {
-            return key == null ? null : JsonUtils.json2Object(redisTemplate.opsForValue().get(key), String.class);
+            String json = redisTemplate.opsForValue().get(key);
+            result = json == null ? null : JsonUtils.json2Object(json, String.class);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
-            return null;
         }
+        return result;
     }
 
     /**
      * 获取指定类型的缓存
      */
     public static <T> T get(String key, Class<T> objClass) {
+        T result = null;
         try {
-            return key == null ? null :
-                    JsonUtils.json2Object(redisTemplate.opsForValue().get(key), objClass);
+            String json = redisTemplate.opsForValue().get(key);
+            result = json == null ? null : JsonUtils.json2Object(json, objClass);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
-            return null;
         }
+        return result;
     }
 
     /**
