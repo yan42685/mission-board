@@ -3,7 +3,6 @@ package com.small.missionboard.bean.vo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import org.springframework.core.io.Resource;
 
 import java.io.Serializable;
 
@@ -40,7 +39,7 @@ public class UserInfo implements Serializable {
     private String nickname;
 
     @ApiModelProperty(value = "头像", notes = "如果没有上传过就是null")
-    private Resource avatar_url;
+    private String avatar_url;
 
     @ApiModelProperty(value = "信誉值")
     private Integer credit;
