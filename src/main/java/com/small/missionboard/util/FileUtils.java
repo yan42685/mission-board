@@ -20,7 +20,7 @@ public class FileUtils {
     /**
      * 资源文件的路径
      */
-    private static final String UPLOAD_DIR = "C:" + File.separator + "uploadingDir" + File.separator;
+    private static final String UPLOAD_DIR = "/home/ubuntu/" + File.separator + "uploadingDir" + File.separator;
 
 
     /**
