@@ -1,6 +1,5 @@
 package com.small.missionboard.bean.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -21,11 +20,9 @@ public class Task implements Serializable {
     private Long id;
 
     @ApiModelProperty(value = "创建时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime createTime;
 
     @ApiModelProperty(value = "更新时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime updateTime;
 
     @ApiModelProperty(value = "标题")
@@ -44,7 +41,6 @@ public class Task implements Serializable {
     private String receiverId;
 
     @ApiModelProperty(value = "截止时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime deadline;
 
     @ApiModelProperty(value = "任务状态")
@@ -75,7 +71,6 @@ public class Task implements Serializable {
     private Boolean senderConfirmed;
 
     @ApiModelProperty(value = "任务提交时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime submitTime;
 
     @ApiModelProperty(value = "接受者留言")
