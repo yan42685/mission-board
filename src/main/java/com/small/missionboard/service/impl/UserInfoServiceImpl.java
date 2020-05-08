@@ -1,6 +1,7 @@
 package com.small.missionboard.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.bean.copier.CopyOptions;
 import cn.hutool.core.io.FileUtil;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.small.missionboard.bean.dto.ModifiableUserInfo;
@@ -34,7 +35,8 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Override
     public boolean modifyUserInfo(ModifiableUserInfo info) {
         User currentUser = userService.getCurrentUser();
-        BeanUtil.copyProperties(info, currentUser);
+        // 禁止source的null值 覆盖target的字段
+        BeanUtil.copyProperties(info, currentUser, CopyOptions.create().setIgnoreNullValue(true));
         userService.updateById(currentUser);
         return true;
     }

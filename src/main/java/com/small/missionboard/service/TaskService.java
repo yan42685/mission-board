@@ -20,7 +20,7 @@ public interface TaskService extends IService<Task> {
     /**
      * 创建任务
      */
-    TaskInfo create(TaskCreateInfo info);
+    boolean create(TaskCreateInfo info);
 
     /**
      * 接受任务

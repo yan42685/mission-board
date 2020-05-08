@@ -51,7 +51,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     }
 
     @Override
-    public TaskInfo create(TaskCreateInfo createInfo) {
+    public boolean create(TaskCreateInfo createInfo) {
         // 把创建新建任务的信息填到UserInfo里并补充一些信息
         Task newTask = new Task();
         BeanUtil.copyProperties(createInfo, newTask);
@@ -59,7 +59,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         newTask.setSenderId(currentUser.getId().toString())
                 .setStatus(TaskStatusEnum.DELIVERED.getValue());
         taskMapper.insert(newTask);
-        return ConvertUtils.task2TaskInfo(newTask);
+        return true;
     }
 
     @Override

@@ -29,7 +29,7 @@ public class TaskController {
 
     @ApiOperation("创建任务")
     @GetMapping("create")
-    public JsonWrapper<TaskInfo> create(TaskCreateInfo info) {
+    public JsonWrapper<Boolean> create(TaskCreateInfo info) {
         return new JsonWrapper<>(taskService.create(info));
     }
 

@@ -1,7 +1,9 @@
 package com.small.missionboard.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.bean.copier.CopyOptions;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.small.missionboard.bean.dto.ModifiableUserInfo;
 import com.small.missionboard.bean.entity.User;
 import com.small.missionboard.bean.vo.UserInfo;
 import com.small.missionboard.service.UserService;
@@ -51,6 +53,23 @@ class UserInfoServiceImplTest {
         Assertions.assertEquals(user.getFaculty(), newFaculty);
 
 
+    }
+
+    @Test
+    void modifyUserInfo() {
+        String nickname_1 = "aaaa";
+        String nickname_2 = "bbbb";
+        String faculty_1 = "FAAA";
+        User user = new User();
+        user.setNickname(nickname_1);
+        user.setFaculty(faculty_1);
+
+        ModifiableUserInfo info = new ModifiableUserInfo();
+        info.setNickname(nickname_2);
+        info.setFaculty(null);
+        // 空值不会覆盖
+        BeanUtil.copyProperties(info, user, CopyOptions.create().setIgnoreNullValue(true));
+        Assertions.assertNotNull(user.getFaculty());
     }
 
 

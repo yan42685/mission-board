@@ -20,8 +20,8 @@ public class TaskInfo {
     @ApiModelProperty(value = "任务编号")
     private Long id;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @ApiModelProperty(value = "创建时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime createTime;
 
     @ApiModelProperty(value = "标题")
@@ -39,8 +39,8 @@ public class TaskInfo {
     @ApiModelProperty(value = "接受者id, 可能有多个")
     private List<String> receiverIdList;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @ApiModelProperty(value = "截止时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime deadline;
 
     @ApiModelProperty(value = "任务状态")
@@ -70,8 +70,8 @@ public class TaskInfo {
     @ApiModelProperty(value = "发送者确认完成任务")
     private Boolean senderConfirmed;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @ApiModelProperty(value = "任务提交时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private LocalDateTime submitTime;
 
     @ApiModelProperty(value = "接受者留言")
