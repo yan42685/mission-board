@@ -1,5 +1,6 @@
 package com.small.missionboard.service;
 
+import com.small.missionboard.bean.dto.ModifiableUserInfo;
 import com.small.missionboard.bean.vo.UserInfo;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,6 +13,11 @@ public interface UserInfoService {
      * 当前用户信息
      */
     UserInfo getCurrentUserInfo();
+
+    /**
+     * 修改用户信息
+     */
+    boolean modifyUserInfo(ModifiableUserInfo info);
 
     /**
      * 修改昵称

@@ -32,9 +32,9 @@ public class GlobalExceptionHandler {
     public JsonWrapper<String> handleUnknownException(Exception e, HttpServletRequest request) {
         int errorCode = ExceptionEnum.UNKNOWN_EXCEPTION.getErrorCode();
         String errorMessage = ExceptionEnum.UNKNOWN_EXCEPTION.getErrorMsg();
-        String stackTrack = Arrays.toString(e.getStackTrace());
-        log.error("url: {}    msg: {}", request.getRequestURL(), stackTrack);
-        return new JsonWrapper<>(errorCode, errorMessage + stackTrack);
+        String stackTrace = Arrays.toString(e.getStackTrace());
+        log.error("url: {}    msg: {}", request.getRequestURL(), stackTrace);
+        return new JsonWrapper<>(errorCode, errorMessage + stackTrace);
     }
 
     /**

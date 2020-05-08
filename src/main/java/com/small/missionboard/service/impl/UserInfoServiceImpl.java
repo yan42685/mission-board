@@ -3,6 +3,7 @@ package com.small.missionboard.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.io.FileUtil;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.small.missionboard.bean.dto.ModifiableUserInfo;
 import com.small.missionboard.bean.entity.User;
 import com.small.missionboard.bean.vo.UserInfo;
 import com.small.missionboard.service.UserInfoService;
@@ -28,6 +29,14 @@ public class UserInfoServiceImpl implements UserInfoService {
         userInfo.setCurrentTasksAccepted(userService.currentTasksAcceptedCount());
         userInfo.setTotalTasksFinished(userService.totalTasksFinished());
         return userInfo;
+    }
+
+    @Override
+    public boolean modifyUserInfo(ModifiableUserInfo info) {
+        User currentUser = userService.getCurrentUser();
+        BeanUtil.copyProperties(info, currentUser);
+        userService.updateById(currentUser);
+        return true;
     }
 
     @Override
