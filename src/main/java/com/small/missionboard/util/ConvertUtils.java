@@ -1,6 +1,5 @@
 package com.small.missionboard.util;
 
-import cn.hutool.core.bean.BeanUtil;
 import com.small.missionboard.bean.entity.Task;
 import com.small.missionboard.bean.vo.TaskInfo;
 import com.small.missionboard.common.SeparatedStringBuilder;
@@ -15,7 +14,7 @@ import java.util.List;
 public class ConvertUtils {
     public static TaskInfo task2TaskInfo(Task task) {
         TaskInfo taskInfo = new TaskInfo();
-        BeanUtil.copyProperties(task, taskInfo);
+        BeanUtils.copyProperties(task, taskInfo);
         List<String> statusList = new ArrayList<>(Arrays.asList(task.getStatus().split(SeparatedStringBuilder.SEPARATOR)));
 
         String receiverIds = task.getReceiverId();

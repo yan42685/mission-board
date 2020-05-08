@@ -1,12 +1,11 @@
 package com.small.missionboard.service.impl;
 
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.bean.copier.CopyOptions;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.small.missionboard.bean.dto.ModifiableUserInfo;
 import com.small.missionboard.bean.entity.User;
 import com.small.missionboard.bean.vo.UserInfo;
 import com.small.missionboard.service.UserService;
+import com.small.missionboard.util.BeanUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +29,7 @@ class UserInfoServiceImplTest {
         User user = new User();
         user.setNickname("testName");
         UserInfo userInfo = new UserInfo();
-        BeanUtil.copyProperties(user, userInfo);
+        BeanUtils.copyProperties(user, userInfo);
         Assertions.assertEquals(user.getNickname(), userInfo.getNickname());
     }
 
@@ -67,8 +66,7 @@ class UserInfoServiceImplTest {
         ModifiableUserInfo info = new ModifiableUserInfo();
         info.setNickname(nickname_2);
         info.setFaculty(null);
-        // 空值不会覆盖
-        BeanUtil.copyProperties(info, user, CopyOptions.create().setIgnoreNullValue(true));
+        BeanUtils.copyProperties(info, user);
         Assertions.assertNotNull(user.getFaculty());
     }
 

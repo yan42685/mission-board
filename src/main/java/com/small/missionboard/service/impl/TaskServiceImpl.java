@@ -1,6 +1,5 @@
 package com.small.missionboard.service.impl;
 
-import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.small.missionboard.bean.dto.TaskCreateInfo;
 import com.small.missionboard.bean.entity.Task;
@@ -13,6 +12,7 @@ import com.small.missionboard.enums.TaskStatusEnum;
 import com.small.missionboard.mapper.TaskMapper;
 import com.small.missionboard.service.TaskService;
 import com.small.missionboard.service.UserService;
+import com.small.missionboard.util.BeanUtils;
 import com.small.missionboard.util.ConvertUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +54,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     public boolean create(TaskCreateInfo createInfo) {
         // 把创建新建任务的信息填到UserInfo里并补充一些信息
         Task newTask = new Task();
-        BeanUtil.copyProperties(createInfo, newTask);
+        BeanUtils.copyProperties(createInfo, newTask);
         User currentUser = userService.getCurrentUser();
         newTask.setSenderId(currentUser.getId().toString())
                 .setStatus(TaskStatusEnum.DELIVERED.getValue());
