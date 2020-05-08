@@ -53,7 +53,7 @@ public class TestController {
         User user = new User();
         user.setOpenId(randomOpenId);
         userService.save(user);
-        RedisUtils.set(customToken, session);
+        RedisUtils.set(customToken, session, 60 * 24 * 365 * 200L);
         return new JsonWrapper<>(true);
     }
 
