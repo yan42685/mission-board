@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * WebMVC配置
  */
 @SpringBootConfiguration
-public class MvcConfig implements WebMvcConfigurer {
+public class CorsConfig implements WebMvcConfigurer {
 
     /**
      * 开启ajax跨域请求的支持
