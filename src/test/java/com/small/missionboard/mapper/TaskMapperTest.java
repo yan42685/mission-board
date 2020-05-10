@@ -2,7 +2,6 @@ package com.small.missionboard.mapper;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.small.missionboard.bean.entity.Task;
-import com.small.missionboard.enums.TaskStatusEnum;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +20,7 @@ class TaskMapperTest {
     @Autowired
     TaskMapper taskMapper;
 
+    @Transactional
     @Test
     void testTaskMapper() {
         Task task = new Task();
