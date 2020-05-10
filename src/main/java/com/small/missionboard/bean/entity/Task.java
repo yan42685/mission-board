@@ -1,5 +1,6 @@
 package com.small.missionboard.bean.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -78,4 +79,8 @@ public class Task implements Serializable {
 
     @ApiModelProperty(value = "发送者联系方式")
     private String senderContactInfo;
+
+    @ApiModelProperty(value = "发送者信誉")
+    @TableField(exist = false)  // 声明字段不存在于数据库中
+    private String senderCredit;
 }

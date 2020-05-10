@@ -58,19 +58,23 @@ public class TestController {
         return new JsonWrapper<>(true);
     }
 
-//    @ApiOperation("临时添加4个测试用户")
-//    @GetMapping("api/tmp_add_user")
-//    public JsonWrapper<Boolean> addTestUser2() {
-//        String[] tokens = {"token1", "token2", "token3", "token4"};
-//        String[] openIds = {"94e25fb3-6e93-4ece-85f9-0f7c0302e222", "813fd23e-a1c3-4890-bdce-871ddd51ebf0", "e91e3fec-f7cc-4f9a-b8db-9f1420c788e4", "93b708bd-713f-4120-86dd-85b144a88d8f"};
-//        for (int i = 0; i < 4; i++) {
-//            String randomSessionKey = UUID.randomUUID().toString();
-//            String randomUnionId = UUID.randomUUID().toString();
-//            WxSession session = new WxSession(openIds[i], randomSessionKey, randomUnionId);
-//            RedisUtils.set(tokens[i], session, -1L);
-//        }
-//        return new JsonWrapper<>(true);
-//    }
+    @ApiOperation("临时添加4个测试用户")
+    @GetMapping("api/tmp_add_user")
+    public JsonWrapper<Boolean> addTestUser2() {
+        String[] tokens = {"token1", "token2", "token3", "token4"};
+        String[] openIds = {"94e25fb3-6e93-4ece-85f9-0f7c0302e222", "813fd23e-a1c3-4890-bdce-871ddd51ebf0", "e91e3fec-f7cc-4f9a-b8db-9f1420c788e4", "93b708bd-713f-4120-86dd-85b144a88d8f"};
+        for (int i = 0; i < 4; i++) {
+            String randomSessionKey = UUID.randomUUID().toString();
+            String randomUnionId = UUID.randomUUID().toString();
+            WxSession session = new WxSession(openIds[i], randomSessionKey, randomUnionId);
+            RedisUtils.set(tokens[i], session, 999999999999999L);
+            Long expire = RedisUtils.getExpire(tokens[i]);
+            System.out.println(tokens[i] + " expire time: " +  expire + "秒");
+        }
+
+
+        return new JsonWrapper<>(true);
+    }
 
 
 }

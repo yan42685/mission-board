@@ -13,8 +13,7 @@ public interface TaskMapper extends BaseMapper<Task> {
      */
     List<Task> sortByTimePage(Page<Task> page, String reverse);
 
-//    TODO: 根据信誉或者完成任务总数排序
-//    List<Task> sortByTaskFinishedCountPage(Page<Task> page, String reverse);
+    List<Task> sortBySenderCredit(Page<Task> page, String reverse);
 
     List<Task> notAcceptedList(String senderId);
 

@@ -21,10 +21,13 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * 更改jackson默认配置
+ */
 @SpringBootConfiguration
 public class JacksonConfig {
     /**
-     * 更改jackson默认配置
+     * 时间格式序列化
      */
     @Bean
     public ObjectMapper ObjectMapper() {

@@ -3,20 +3,69 @@
 <mapper namespace="com.small.missionboard.mapper.TaskMapper">
 
     <select id="sortByTimePage" resultType="com.small.missionboard.bean.entity.Task">
-        select * from task where locate('delivered', status) > 0
-        order by create_time
+        SELECT t.id,
+        t.create_time,
+        t.title,
+        t.content,
+        t.transaction_means,
+        t.sender_id,
+        t.receiver_id,
+        t.status,
+        t.deadline,
+        t.max_receiver,
+        t.comment_on_receiver,
+        t.star_for_receiver,
+        t.comment_on_sender,
+        t.star_for_sender,
+        t.quick_accept,
+        t.receiver_confirmed,
+        t.sender_confirmed,
+        t.submit_time,
+        t.receiver_notes,
+        t.sender_contact_info,
+        u.credit as senderCredit
+        FROM task t,
+        user u
+        where t.sender_id = u.id
+        and locate('delivered', t.status) > 0
+        order by t.create_time
         <if test="reverse == null">
             desc
         </if>
     </select>
 
-    <!--    <select id="sortByTaskFinishedCountPage" resultType="com.small.missionboard.bean.entity.Task">-->
-    <!--        select *-->
-    <!--        from user,-->
-    <!--             task-->
-    <!--        where locate('delivered', status) > 0-->
-    <!--        order by-->
-    <!--    </select>-->
+    <select id="sortBySenderCredit" resultType="com.small.missionboard.bean.entity.Task">
+        SELECT t.id,
+        t.create_time,
+        t.title,
+        t.content,
+        t.transaction_means,
+        t.sender_id,
+        t.receiver_id,
+        t.status,
+        t.deadline,
+        t.max_receiver,
+        t.comment_on_receiver,
+        t.star_for_receiver,
+        t.comment_on_sender,
+        t.star_for_sender,
+        t.quick_accept,
+        t.receiver_confirmed,
+        t.sender_confirmed,
+        t.submit_time,
+        t.receiver_notes,
+        t.sender_contact_info,
+        u.credit as senderCredit
+        FROM task t,
+        user u
+        where t.sender_id = u.id
+        and locate('delivered', t.status) > 0
+        order by u.credit
+        <if test="reverse == null">
+            desc
+        </if>
+
+    </select>
 
     <select id="notAcceptedList" resultType="com.small.missionboard.bean.entity.Task">
         select *

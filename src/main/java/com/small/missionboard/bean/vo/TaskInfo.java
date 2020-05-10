@@ -75,4 +75,7 @@ public class TaskInfo {
 
     @ApiModelProperty(value = "发送者联系方式")
     private String senderContactInfo;
+
+    @ApiModelProperty(value = "发送者信誉")
+    private String senderCredit;
 }

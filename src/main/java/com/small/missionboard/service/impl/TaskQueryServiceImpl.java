@@ -64,9 +64,13 @@ public class TaskQueryServiceImpl implements TaskQueryService {
     private List<TaskInfo> sortedPage(Integer pageNum, Integer size, TaskSortMethodEnum sortMethod, boolean reverse) {
         List<Task> taskList;
         String reverseFlag = reverse ? "reverse" : null;
+        Page<Task> page = new Page<>(pageNum, size);
         switch (sortMethod) {
             case TIME:
-                taskList = taskMapper.sortByTimePage(new Page<>(pageNum, size), reverseFlag);
+                taskList = taskMapper.sortByTimePage(page, reverseFlag);
+                break;
+            case SENDER_CREDIT:
+                taskList = taskMapper.sortBySenderCredit(page, reverseFlag);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + sortMethod);
