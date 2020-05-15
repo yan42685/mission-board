@@ -69,7 +69,7 @@ public class TestController {
             WxSession session = new WxSession(openIds[i], randomSessionKey, randomUnionId);
             RedisUtils.set(tokens[i], session, 999999999999999L);
             Long expire = RedisUtils.getExpire(tokens[i]);
-            System.out.println(tokens[i] + " expire time: " +  expire + "秒");
+            System.out.println(tokens[i] + " expire time: " + expire + "秒");
         }
 
 

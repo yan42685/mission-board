@@ -1,7 +1,6 @@
 package com.small.missionboard.service.impl;
 
 import cn.hutool.core.io.FileUtil;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.small.missionboard.bean.dto.ModifiableUserInfo;
 import com.small.missionboard.bean.entity.User;
 import com.small.missionboard.bean.vo.UserInfo;
@@ -37,51 +36,6 @@ public class UserInfoServiceImpl implements UserInfoService {
         BeanUtils.copyProperties(info, currentUser);
         userService.updateById(currentUser);
         return true;
-    }
-
-    @Override
-    public boolean modifyNickname(String newNickname) {
-        String openId = userService.getOpenId();
-        return userService.update(new UpdateWrapper<User>()
-                .eq("open_id", openId)
-                .set("nickname", newNickname)
-        );
-    }
-
-    @Override
-    public boolean modifyGender(String newGender) {
-        String openId = userService.getOpenId();
-        return userService.update(new UpdateWrapper<User>()
-                .eq("open_id", openId)
-                .set("gender", newGender)
-        );
-    }
-
-    @Override
-    public boolean modifyFaculty(String newFaculty) {
-        String openId = userService.getOpenId();
-        return userService.update(new UpdateWrapper<User>()
-                .eq("open_id", openId)
-                .set("faculty", newFaculty)
-        );
-    }
-
-    @Override
-    public boolean modifyContactInformation(String newContactInformation) {
-        String openId = userService.getOpenId();
-        return userService.update(new UpdateWrapper<User>()
-                .eq("open_id", openId)
-                .set("contact_information", newContactInformation)
-        );
-    }
-
-    @Override
-    public boolean modifyPhoneNumber(String newPhoneNumber) {
-        String openId = userService.getOpenId();
-        return userService.update(new UpdateWrapper<User>()
-                .eq("open_id", openId)
-                .set("phone_number", newPhoneNumber)
-        );
     }
 
     @Override

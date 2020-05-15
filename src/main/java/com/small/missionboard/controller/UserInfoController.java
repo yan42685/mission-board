@@ -35,39 +35,6 @@ public class UserInfoController {
         return new JsonWrapper<>(userInfoService.modifyUserInfo(info));
     }
 
-//    /**
-//     * 这些修改信息的函数可以整合到一个接口，不过由于前端已经开始用这些接口了，就不改了
-//     */
-//    @ApiOperation("修改昵称")
-//    @GetMapping("nickname/set")
-//    public JsonWrapper<Boolean> modifyNickname(String nickname) {
-//        return new JsonWrapper<>(userInfoService.modifyNickname(nickname));
-//    }
-//
-//    @ApiOperation("修改性别")
-//    @GetMapping("gender/set")
-//    public JsonWrapper<Boolean> modifyGender(String gender) {
-//        return new JsonWrapper<>(userInfoService.modifyGender(gender));
-//    }
-//
-//    @ApiOperation("修改学院")
-//    @GetMapping("faculty/set")
-//    public JsonWrapper<Boolean> modifyFaculty(String faculty) {
-//        return new JsonWrapper<>(userInfoService.modifyFaculty(faculty));
-//    }
-//
-//    @ApiOperation("修改联系方式")
-//    @GetMapping("contact_info/set")
-//    public JsonWrapper<Boolean> modifyContactInformation(String contactInfo) {
-//        return new JsonWrapper<>(userInfoService.modifyContactInformation(contactInfo));
-//    }
-//
-//    @ApiOperation("修改手机号")
-//    @GetMapping("phone_number/set")
-//    public JsonWrapper<Boolean> modifyPhoneNumber(String phoneNumber) {
-//        return new JsonWrapper<>(userInfoService.modifyPhoneNumber(phoneNumber));
-//    }
-
     /**
      * TODO: 用 get 请求上传文件就会出现image是null的情况，暂时不知道为什么
      */
