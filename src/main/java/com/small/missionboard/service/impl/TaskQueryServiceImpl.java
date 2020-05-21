@@ -53,24 +53,34 @@ public class TaskQueryServiceImpl implements TaskQueryService {
 
     @Override
     public List<TaskInfo> sortedPage(Integer pageNum, Integer size, TaskSortMethodEnum method) {
-        return sortedPage(pageNum, size, method, false);
+        return sortedPage(pageNum, size, method, null, false);
     }
 
     @Override
     public List<TaskInfo> reverseSortedPage(Integer pageNum, Integer size, TaskSortMethodEnum method) {
-        return sortedPage(pageNum, size, method, true);
+        return sortedPage(pageNum, size, method, null, true);
     }
 
-    private List<TaskInfo> sortedPage(Integer pageNum, Integer size, TaskSortMethodEnum sortMethod, boolean reverse) {
+    @Override
+    public List<TaskInfo> sortedPageSearch(Integer pageNum, Integer size, TaskSortMethodEnum method, String fuzzyTitle) {
+        return sortedPage(pageNum, size, method, fuzzyTitle, false);
+    }
+
+    @Override
+    public List<TaskInfo> reverseSortedPageSearch(Integer pageNum, Integer size, TaskSortMethodEnum method, String fuzzyTitle) {
+        return sortedPage(pageNum, size, method, fuzzyTitle, true);
+    }
+
+    private List<TaskInfo> sortedPage(Integer pageNum, Integer size, TaskSortMethodEnum sortMethod, String fuzzyTitle, boolean reverse) {
         List<Task> taskList;
         String reverseFlag = reverse ? "reverse" : null;
         Page<Task> page = new Page<>(pageNum, size);
         switch (sortMethod) {
             case TIME:
-                taskList = taskMapper.sortByTimePage(page, reverseFlag);
+                taskList = taskMapper.sortByTimePage(page, fuzzyTitle, reverseFlag);
                 break;
             case SENDER_CREDIT:
-                taskList = taskMapper.sortBySenderCredit(page, reverseFlag);
+                taskList = taskMapper.sortBySenderCredit(page, fuzzyTitle, reverseFlag);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + sortMethod);

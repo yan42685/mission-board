@@ -25,4 +25,15 @@ public interface TaskQueryService {
      * 逆序公共任务列表
      */
     List<TaskInfo> reverseSortedPage(Integer pageNum, Integer size, TaskSortMethodEnum method);
+
+    /**
+     * 模糊查询
+     */
+    List<TaskInfo> sortedPageSearch(Integer pageNum, Integer size, TaskSortMethodEnum method, String fuzzyTitle);
+
+    /**
+     * 逆序模糊查询
+     */
+    List<TaskInfo> reverseSortedPageSearch(Integer pageNum, Integer size, TaskSortMethodEnum method, String fuzzyTitle);
+
 }

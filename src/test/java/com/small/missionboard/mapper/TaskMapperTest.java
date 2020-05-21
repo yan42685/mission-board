@@ -31,7 +31,7 @@ class TaskMapperTest {
 
     @Test
     void sortByTimePage() {
-        List<Task> reverse = taskMapper.sortByTimePage(new Page<>(1, 9), "reverse");
+        List<Task> reverse = taskMapper.sortByTimePage(new Page<>(1, 9), null, "reverse");
         reverse.forEach(System.out::println);
     }
 

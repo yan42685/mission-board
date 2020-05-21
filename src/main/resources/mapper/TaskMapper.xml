@@ -28,6 +28,9 @@
         user u
         where t.sender_id = u.id
         and locate('delivered', t.status) > 0
+        <if test="fuzzyTitle != null">
+            and t.title like concat('%', #{fuzzyTitle,jdbcType=VARCHAR}, '%')
+        </if>
         order by t.create_time
         <if test="reverse == null">
             desc
@@ -60,6 +63,9 @@
         user u
         where t.sender_id = u.id
         and locate('delivered', t.status) > 0
+        <if test="fuzzyTitle != null">
+            and t.title like concat('%', #{fuzzyTitle,jdbcType=VARCHAR}, '%')
+        </if>
         order by u.credit
         <if test="reverse == null">
             desc

@@ -52,4 +52,16 @@ public class TaskQueryController {
         return new JsonWrapper<>(taskQueryService.reverseSortedPage(pageNum, size, method));
     }
 
+    @ApiOperation("模糊查询任务标题")
+    @GetMapping("fuzzy")
+    public JsonWrapper<List<TaskInfo>> sortedPageSearch(Integer pageNum, Integer size, TaskSortMethodEnum method, String fuzzyTitle) {
+        return new JsonWrapper<>(taskQueryService.sortedPageSearch(pageNum, size, method, fuzzyTitle));
+    }
+
+    @ApiOperation("逆序模糊查询任务标题")
+    @GetMapping("fuzzy/reverse")
+    public JsonWrapper<List<TaskInfo>> reverseSortedPageSearch(Integer pageNum, Integer size, TaskSortMethodEnum method, String fuzzyTitle) {
+        return new JsonWrapper<>(taskQueryService.reverseSortedPageSearch(pageNum, size, method, fuzzyTitle));
+    }
+
 }
