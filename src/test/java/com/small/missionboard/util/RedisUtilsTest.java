@@ -1,10 +1,8 @@
 package com.small.missionboard.util;
 
-import com.small.missionboard.bean.dto.WxSession;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 class RedisUtilsTest {
@@ -27,26 +25,26 @@ class RedisUtilsTest {
     }
 
 
-    @Transactional
-    @Test
-    void set() {
+//    @Transactional
+//    @Test
+//    void set() {
+//
+//        String key = "testKey";
+//        String value = "testValue";
+//        RedisUtils.set(key, value);
+//        Assertions.assertEquals(RedisUtils.get(key), value);
+//    }
 
-        String key = "testKey";
-        String value = "testValue";
-        RedisUtils.set(key, value);
-        Assertions.assertEquals(RedisUtils.get(key), value);
-    }
-
-    @Transactional
-    @Test
-    void test() {
-        String token = "testToken";
-        WxSession session = new WxSession();
-        session.setOpenid("testOpenId");
-        session.setSessionKey("testSessionKey");
-        session.setUnionid("testUnionId");
-        RedisUtils.set(token, session);
-    }
+//    @Transactional
+//    @Test
+//    void test() {
+//        String token = "testToken";
+//        WxSession session = new WxSession();
+//        session.setOpenid("testOpenId");
+//        session.setSessionKey("testSessionKey");
+//        session.setUnionid("testUnionId");
+//        RedisUtils.set(token, session);
+//    }
 
 }
     

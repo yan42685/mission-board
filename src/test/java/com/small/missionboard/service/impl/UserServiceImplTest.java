@@ -42,6 +42,5 @@ class UserServiceImplTest {
             e.printStackTrace();
         }
     }
-
 }
     
