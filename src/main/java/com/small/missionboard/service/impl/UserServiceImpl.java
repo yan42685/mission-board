@@ -10,10 +10,7 @@ import com.small.missionboard.enums.ExceptionEnum;
 import com.small.missionboard.enums.TaskStatusEnum;
 import com.small.missionboard.mapper.UserMapper;
 import com.small.missionboard.service.UserService;
-import com.small.missionboard.util.JsonUtils;
-import com.small.missionboard.util.RedisUtils;
-import com.small.missionboard.util.ServletUtils;
-import com.small.missionboard.util.UrlUtils;
+import com.small.missionboard.util.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -65,11 +62,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
         // 获取并保存用户信息
         User user = new User();
-        user.setNickname(registryInfo.getNickname());
-        user.setName(registryInfo.getName());
-        user.setFaculty(registryInfo.getFaculty());
-        user.setPhoneNumber(registryInfo.getPhoneNumber());
-        user.setStudentNumber(registryInfo.getStudentNumber());
+        BeanUtils.copyProperties(registryInfo, user);
         user.setOpenId(session.getOpenid());
         userMapper.insert(user);
 

@@ -25,6 +25,9 @@ public class ServletUtils {
      * 获取token
      */
     public static String getToken() {
-        return getRequest().getParameter("token");
+        HttpServletRequest request = getRequest();
+        String tokenFromHeader = request.getHeader("token");
+        String tokenFromParameter = request.getParameter("token");
+        return tokenFromHeader != null ? tokenFromHeader : tokenFromParameter;
     }
 }

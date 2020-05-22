@@ -64,4 +64,6 @@ public class User implements Serializable {
     @ApiModelProperty(value = "备注信息")
     private String remarks;
 
+    @ApiModelProperty(value = "学校")
+    private String university;
 }

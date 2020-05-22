@@ -17,6 +17,7 @@ public class RegistryInfo implements Serializable {
     private static final long serialVersionUID = -5636813189087278717L;
 
     @ApiModelProperty(value = "昵称")
+    @NotBlank(message = "昵称不能为空")
     private String nickname;
 
     @ApiModelProperty(value = "姓名")
