@@ -57,6 +57,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public String register(String jsCode, RegistryInfo registryInfo) {
         WxSession session = callLoginApi(jsCode);
+        String openId = session.getOpenid();
+        User previousUser = userMapper.selectByOpenId(openId);
+        if (previousUser != null) {
+            throw new KnownException(ExceptionEnum.ACCOUNT_REGISTERED);
+        }
 
         // 获取并保存用户信息
         User user = new User();
@@ -93,7 +98,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         String url = UrlUtils.addParameterMap(WxConstants.LOGIN_URL, params);
         String jsonData = restTemplate.getForObject(url, String.class);
         try {
-            System.out.println(jsonData);
             return JsonUtils.json2Object(jsonData, WxSession.class);
         } catch (Exception e) {
             throw new KnownException(ExceptionEnum.WX_LOGIN_FAIL);

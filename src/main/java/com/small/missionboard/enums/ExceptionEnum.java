@@ -33,7 +33,8 @@ public enum ExceptionEnum {
     DELETE_TASK_FAIL(-10, "只有任务发送者在任务处于 DELIVERED 状态时能删除任务"),
     QUERY_METHOD_NOT_EXISTS(-11, "该查询方法不存在"),
     IMAGE_UPLOAD_FAIL(-12, "图片为空或者不是jpg，png，gif格式"),
-    DOWNLOADING_FILE_NOT_EXITS(-13, "要下载的文件不存在");
+    DOWNLOADING_FILE_NOT_EXITS(-13, "要下载的文件不存在"),
+    ACCOUNT_REGISTERED(-14, "账户已存在, 不能重复注册");
 
     private int errorCode;
     private String errorMsg;

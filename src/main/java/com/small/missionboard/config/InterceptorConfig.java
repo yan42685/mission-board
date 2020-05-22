@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class InterceptorConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        //TODO 测试完毕后开启拦截器
+        // 暂时关闭登录校验
 //        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/api/**");
     }
 }
