@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.small.missionboard.mapper.TaskMapper">
+
+    <select id="sortByTimePage" resultType="com.small.missionboard.bean.entity.Task">
+        SELECT t.id,
+        t.create_time,
+        t.title,
+        t.content,
+        t.transaction_means,
+        t.sender_id,
+        t.receiver_id,
+        t.status,
+        t.deadline,
+        t.max_receiver,
+        t.comment_on_receiver,
+        t.star_for_receiver,
+        t.comment_on_sender,
+        t.star_for_sender,
+        t.quick_accept,
+        t.receiver_confirmed,
+        t.sender_confirmed,
+        t.submit_time,
+        t.receiver_notes,
+        t.sender_contact_info,
+        u.credit as senderCredit
+        FROM task t,
+        user u
+        where t.sender_id = u.id
+        and locate('delivered', t.status) > 0
+        <if test="fuzzyTitle != null">
+            and t.title like concat('%', #{fuzzyTitle,jdbcType=VARCHAR}, '%')
+        </if>
+        order by t.create_time
+        <if test="reverse == null">
+            desc
+        </if>
+    </select>
+
+    <select id="sortBySenderCredit" resultType="com.small.missionboard.bean.entity.Task">
+        SELECT t.id,
+        t.create_time,
+        t.title,
+        t.content,
+        t.transaction_means,
+        t.sender_id,
+        t.receiver_id,
+        t.status,
+        t.deadline,
+        t.max_receiver,
+        t.comment_on_receiver,
+        t.star_for_receiver,
+        t.comment_on_sender,
+        t.star_for_sender,
+        t.quick_accept,
+        t.receiver_confirmed,
+        t.sender_confirmed,
+        t.submit_time,
+        t.receiver_notes,
+        t.sender_contact_info,
+        u.credit as senderCredit
+        FROM task t,
+        user u
+        where t.sender_id = u.id
+        and locate('delivered', t.status) > 0
+        <if test="fuzzyTitle != null">
+            and t.title like concat('%', #{fuzzyTitle,jdbcType=VARCHAR}, '%')
+        </if>
+        order by u.credit
+        <if test="reverse == null">
+            desc
+        </if>
+
+    </select>
+
+    <select id="notAcceptedList" resultType="com.small.missionboard.bean.entity.Task">
+        select *
+        from task
+        where #{senderId} = sender_id
+          and (locate('timeout_not_accepted', status) > 0 or locate('delivered', status) > 0)
+    </select>
+
+    <select id="ongoingList" resultType="com.small.missionboard.bean.entity.Task">
+        select *
+        from task
+        where (#{userId} = sender_id or #{userId} = receiver_id)
+          and locate('ongoing', status) > 0
+    </select>
+
+    <select id="finishedList" resultType="com.small.missionboard.bean.entity.Task">
+        select *
+        from task
+        where (#{userId} = sender_id or #{userId} = receiver_id)
+          and locate('finished', status) > 0
+    </select>
+
+    <select id="timeoutNotSubmittedList" resultType="com.small.missionboard.bean.entity.Task">
+        select *
+        from task
+        where (#{userId} = sender_id or #{userId} = receiver_id)
+          and locate('timeout_not_submitted', status) > 0
+    </select>
+</mapper>
