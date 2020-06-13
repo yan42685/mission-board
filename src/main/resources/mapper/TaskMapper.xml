@@ -83,21 +83,22 @@
     <select id="ongoingList" resultType="com.small.missionboard.bean.entity.Task">
         select *
         from task
-        where (#{userId} = sender_id or #{userId} = receiver_id)
+        where (#{userId} = sender_id or locate(#{userId}, receiver_id) > 0)
           and locate('ongoing', status) > 0
     </select>
+
 
     <select id="finishedList" resultType="com.small.missionboard.bean.entity.Task">
         select *
         from task
-        where (#{userId} = sender_id or #{userId} = receiver_id)
+        where (#{userId} = sender_id or locate(#{userId}, receiver_id) > 0)
           and locate('finished', status) > 0
     </select>
 
     <select id="timeoutNotSubmittedList" resultType="com.small.missionboard.bean.entity.Task">
         select *
         from task
-        where (#{userId} = sender_id or #{userId} = receiver_id)
+        where (#{userId} = sender_id or locate(#{userId}, receiver_id) > 0)
           and locate('timeout_not_submitted', status) > 0
     </select>
 </mapper>

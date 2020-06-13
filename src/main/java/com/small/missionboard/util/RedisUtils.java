@@ -45,7 +45,7 @@ public class RedisUtils {
      */
     public static Boolean hasKey(String key) {
         if (key == null) {
-            return null;
+            return false;
         }
         return redisTemplate.hasKey(key);
     }

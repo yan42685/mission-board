@@ -107,6 +107,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public String getOpenId() {
         // 获取当前用户的token
         String token = ServletUtils.getToken();
+        if (token == null) {
+            throw new KnownException(ExceptionEnum.NOT_LOGIN);
+        }
         WxSession session = RedisUtils.get(token, WxSession.class);
         if (session == null) {
             throw new KnownException(ExceptionEnum.NOT_LOGIN);

@@ -33,6 +33,7 @@ public class TaskCreateInfo {
     private LocalDateTime deadline;
 
     @ApiModelProperty(value = "是否一接受任务就自动确认")
+    @NotEmpty(message = "快速接受选项不能为空")
     private Boolean quickAccept;
 
     @NotBlank(message = "联系方式不能为空")
