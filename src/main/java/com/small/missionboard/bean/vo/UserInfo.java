@@ -38,14 +38,8 @@ public class UserInfo implements Serializable {
     @ApiModelProperty(value = "昵称")
     private String nickname;
 
-//    @ApiModelProperty(value = "头像", notes = "如果没有上传过就是null")
-//    private String avatarUrl;
-
     @ApiModelProperty(value = "信誉值")
     private Integer credit;
-
-//    @ApiModelProperty(value = "用户角色")
-//    private String role;
 
     @ApiModelProperty(value = "完成的任务总数")
     private Integer totalTasksFinished;
