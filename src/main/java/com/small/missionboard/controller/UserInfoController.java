@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,6 +32,13 @@ public class UserInfoController {
     public JsonWrapper<Boolean> modifyUserInfo(ModifiableUserInfo info) {
         return new JsonWrapper<>(userInfoService.modifyUserInfo(info));
     }
+
+    @ApiOperation("获取指定用户信息")
+    @GetMapping("get/{id}")
+    public JsonWrapper<UserInfo> getInfoById(@PathVariable Long id) {
+        return new JsonWrapper<>(userInfoService.getInfoById(id));
+    }
+
 
     // 废弃下两个api，取消相关需求了
 //    @ApiOperation("修改头像")

@@ -39,6 +39,14 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
+    public UserInfo getInfoById(Long id) {
+        User user = userService.getById(id);
+        UserInfo userInfo = new UserInfo();
+        BeanUtils.copyProperties(user, userInfo);
+        return userInfo;
+    }
+
+    @Override
     public boolean modifyAvatarUrl(MultipartFile image) {
         User currentUser = userService.getCurrentUser();
         String avatarUrl = currentUser.getAvatarUrl();

@@ -20,6 +20,12 @@ public interface UserInfoService {
     boolean modifyUserInfo(ModifiableUserInfo info);
 
     /**
+     * 获取用户信息
+     */
+    UserInfo getInfoById(Long id);
+
+
+    /**
      * 修改头像
      */
     boolean modifyAvatarUrl(MultipartFile image);
