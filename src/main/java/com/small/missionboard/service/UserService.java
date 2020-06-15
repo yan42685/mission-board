@@ -16,6 +16,11 @@ public interface UserService extends IService<User> {
     String register(String jsCode, RegistryInfo registryInfo);
 
     /**
+     * 判断是否注册过
+     */
+    Boolean isRegister(String jsCode);
+
+    /**
      * 获取当前用户对象
      */
     User getCurrentUser();

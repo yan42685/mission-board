@@ -69,6 +69,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return newToken(session);
     }
 
+    @Override
+    public Boolean isRegister(String jsCode) {
+        WxSession session = callLoginApi(jsCode);
+        String openId = session.getOpenid();
+        User previousUser = userMapper.selectByOpenId(openId);
+        return previousUser != null;
+    }
+
     /**
      * 新生成一个随机token
      */

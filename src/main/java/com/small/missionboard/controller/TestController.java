@@ -62,7 +62,7 @@ public class TestController {
     @GetMapping("api/tmp_add_user")
     public JsonWrapper<Boolean> addTestUser2() {
         String[] tokens = {"token1", "token2", "token3", "token4"};
-        String[] openIds = {"50c47746-e93d-4894-ac40-bda2e484d25d", "072ae19a-e26a-4ba1-bc02-089f37fda38b", "3958c696-4790-4a67-8cc4-085a9d920d5a", "45031e17-0957-4fdd-bdaf-0ad4f917452c"};
+        String[] openIds = {"150c47746-e93d-4894-ac40-bda2e484d25d", "1072ae19a-e26a-4ba1-bc02-089f37fda38b", "13958c696-4790-4a67-8cc4-085a9d920d5a", "145031e17-0957-4fdd-bdaf-0ad4f917452c"};
         for (int i = 0; i < 4; i++) {
             String randomSessionKey = UUID.randomUUID().toString();
             String randomUnionId = UUID.randomUUID().toString();

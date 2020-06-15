@@ -37,6 +37,13 @@ public class UserController {
         String token = userService.register(jsCode, registryInfo);
         return new JsonWrapper<>(token);
     }
+
+    @ApiOperation("判断是否注册")
+    @ApiImplicitParam(name = "jsCode", paramType = "query")
+    @GetMapping("is_registered")
+    public JsonWrapper<Boolean> isRegistered(@NotBlank(message = "jsCode不能为空") String jsCode) {
+        return new JsonWrapper<>(userService.isRegister(jsCode));
+    }
 //  TODO: 举报功能
 //  TODO: 发送验证码
 }

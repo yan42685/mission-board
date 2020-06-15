@@ -1,6 +1,9 @@
 package com.small.missionboard.controller;
 
+import com.small.missionboard.bean.dto.WxSession;
+import com.small.missionboard.bean.entity.User;
 import com.small.missionboard.service.UserService;
+import com.small.missionboard.util.RedisUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +23,8 @@ class TestControllerTest {
 
     @Autowired
     MockMvc mvc;
-    @MockBean  // 把该mock的userService注入到TestController并替换原来的userService  同理DAO也可以mock
-            UserService userService;
+    @Autowired
+    UserService userService;
 
     @Test
     void reverse() throws Exception {
@@ -37,5 +40,19 @@ class TestControllerTest {
 
 
     }
+
+//    @Test
+//    void addTestUser() {
+//        String[] names = {"token1", "token2", "token3", "token4"};
+//        String[] openIds = {"150c47746-e93d-4894-ac40-bda2e484d25d", "1072ae19a-e26a-4ba1-bc02-089f37fda38b", "13958c696-4790-4a67-8cc4-085a9d920d5a", "145031e17-0957-4fdd-bdaf-0ad4f917452c"};
+//        for (int i = 0; i < 4; i++) {
+//            User user = new User();
+//            user.setName(names[i])
+//                    .setNickname(names[i])
+//                    .setOpenId(openIds[i])
+//            ;
+//            userService.save(user);
+//        }
+//    }
 }
     
